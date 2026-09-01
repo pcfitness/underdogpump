@@ -156,7 +156,6 @@ export function SiteFooter() {
           </p>
           <p className="mt-3 text-sm leading-relaxed text-fg">{SITE.mindset}</p>
           <p className="mt-3 text-sm leading-relaxed text-muted">
-            More about Oz at{" "}
             <a
               href={SITE.builderUrl}
               target="_blank"
@@ -165,7 +164,8 @@ export function SiteFooter() {
             >
               OzGaming.net
             </a>
-            . Follow the socials from there.
+            {" "}
+            — follow Oz from there.
           </p>
         </aside>
       </div>

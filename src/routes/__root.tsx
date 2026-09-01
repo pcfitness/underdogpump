@@ -5,7 +5,7 @@ import appCss from "../styles.css?url";
 
 const APP_NAME = "$UNDERDOG · Bet on the Dog";
 const DESCRIPTION =
-  "OzGaming education desk for prediction markets, long shots, and underdogs. Pre-launch on Pump.fun.";
+  "OzGaming long-term project for prediction markets, long shots, and underdogs. Pre-launch on Pump.fun.";
 
 export const Route = createRootRoute({
   head: () => ({
