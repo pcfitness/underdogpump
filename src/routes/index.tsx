@@ -19,7 +19,7 @@ function Home() {
           <div className="relative h-80 overflow-hidden md:hidden">
             <img
               src="/hero-mobile.jpg"
-              alt="Black shepherd, crimson eyes"
+              alt="Black Cane Corso, crimson eyes, spiked collar"
               className="size-full object-cover object-[center_10%] brightness-75 contrast-110"
             />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-bg to-transparent" />

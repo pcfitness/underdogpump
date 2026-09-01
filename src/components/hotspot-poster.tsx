@@ -98,7 +98,7 @@ export function HotspotPoster() {
           />
           <img
             src="/hero-dog-v4.jpg"
-            alt="Black street dog in rain, crimson rim light"
+            alt="Cane Corso in the rain, crimson rim light, spiked collar"
             className="pointer-events-none absolute inset-0 hidden size-full object-cover object-[center_40%] md:block"
             draggable={false}
           />

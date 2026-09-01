@@ -8,7 +8,7 @@ export function SiteHeader() {
         <Link to="/" className="flex items-center gap-2 no-underline">
           <img
             src="/header-mark.jpg"
-            alt=""
+            alt="$UNDERDOG"
             className="size-10 rounded-full object-cover"
           />
           <span className="font-display text-2xl tracking-wide text-accent">

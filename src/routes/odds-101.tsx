@@ -40,12 +40,12 @@ function Odds101() {
             <div className="mt-5 overflow-hidden rounded-xl border border-line">
               <img
                 src="/hero-mobile.jpg"
-                alt="Black shepherd, crimson eyes"
+                alt="Black Cane Corso, crimson eyes, spiked collar"
                 className="aspect-[9/16] max-h-[32rem] w-full object-cover object-[center_12%] md:hidden"
               />
               <img
                 src="/hero-dog-v4.jpg"
-                alt="Black street dog in rain, crimson rim light"
+                alt="Cane Corso in the rain, crimson rim light, spiked collar"
                 className="hidden aspect-[16/9] w-full object-cover object-[center_28%] md:block"
               />
             </div>
