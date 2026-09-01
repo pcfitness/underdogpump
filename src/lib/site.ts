@@ -11,7 +11,7 @@ export const SITE = {
   contract: "",
   mindsetTitle: "Built to stay",
   mindset:
-    "As a webmaster / developer, I don't build projects to disappear after launch. I put my name, my work, and decades of online history behind what I create. $UNDERDOG is for people who buy, hold, check back later, and know it's still being built. No hype. No rug pulls. Built for the long haul. Visit:",
+    "I don't build projects to disappear after launch. I put my name, my work, and decades of online history behind what I create. $UNDERDOG is for people who buy, hold, check back later, and know it's still being built. No hype. No rug pulls. Built for the long haul. Visit:",
   mission:
     "This project was built to educate those new at navigating prediction markets. ClashPicks, Polymarket, Kalshi, DraftKings, FanDuel, as well as the crypto and futures trading markets.",
 } as const;
