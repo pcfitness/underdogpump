@@ -118,7 +118,7 @@ export function SiteFooter() {
   const contract = SITE.contract.trim();
   return (
     <footer className="border-t border-line bg-surface">
-      <div className="mx-auto grid max-w-5xl gap-6 px-4 py-10 md:grid-cols-[1.4fr_1fr]">
+      <div className="mx-auto grid max-w-5xl gap-6 px-4 py-10 md:grid-cols-2">
         <div>
           <a
             href={SITE.builderUrl}
@@ -154,18 +154,16 @@ export function SiteFooter() {
           <p className="text-[0.7rem] font-semibold uppercase tracking-widest text-accent">
             {SITE.mindsetTitle}
           </p>
-          <p className="mt-3 text-sm leading-relaxed text-muted">{SITE.mindset}</p>
           <p className="mt-3 text-sm leading-relaxed text-muted">
+            {SITE.mindset}{" "}
             <a
               href={SITE.builderUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-muted no-underline hover:text-accent"
+              className="text-accent no-underline hover:text-accent"
             >
               OzGaming.net
             </a>
-            {" "}
-            — follow Oz from there.
           </p>
         </aside>
       </div>
