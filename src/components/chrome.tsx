@@ -154,13 +154,13 @@ export function SiteFooter() {
           <p className="text-[0.7rem] font-semibold uppercase tracking-widest text-accent">
             {SITE.mindsetTitle}
           </p>
-          <p className="mt-3 text-sm leading-relaxed text-fg">{SITE.mindset}</p>
+          <p className="mt-3 text-sm leading-relaxed text-muted">{SITE.mindset}</p>
           <p className="mt-3 text-sm leading-relaxed text-muted">
             <a
               href={SITE.builderUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-fg no-underline hover:text-accent"
+              className="text-muted no-underline hover:text-accent"
             >
               OzGaming.net
             </a>

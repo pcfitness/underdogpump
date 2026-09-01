@@ -9,9 +9,9 @@ export const SITE = {
   platform: "Pump.fun",
   platformUrl: "https://pump.fun",
   contract: "",
-  mindsetTitle: "I stay",
+  mindsetTitle: "Built to stay",
   mindset:
-    "OzGaming projects are long-term. I'm 59 next month, at this since 2008. Hold $UNDERDOG. Check it when you want. It will go up and it will go down — that's the market. What I can give you is honesty, and that this project will still be here.",
+    "I don't build projects to disappear after launch. I put my name, my work, and years of online history behind what I create. $UNDERDOG is for people who buy, hold, check back later, and know this project is still being worked on. No hype. No disappearing act. Built for the long haul.",
   mission:
     "This project was built to educate those new at navigating prediction markets. ClashPicks, Polymarket, Kalshi, DraftKings, FanDuel, as well as the crypto and futures trading markets.",
 } as const;
