@@ -10,7 +10,7 @@ export const PROJECT = {
   platformUrl: "https://pump.fun",
   contract: "",
   mindset:
-    "Learn the mechanics. Understand the risk. Make informed decisions. The greatest opportunities often exist when the odds are against you.",
+    "Favorites are already priced in. The dog still pays. Most of this board loses — that's why a dollar can come back twelve.",
   mission:
     "This project was built to educate those new at navigating prediction markets. ClashPicks, Polymarket, Kalshi, DraftKings, FanDuel, as well as the crypto and futures trading markets.",
 };
