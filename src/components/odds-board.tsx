@@ -1,30 +1,30 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
-import { HOTSPOTS, type Hotspot } from "@/lib/content";
+import { LESSONS } from "@/lib/site";
 
-type TipPos = { top: number; left: number; width: number };
+type Lesson = (typeof LESSONS)[number];
 
-export function HotspotPoster() {
+export function OddsBoard() {
   const [openId, setOpenId] = useState<string | null>(null);
-  const [tip, setTip] = useState<TipPos | null>(null);
-  const [narrow, setNarrow] = useState(true);
-  const ignoreCloseUntil = useRef(0);
+  const [pos, setPos] = useState<{ top: number; left: number; width: number } | null>(null);
+  const [mobile, setMobile] = useState(true);
+  const lock = useRef(0);
   const widthRef = useRef(0);
 
   const close = () => {
-    if (Date.now() < ignoreCloseUntil.current) return;
+    if (Date.now() < lock.current) return;
     setOpenId(null);
-    setTip(null);
+    setPos(null);
   };
 
   useEffect(() => {
-    const media = window.matchMedia("(max-width: 767px)");
-    const sync = () => setNarrow(media.matches);
+    const mq = window.matchMedia("(max-width: 767px)");
+    const sync = () => setMobile(mq.matches);
     sync();
     widthRef.current = window.innerWidth;
-    media.addEventListener("change", sync);
-    return () => media.removeEventListener("change", sync);
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
   }, []);
 
   useEffect(() => {
@@ -40,56 +40,50 @@ export function HotspotPoster() {
     };
     window.addEventListener("keydown", onKey);
     window.addEventListener("resize", onResize);
-
-    if (narrow) {
+    if (mobile) {
       return () => {
         window.removeEventListener("keydown", onKey);
         window.removeEventListener("resize", onResize);
       };
     }
-
-    const onDoc = (e: MouseEvent) => {
-      const node = e.target as HTMLElement | null;
-      if (!node) return;
-      if (node.closest("[data-lesson-tip]") || node.closest("[data-hotspot]")) return;
+    const onDown = (e: MouseEvent) => {
+      const t = e.target as HTMLElement | null;
+      if (t && (t.closest("[data-lesson-tip]") || t.closest("[data-hotspot]"))) return;
       close();
     };
-    const timer = window.setTimeout(() => {
-      document.addEventListener("mousedown", onDoc);
-    }, 400);
+    const timer = window.setTimeout(() => document.addEventListener("mousedown", onDown), 400);
     return () => {
       window.clearTimeout(timer);
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("resize", onResize);
-      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("mousedown", onDown);
     };
-  }, [openId, narrow]);
+  }, [openId, mobile]);
 
-  const selected = HOTSPOTS.find((spot) => spot.id === openId) ?? null;
+  const spot = LESSONS.find((l) => l.id === openId) ?? null;
 
-  const openFrom = (spot: Hotspot, el: HTMLElement) => {
-    ignoreCloseUntil.current = Date.now() + 500;
-    setOpenId((id) => (id === spot.id ? null : spot.id));
-    if (openId === spot.id) {
-      setTip(null);
+  const onOpen = (lesson: Lesson, el: HTMLElement) => {
+    lock.current = Date.now() + 500;
+    setOpenId((id) => (id === lesson.id ? null : lesson.id));
+    if (openId === lesson.id) {
+      setPos(null);
       return;
     }
-    const rect = el.getBoundingClientRect();
+    const box = el.getBoundingClientRect();
     const width = Math.min(380, window.innerWidth - 24);
-    let left = rect.left;
+    let left = box.left;
     if (left + width > window.innerWidth - 12) left = window.innerWidth - width - 12;
     if (left < 12) left = 12;
-    let top = rect.bottom + 10;
-    if (top + 240 > window.innerHeight) top = Math.max(12, rect.top - 250);
-    setTip({ top, left, width });
+    let top = box.bottom + 10;
+    if (top + 240 > window.innerHeight) top = Math.max(12, box.top - 250);
+    setPos({ top, left, width });
   };
 
   return (
     <section className="w-full">
-      <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-muted">Tap a number</p>
-
+      <p className="mb-3 text-xs font-medium uppercase tracking-widest text-muted">Tap a number</p>
       <div className="overflow-hidden rounded-xl border border-line bg-bg">
-        <div className="relative h-[32rem] w-full overflow-hidden bg-bg md:h-auto md:min-h-[28rem] md:aspect-[16/9]">
+        <div className="relative h-[32rem] w-full overflow-hidden bg-bg md:h-auto md:min-h-[28rem] md:aspect-video">
           <img
             src="/hero-mobile.jpg"
             alt=""
@@ -104,9 +98,8 @@ export function HotspotPoster() {
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-bg/80 via-bg/25 to-transparent" />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg/50 via-transparent to-bg/20" />
-
           <div className="pointer-events-none absolute inset-x-0 top-0 px-4 pt-5 sm:px-8 sm:pt-8">
-            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-accent">
+            <p className="text-[0.65rem] font-semibold uppercase tracking-widest text-accent">
               Infographic
             </p>
             <h2 className="font-display text-5xl leading-none tracking-wide text-fg sm:text-6xl">
@@ -114,28 +107,25 @@ export function HotspotPoster() {
             </h2>
             <p className="mt-1 max-w-sm text-sm text-muted">How a long shot is priced. Tap a number.</p>
           </div>
-
           <div className="absolute inset-x-0 top-[7.25rem] bottom-3 z-10 flex flex-col justify-between px-4 md:hidden">
-            {HOTSPOTS.map((spot) => (
-              <Marker key={spot.id} spot={spot} open={openId === spot.id} onOpen={openFrom} compact />
+            {LESSONS.map((lesson) => (
+              <Hotspot key={lesson.id} spot={lesson} open={openId === lesson.id} onOpen={onOpen} compact />
             ))}
           </div>
-
           <div className="hidden md:block">
-            {HOTSPOTS.map((spot) => (
+            {LESSONS.map((lesson) => (
               <div
-                key={spot.id}
-                className={`absolute z-10 ${spot.n % 2 === 0 ? "left-[46%]" : "left-5"}`}
-                style={{ top: spot.top }}
+                key={lesson.id}
+                className={`absolute z-10 ${lesson.n % 2 === 0 ? "left-[46%]" : "left-5"}`}
+                style={{ top: lesson.top }}
               >
-                <Marker spot={spot} open={openId === spot.id} onOpen={openFrom} />
+                <Hotspot spot={lesson} open={openId === lesson.id} onOpen={onOpen} />
               </div>
             ))}
           </div>
         </div>
       </div>
-
-      {selected && narrow
+      {spot && mobile
         ? createPortal(
             <>
               <button
@@ -149,7 +139,7 @@ export function HotspotPoster() {
                 className="fixed inset-x-0 bottom-0 z-50 border-t border-line bg-elevated px-4 pt-4 shadow-xl pb-[max(1.25rem,env(safe-area-inset-bottom))]"
               >
                 <div className="relative mx-auto max-w-lg pr-10">
-                  <LessonBody spot={selected} />
+                  <LessonBody spot={spot} />
                   <button
                     type="button"
                     className="absolute right-0 top-0 inline-flex size-11 items-center justify-center rounded-sm text-muted hover:text-fg"
@@ -164,15 +154,14 @@ export function HotspotPoster() {
             document.body,
           )
         : null}
-
-      {selected && !narrow && tip
+      {spot && !mobile && pos
         ? createPortal(
             <div
               data-lesson-tip=""
               className="fixed z-50 rounded-lg border border-line bg-elevated p-4 shadow-xl"
-              style={{ top: tip.top, left: tip.left, width: tip.width }}
+              style={{ top: pos.top, left: pos.left, width: pos.width }}
             >
-              <LessonBody spot={selected} />
+              <LessonBody spot={spot} />
               <button
                 type="button"
                 className="absolute right-2 top-2 inline-flex size-8 items-center justify-center rounded-sm text-muted hover:text-fg"
@@ -189,10 +178,10 @@ export function HotspotPoster() {
   );
 }
 
-function LessonBody({ spot }: { spot: Hotspot }) {
+function LessonBody({ spot }: { spot: Lesson }) {
   return (
     <div className="min-w-0 pr-8">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+      <p className="text-xs font-semibold uppercase tracking-widest text-accent">
         {spot.n.toString().padStart(2, "0")} · {spot.kicker}
       </p>
       <h3 className="mt-1 font-display text-4xl leading-none tracking-wide text-fg">{spot.label}</h3>
@@ -202,15 +191,15 @@ function LessonBody({ spot }: { spot: Hotspot }) {
   );
 }
 
-function Marker({
+function Hotspot({
   spot,
   open,
   onOpen,
   compact = false,
 }: {
-  spot: Hotspot;
+  spot: Lesson;
   open: boolean;
-  onOpen: (spot: Hotspot, el: HTMLElement) => void;
+  onOpen: (spot: Lesson, el: HTMLElement) => void;
   compact?: boolean;
 }) {
   return (
@@ -227,9 +216,7 @@ function Marker({
       aria-label={`${spot.n}. ${spot.label}`}
     >
       <span
-        className={`flex items-center justify-center rounded-full border-2 border-fg bg-accent font-display text-accent-fg shadow-[0_0_0_4px_color-mix(in_oklab,var(--color-bg)_55%,transparent)] ${
-          compact ? "size-10 text-lg" : "size-12 text-xl"
-        }`}
+        className={`flex items-center justify-center rounded-full border-2 border-fg bg-accent font-display text-accent-fg shadow-[0_0_0_4px_color-mix(in_oklab,var(--color-bg)_55%,transparent)] ${compact ? "size-10 text-lg" : "size-12 text-xl"}`}
       >
         {spot.n}
       </span>

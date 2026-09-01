@@ -1,4 +1,4 @@
-export const PROJECT = {
+export const SITE = {
   ticker: "$UNDERDOG",
   name: "Underdog",
   tagline: "Bet on the Dog",
@@ -13,27 +13,19 @@ export const PROJECT = {
     "Long shots are where the money is. Worse odds, bigger bag if you win. A 12-to-1 dog pays because it usually loses.",
   mission:
     "This project was built to educate those new at navigating prediction markets. ClashPicks, Polymarket, Kalshi, DraftKings, FanDuel, as well as the crypto and futures trading markets.",
+} as const;
+
+export const PUMP_LAUNCH = {
+  name: "Underdog",
+  symbol: "UNDERDOG",
+  website: "https://www.underdogpump.xyz",
+  avatarFile: "pump-avatar.jpg",
+  avatarSpec: "1200×1200 · 1:1 square · JPG · ~470 KB",
+  description:
+    "Bet on the Dog. Long shots pay because they usually lose. $UNDERDOG is an OzGaming.net classroom for prediction markets — ClashPicks, Polymarket, Kalshi, DraftKings, FanDuel — sized like a 12-to-1. Learn the price as a percent before you ape. DYOR. 18+. underdogpump.xyz",
 };
 
-export const SOURCES = [
-  { name: "ClashPicks", href: "https://www.clashpicks.com" },
-  { name: "Polymarket", href: "https://polymarket.com" },
-  { name: "Kalshi", href: "https://kalshi.com" },
-  { name: "DraftKings", href: "https://www.draftkings.com" },
-  { name: "FanDuel", href: "https://www.fanduel.com" },
-];
-
-export type Hotspot = {
-  id: string;
-  n: number;
-  label: string;
-  kicker: string;
-  title: string;
-  body: string;
-  top: string;
-};
-
-export const HOTSPOTS: Hotspot[] = [
+export const LESSONS = [
   {
     id: "implied",
     n: 1,
@@ -88,71 +80,4 @@ export const HOTSPOTS: Hotspot[] = [
     body: "$UNDERDOG is an educational and entertainment project. Nothing here is financial advice or a promise of value or return. Markets can go to zero. You can lose the whole stake. 18+ only. Do your own work.",
     top: "78%",
   },
-];
-
-export type Longshot = {
-  id: string;
-  question: string;
-  implied: string;
-  impliedValue?: number;
-  source: string;
-  href?: string;
-};
-
-export const FALLBACK_LONGSHOTS: Longshot[] = [
-  {
-    id: "ex-1",
-    question: "Will Bitcoin dip to $75,000 in August?",
-    implied: "1.4%",
-    source: "Polymarket",
-    href: "https://polymarket.com/event/what-price-will-bitcoin-hit-in-august-2026",
-  },
-  {
-    id: "ex-2",
-    question: "Will the U.S. invade Iran before 2027?",
-    implied: "16%",
-    source: "Polymarket",
-    href: "https://polymarket.com/event/will-the-us-invade-iran-before-2027",
-  },
-  {
-    id: "ex-3",
-    question: "Will Wes Moore win the 2028 US Presidential Election?",
-    implied: "0.9%",
-    source: "Polymarket",
-    href: "https://polymarket.com/event/presidential-election-winner-2028",
-  },
-  {
-    id: "ex-4",
-    question: "Fed rate hike in 2026?",
-    implied: "26%",
-    source: "Polymarket",
-    href: "https://polymarket.com/event/fed-rate-hike-in-2026",
-  },
-];
-
-export const FALLBACK_CLASHPICKS: Longshot[] = [
-  {
-    id: "cp-1",
-    question: "U.S. Tornado Count - August 2026 — 76–100 Tornadoes",
-    implied: "6.7%",
-    impliedValue: 0.067,
-    source: "ClashPicks",
-    href: "https://www.clashpicks.com/event/us-tornado-count-august-2026-pclash",
-  },
-  {
-    id: "cp-2",
-    question: "Whale Watch: Will any bid >700K $CLASH occur by end of August? — Yes",
-    implied: "8%",
-    impliedValue: 0.08,
-    source: "ClashPicks",
-    href: "https://www.clashpicks.com/event/whale-watch-will-any-bid-700k-clash-occur-by-end-of-august-pclash",
-  },
-  {
-    id: "cp-3",
-    question: "EPL: Arsenal vs Aston Villa — Tie",
-    implied: "9.2%",
-    impliedValue: 0.092,
-    source: "ClashPicks",
-    href: "https://www.clashpicks.com/event/epl-arsenal-vs-aston-villa-pclash",
-  },
-];
+] as const;

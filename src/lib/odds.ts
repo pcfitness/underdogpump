@@ -1,5 +1,3 @@
-import { oneInN } from "@/lib/moment";
-
 export type OddsKind = "american" | "decimal" | "percent";
 
 export type Odds = {
@@ -9,68 +7,83 @@ export type Odds = {
   kind: OddsKind;
 };
 
-export function parseOdds(raw: string, force: OddsKind | "auto" = "auto"): Odds | null {
-  const text = raw.trim().toLowerCase().replace(/,/g, "").replace(/\s+/g, "");
-  if (!text) return null;
-  if (text === "even" || text === "evens" || text === "evenmoney") {
-    return fromImplied(0.5, "decimal");
-  }
-
-  const kind = force === "auto" ? detectKind(text) : force;
-  if (kind === "percent") {
-    const n = Number(text.replace(/%/g, ""));
-    if (!Number.isFinite(n) || n <= 0 || n >= 100) return null;
-    return fromImplied(n / 100, "percent");
-  }
-  if (kind === "american") {
-    const n = Number(text.replace(/^\+/, ""));
-    if (!Number.isFinite(n) || n === 0) return null;
-    return fromImplied(impliedFromAmerican(n), "american");
-  }
-  const n = Number(text.replace(/x$/i, ""));
-  if (!Number.isFinite(n) || n <= 1) return null;
-  return fromImplied(1 / n, "decimal");
+export function payoutFromImplied(implied: number) {
+  if (implied > 0) return Math.max(2, Math.round(1 / implied));
+  return 10;
 }
 
-export function formatAmerican(n: number): string {
-  const rounded = Math.round(n);
+export function inN(implied: number) {
+  return `1 in ${payoutFromImplied(implied)}`;
+}
+
+export function formatAmerican(value: number) {
+  const rounded = Math.round(value);
   return rounded > 0 ? `+${rounded}` : `${rounded}`;
 }
 
-export function formatDecimal(n: number): string {
-  return n.toFixed(2);
+export function formatDecimal(value: number) {
+  return value.toFixed(2);
 }
 
-export function formatPercent(p: number): string {
-  const pct = p * 100;
+export function formatPercent(implied: number) {
+  const pct = implied * 100;
   if (pct < 10) return `${pct.toFixed(1)}%`;
   return `${Math.round(pct * 10) / 10}%`.replace(/\.0%/, "%");
 }
 
-export function lessonLine(odds: Odds): string {
-  const x = odds.decimal >= 10 ? `${Math.round(odds.decimal)}x` : `${odds.decimal.toFixed(odds.decimal < 2 ? 2 : 1)}x`;
-  return `A ${x} is not free money. The market is saying ${oneInN(odds.implied)} (${formatPercent(odds.implied)}).`;
+export function oddsCaption(odds: Odds) {
+  const label =
+    odds.decimal >= 10
+      ? `${Math.round(odds.decimal)}x`
+      : `${odds.decimal.toFixed(odds.decimal < 2 ? 2 : 1)}x`;
+  return `A ${label} is not free money. The market is saying ${inN(odds.implied)} (${formatPercent(odds.implied)}).`;
 }
 
-function detectKind(text: string): OddsKind {
-  if (text.includes("%")) return "percent";
-  if (/x$/i.test(text)) return "decimal";
-  if (text.startsWith("+") || text.startsWith("-")) return "american";
-  const n = Number(text);
+function guessKind(raw: string): OddsKind {
+  if (raw.includes("%")) return "percent";
+  if (/x$/i.test(raw)) return "decimal";
+  if (raw.startsWith("+") || raw.startsWith("-")) return "american";
+  const n = Number(raw);
   if (!Number.isFinite(n)) return "decimal";
   if (Number.isInteger(n) && Math.abs(n) >= 101) return "american";
   if (Number.isInteger(n) && n >= 21 && n <= 99) return "percent";
   return "decimal";
 }
 
-function impliedFromAmerican(a: number): number {
-  if (a > 0) return 100 / (a + 100);
-  const abs = Math.abs(a);
+function americanToImplied(american: number) {
+  if (american > 0) return 100 / (american + 100);
+  const abs = Math.abs(american);
   return abs / (abs + 100);
 }
 
-function fromImplied(p: number, kind: OddsKind): Odds {
-  const decimal = 1 / p;
-  const american = decimal >= 2 ? 100 * (decimal - 1) : -100 / (decimal - 1);
-  return { american, decimal, implied: p, kind };
+function fromImplied(implied: number, kind: OddsKind): Odds {
+  const decimal = 1 / implied;
+  return {
+    american: decimal >= 2 ? 100 * (decimal - 1) : -100 / (decimal - 1),
+    decimal,
+    implied,
+    kind,
+  };
 }
+
+export function parseOdds(input: string, kind: OddsKind | "auto" = "auto"): Odds | null {
+  const n = input.trim().toLowerCase().replace(/,/g, "").replace(/\s+/g, "");
+  if (!n) return null;
+  if (n === "even" || n === "evens" || n === "evenmoney") return fromImplied(0.5, "decimal");
+  const resolved = kind === "auto" ? guessKind(n) : kind;
+  if (resolved === "percent") {
+    const pct = Number(n.replace(/%/g, ""));
+    if (!Number.isFinite(pct) || pct <= 0 || pct >= 100) return null;
+    return fromImplied(pct / 100, "percent");
+  }
+  if (resolved === "american") {
+    const am = Number(n.replace(/^\+/, ""));
+    if (!Number.isFinite(am) || am === 0) return null;
+    return fromImplied(americanToImplied(am), "american");
+  }
+  const decimal = Number(n.replace(/x$/i, ""));
+  if (!Number.isFinite(decimal) || decimal <= 1) return null;
+  return fromImplied(1 / decimal, "decimal");
+}
+
+export const DEFAULT_ODDS = parseOdds("+300", "american")!;

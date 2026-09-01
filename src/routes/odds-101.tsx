@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
-import { HotspotPoster } from "@/components/hotspot-poster";
-import { OddsTranslator } from "@/components/odds-translator";
-import { HOTSPOTS } from "@/lib/content";
+import { SiteFooter, SiteHeader } from "@/components/chrome";
+import { OddsBoard } from "@/components/odds-board";
+import { OddsTranslator } from "@/components/translator";
+import { LESSONS } from "@/lib/site";
 
 export const Route = createFileRoute("/odds-101")({ component: Odds101 });
 
@@ -14,7 +13,7 @@ function Odds101() {
       <main>
         <section className="border-b border-line">
           <div className="mx-auto max-w-5xl px-4 py-10 sm:py-12">
-            <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-accent">
+            <p className="text-[0.7rem] font-semibold uppercase tracking-widest text-accent">
               Classroom
             </p>
             <h1 className="font-display text-6xl leading-none tracking-wide text-fg sm:text-7xl">
@@ -26,29 +25,26 @@ function Odds101() {
             </p>
           </div>
         </section>
-
         <div className="mx-auto max-w-5xl px-4 py-8 sm:py-10">
-          <HotspotPoster />
+          <OddsBoard />
         </div>
-
         <OddsTranslator />
-
         <div className="mx-auto max-w-5xl px-4 py-8 sm:py-10">
           <div className="mt-2">
-            <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-accent">
+            <p className="text-[0.7rem] font-semibold uppercase tracking-widest text-accent">
               The six moves
             </p>
             <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {HOTSPOTS.map((spot) => (
+              {LESSONS.map((lesson) => (
                 <article
-                  key={spot.id}
+                  key={lesson.id}
                   className="rounded-lg border border-line bg-surface/80 px-4 py-4 shadow-[inset_3px_0_0_var(--color-accent)]"
                 >
                   <p className="font-display text-2xl tracking-wide text-fg">
-                    <span className="text-accent">{spot.n}</span> {spot.label}
+                    <span className="text-accent">{lesson.n}</span> {lesson.label}
                   </p>
-                  <p className="text-base font-medium text-fg">{spot.title}</p>
-                  <p className="mt-1 text-base leading-relaxed text-muted">{spot.body}</p>
+                  <p className="text-base font-medium text-fg">{lesson.title}</p>
+                  <p className="mt-1 text-base leading-relaxed text-muted">{lesson.body}</p>
                 </article>
               ))}
             </div>

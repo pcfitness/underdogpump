@@ -1,10 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Bebas Neue", "Arial Narrow", Impact, sans-serif;
   --font-sans: "Barlow", "Segoe UI", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
-
+  --font-display: "Bebas Neue", "Arial Narrow", Impact, sans-serif;
   --color-bg: #070708;
   --color-surface: #121214;
   --color-elevated: #1c1b1d;
@@ -15,8 +14,6 @@
   --color-accent: #c81e2b;
   --color-accent-fg: #f3efe6;
   --color-accent-dim: #8a1520;
-
-  --radius-xs: 4px;
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -39,85 +36,122 @@
 
   html {
     color-scheme: dark;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    background-image: url("/asphalt.jpg");
+    background-image: url(/asphalt.jpg);
+    background-position: 50%;
     background-size: cover;
     background-attachment: fixed;
-    background-position: center;
   }
 
-  @media (max-width: 767px) {
+  @media (width <= 767px) {
     body {
-      background-attachment: scroll;
       background-image: none;
+      background-attachment: scroll;
       background-color: var(--color-bg);
     }
   }
 
   body::before {
     content: "";
+    background: color-mix(in oklab, var(--color-bg) 88%, transparent);
     position: fixed;
     inset: 0;
-    background: color-mix(in oklab, var(--color-bg) 88%, transparent);
     pointer-events: none;
     z-index: 0;
   }
 
   #app-root {
-    position: relative;
     z-index: 1;
+    position: relative;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 }
 
 @keyframes fog-drift {
   0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
+  to {
+    transform: translate(0) scale(1);
   }
   50% {
-    transform: translate3d(-3%, 4%, 0) scale(1.08);
+    transform: translate(-3%, 4%) scale(1.08);
   }
 }
 
 .fog-shift {
-  animation: fog-drift 32s ease-in-out infinite;
+  animation: 32s ease-in-out infinite fog-drift;
+  mask-image: linear-gradient(to right, transparent 0%, #000 55%);
 }
 
 .fog-wash {
   background:
-    radial-gradient(ellipse 55% 45% at 100% 12%, color-mix(in oklab, var(--color-accent) 22%, transparent), transparent 70%),
-    radial-gradient(ellipse 50% 40% at 92% 88%, color-mix(in oklab, var(--color-accent-dim) 20%, transparent), transparent 68%);
+    radial-gradient(
+      ellipse 55% 45% at 100% 12%,
+      color-mix(in oklab, var(--color-accent) 22%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 92% 88%,
+      color-mix(in oklab, var(--color-accent-dim) 20%, transparent),
+      transparent 68%
+    );
 }
 
 @keyframes ticker-move {
   0% {
-    transform: translate3d(0, 0, 0);
+    transform: translate(0);
   }
-  100% {
-    transform: translate3d(-33.333%, 0, 0);
+  to {
+    transform: translate(-33.333%);
   }
 }
 
 .ticker-track {
-  animation: ticker-move 42s linear infinite;
+  animation: 42s linear infinite ticker-move;
 }
 
 .ticker-mask:hover .ticker-track {
   animation-play-state: paused;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .fog-shift {
-    animation: none;
+@keyframes hit-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-accent) 45%, transparent);
   }
+  50% {
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-accent) 0%, transparent);
+  }
+}
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+.hit-pip {
+  animation: 2.4s ease-in-out infinite hit-pulse;
+}
+
+.oz-chip {
+  float: left;
+  shape-outside: circle(50%);
+  box-shadow:
+    0 0 0 3px var(--color-bg),
+    0 0 22px color-mix(in oklab, var(--color-accent) 42%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fog-shift,
+  .ticker-track,
+  .hit-pip {
+    animation: none;
   }
 }
