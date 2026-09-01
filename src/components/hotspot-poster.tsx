@@ -89,7 +89,7 @@ export function HotspotPoster() {
       <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-muted">Tap a number</p>
 
       <div className="overflow-hidden rounded-xl border border-line bg-bg">
-        <div className="relative h-[26rem] w-full overflow-hidden bg-bg md:h-auto md:min-h-[28rem] md:aspect-[16/9]">
+        <div className="relative h-[32rem] w-full overflow-hidden bg-bg md:h-auto md:min-h-[28rem] md:aspect-[16/9]">
           <img
             src="/hero-mobile.jpg"
             alt=""
@@ -102,10 +102,10 @@ export function HotspotPoster() {
             className="pointer-events-none absolute inset-0 hidden size-full object-cover object-[82%_8%] md:block"
             draggable={false}
           />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-bg/70 via-bg/20 to-transparent" />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg/50 via-transparent to-bg/15" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-bg/80 via-bg/25 to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg/50 via-transparent to-bg/20" />
 
-          <div className="pointer-events-none absolute inset-x-0 top-0 px-5 pt-6 sm:px-8 sm:pt-8">
+          <div className="pointer-events-none absolute inset-x-0 top-0 px-4 pt-5 sm:px-8 sm:pt-8">
             <p className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-accent">
               Infographic
             </p>
@@ -115,31 +115,23 @@ export function HotspotPoster() {
             <p className="mt-1 max-w-sm text-sm text-muted">How a long shot is priced. Tap a number.</p>
           </div>
 
-          {HOTSPOTS.map((spot) => (
-            <button
-              key={spot.id}
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                openFrom(spot, e.currentTarget);
-              }}
-              className={`absolute z-10 flex items-center gap-2 ${
-                spot.n % 2 === 0 ? "left-5 md:left-[46%]" : "left-5"
-              }`}
-              style={{ top: spot.top }}
-              aria-expanded={openId === spot.id}
-              data-hotspot=""
-              aria-label={`${spot.n}. ${spot.label}`}
-            >
-              <span className="flex size-12 items-center justify-center rounded-full border-2 border-fg bg-accent font-display text-xl text-accent-fg shadow-[0_0_0_4px_color-mix(in_oklab,var(--color-bg)_55%,transparent)]">
-                {spot.n}
-              </span>
-              <span className="rounded-sm bg-bg/80 px-2 py-1 font-display text-lg tracking-wide text-fg">
-                {spot.label}
-              </span>
-            </button>
-          ))}
+          <div className="absolute inset-x-0 top-[7.25rem] bottom-3 z-10 flex flex-col justify-between px-4 md:hidden">
+            {HOTSPOTS.map((spot) => (
+              <Marker key={spot.id} spot={spot} open={openId === spot.id} onOpen={openFrom} compact />
+            ))}
+          </div>
+
+          <div className="hidden md:block">
+            {HOTSPOTS.map((spot) => (
+              <div
+                key={spot.id}
+                className={`absolute z-10 ${spot.n % 2 === 0 ? "left-[46%]" : "left-5"}`}
+                style={{ top: spot.top }}
+              >
+                <Marker spot={spot} open={openId === spot.id} onOpen={openFrom} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -207,5 +199,43 @@ function LessonBody({ spot }: { spot: Hotspot }) {
       <p className="mt-2 text-lg font-medium leading-snug text-fg">{spot.title}</p>
       <p className="mt-2 text-base leading-relaxed text-muted sm:text-lg">{spot.body}</p>
     </div>
+  );
+}
+
+function Marker({
+  spot,
+  open,
+  onOpen,
+  compact = false,
+}: {
+  spot: Hotspot;
+  open: boolean;
+  onOpen: (spot: Hotspot, el: HTMLElement) => void;
+  compact?: boolean;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onOpen(spot, e.currentTarget);
+      }}
+      className="flex items-center gap-2"
+      aria-expanded={open}
+      data-hotspot=""
+      aria-label={`${spot.n}. ${spot.label}`}
+    >
+      <span
+        className={`flex items-center justify-center rounded-full border-2 border-fg bg-accent font-display text-accent-fg shadow-[0_0_0_4px_color-mix(in_oklab,var(--color-bg)_55%,transparent)] ${
+          compact ? "size-10 text-lg" : "size-12 text-xl"
+        }`}
+      >
+        {spot.n}
+      </span>
+      <span className="rounded-sm bg-bg/85 px-2 py-1 font-display text-lg tracking-wide text-fg">
+        {spot.label}
+      </span>
+    </button>
   );
 }
