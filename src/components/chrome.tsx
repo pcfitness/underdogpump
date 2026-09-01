@@ -155,16 +155,16 @@ export function SiteFooter() {
             {SITE.mindsetTitle}
           </p>
           <p className="mt-3 text-sm leading-relaxed text-muted">
-            {SITE.mindset}{" "}
-            <a
-              href={SITE.builderUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="text-[0.7rem] font-semibold uppercase tracking-widest text-accent no-underline hover:text-accent"
-            >
-              OzGaming.net
-            </a>
-            .
+            {SITE.mindset.split("$UNDERDOG").map((part, i) =>
+              i === 0 ? (
+                part
+              ) : (
+                <span key="ticker">
+                  <span className="font-semibold text-accent">{SITE.ticker}</span>
+                  {part}
+                </span>
+              ),
+            )}
           </p>
         </aside>
       </div>
