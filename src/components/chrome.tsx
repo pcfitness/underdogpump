@@ -152,9 +152,21 @@ export function SiteFooter() {
         </div>
         <aside className="border-l-0 border-t border-line pt-6 md:border-l md:border-t-0 md:pl-6 md:pt-0">
           <p className="text-[0.7rem] font-semibold uppercase tracking-widest text-accent">
-            Project mindset
+            {SITE.mindsetTitle}
           </p>
           <p className="mt-3 text-sm leading-relaxed text-fg">{SITE.mindset}</p>
+          <p className="mt-3 text-sm leading-relaxed text-muted">
+            More about Oz at{" "}
+            <a
+              href={SITE.builderUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="text-fg no-underline hover:text-accent"
+            >
+              OzGaming.net
+            </a>
+            . Follow the socials from there.
+          </p>
         </aside>
       </div>
       <div className="mx-auto grid max-w-5xl gap-3 px-4 pb-8 sm:grid-cols-3">

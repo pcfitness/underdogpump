@@ -9,8 +9,9 @@ export const SITE = {
   platform: "Pump.fun",
   platformUrl: "https://pump.fun",
   contract: "",
+  mindsetTitle: "Oz values",
   mindset:
-    "Long shots are where the money is. Worse odds, bigger bag if you win. A 12-to-1 dog pays because it usually loses.",
+    "OzGaming projects are long-term. Hold $UNDERDOG like this desk will still be here — because it will.",
   mission:
     "This project was built to educate those new at navigating prediction markets. ClashPicks, Polymarket, Kalshi, DraftKings, FanDuel, as well as the crypto and futures trading markets.",
 } as const;
