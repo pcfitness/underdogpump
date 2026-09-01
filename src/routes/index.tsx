@@ -135,8 +135,8 @@ function HowToBuy() {
             <span className="text-[0.7rem] font-semibold uppercase tracking-widest text-accent">
               {SITE.ticker}
             </span>{" "}
-            is built to stay active, maintained, and visible long after launch. Check back anytime
-            and see the project move forward.
+            is built to stay active, maintained, and visible long after launch. Check back
+            anytime.
           </Step>
         </ol>
         <div className="mt-6">
