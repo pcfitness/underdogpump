@@ -30,8 +30,8 @@ export function ClashTicker() {
   const loop = rows.length ? [...rows, ...rows, ...rows] : [];
 
   return (
-    <div className="flex items-stretch border-b border-accent-dim bg-accent text-accent-fg">
-      <p className="z-10 flex shrink-0 items-center bg-accent-dim px-3 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em]">
+    <div className="flex items-stretch border-b border-line bg-bg text-fg">
+      <p className="z-10 flex shrink-0 items-center border-r border-line bg-bg px-3 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-accent">
         Live · ClashPicks
       </p>
       <div className="ticker-mask min-w-0 flex-1 overflow-hidden">
@@ -48,15 +48,15 @@ export function ClashTicker() {
                 : "";
             const inner = (
               <>
-                <span className="max-w-[14rem] truncate font-medium normal-case tracking-normal text-accent-fg">
+                <span className="max-w-[14rem] truncate font-medium normal-case tracking-normal text-fg">
                   {parts.pick !== "Long shot" ? parts.pick : parts.event}
                 </span>
-                <span className="font-display text-sm tracking-wide">{row.implied}</span>
-                {american ? <span className="opacity-80">{american}</span> : null}
+                <span className="font-display text-sm tracking-wide text-accent">{row.implied}</span>
+                {american ? <span className="text-muted">{american}</span> : null}
               </>
             );
             const className =
-              "inline-flex shrink-0 items-center gap-2 border-r border-accent-fg/25 px-5 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-accent-fg no-underline";
+              "inline-flex shrink-0 items-center gap-2 border-r border-line px-5 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-fg no-underline hover:text-accent";
             return row.href ? (
               <li key={`${row.id}-${i}`}>
                 <a href={row.href} target="_blank" rel="noreferrer" className={className}>
