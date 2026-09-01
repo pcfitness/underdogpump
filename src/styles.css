@@ -48,6 +48,14 @@
     background-position: center;
   }
 
+  @media (max-width: 767px) {
+    body {
+      background-attachment: scroll;
+      background-image: none;
+      background-color: var(--color-bg);
+    }
+  }
+
   body::before {
     content: "";
     position: fixed;

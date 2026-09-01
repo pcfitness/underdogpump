@@ -89,11 +89,11 @@ export function HotspotPoster() {
       <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-muted">Tap a number</p>
 
       <div className="overflow-hidden rounded-xl border border-line bg-bg">
-        <div className="relative aspect-[9/16] min-h-[32rem] w-full overflow-hidden bg-bg md:aspect-[16/9] md:min-h-[28rem]">
+        <div className="relative h-[26rem] w-full overflow-hidden bg-bg md:h-auto md:min-h-[28rem] md:aspect-[16/9]">
           <img
-            src="/hero-dog-v4.jpg"
+            src="/hero-mobile.jpg"
             alt=""
-            className="pointer-events-none absolute inset-0 size-full object-cover object-[center_20%] md:hidden"
+            className="pointer-events-none absolute inset-0 size-full object-cover object-[center_12%] md:hidden"
             draggable={false}
           />
           <img
