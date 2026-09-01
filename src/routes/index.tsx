@@ -123,12 +123,16 @@ function HowToBuy() {
         </p>
         <ol className="mt-6 grid gap-5 sm:grid-cols-3">
           <Step n="01" title="Get the contract">
-            The official CA will appear in this button and in the footer the moment we launch. Copy
-            it here. If it did not come from underdogpump.xyz, it is not us.
+            The official contract address (CA) will appear in this button and in the footer the
+            moment we launch. Copy it directly from underdogpump.xyz. If the CA came from anywhere
+            else, do not use it.
           </Step>
           <Step n="02" title="Open Pump.fun">
-            That is the only place to buy. Click the button below — or paste the CA on Pump.fun
-            yourself. Read the chart first. Do not buy from a random link in chat.
+            Open Pump.fun and paste in the official CA. Confirm you are on the correct{" "}
+            <span className="text-[0.7rem] font-semibold uppercase tracking-widest text-accent">
+              {SITE.ticker}
+            </span>{" "}
+            page, review the chart, choose your amount, and complete your purchase.
           </Step>
           <Step n="03" title="Long term mindset">
             Buy on Pump.fun and hold with confidence.{" "}
