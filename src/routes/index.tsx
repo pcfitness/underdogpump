@@ -72,7 +72,7 @@ function Home() {
                   rel="noreferrer"
                   className="inline-flex min-h-11 items-center rounded-md border border-line bg-bg/60 px-5 py-2.5 text-sm font-semibold text-fg no-underline hover:border-accent"
                 >
-                  Launch on {PROJECT.platform}
+                  Buy $UNDERDOG on Pump.fun
                 </a>
               </div>
             </div>

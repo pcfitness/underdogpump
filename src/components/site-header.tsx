@@ -9,7 +9,7 @@ export function SiteHeader() {
           <img
             src="/token-avatar.jpg"
             alt="$UNDERDOG"
-            className="size-10 rounded-full bg-bg object-contain p-[3px]"
+            className="size-10 rounded-full border border-accent bg-bg object-contain p-[3px]"
           />
           <span className="font-display text-2xl tracking-wide text-accent">
             {PROJECT.ticker}
