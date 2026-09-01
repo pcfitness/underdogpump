@@ -2,6 +2,7 @@ import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-r
 import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { Atmosphere } from "@/components/atmosphere";
+import { BackToTop } from "@/components/back-to-top";
 import appCss from "../styles.css?url";
 
 const APP_NAME = "$UNDERDOG";
@@ -41,6 +42,7 @@ export const Route = createRootRoute({
           <div id="app-root">
             <Atmosphere />
             <Outlet />
+            <BackToTop />
           </div>
         </AuthProvider>
         <Scripts />
