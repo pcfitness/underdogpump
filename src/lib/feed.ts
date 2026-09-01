@@ -20,7 +20,7 @@ export function diverseLongshots(rows: Longshot[], limit = 8): Longshot[] {
     unique.push(row);
   }
 
-  const seed = Math.floor(Date.now() / (30 * 60 * 1000));
+  const seed = Math.floor(Date.now() / (5 * 60 * 1000));
   return seededShuffle(unique, seed).slice(0, limit);
 }
 

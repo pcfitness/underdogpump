@@ -15,23 +15,27 @@ export function UnderdogCard() {
     const preferred =
       typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("dog") : null;
 
-    getClashPicks()
-      .then((data) => {
-        if (cancelled) return;
-        const pick = pickMoment(data.length ? data : FALLBACK_CLASHPICKS, preferred);
-        setRow(pick);
-        setLive(data.length >= 3);
-        setAsOf(formatAsOf(new Date()));
-      })
-      .catch(() => {
-        if (cancelled) return;
-        setRow(pickMoment(FALLBACK_CLASHPICKS, preferred));
-        setLive(false);
-        setAsOf(formatAsOf(new Date()));
-      });
-
+    const pull = () => {
+      getClashPicks()
+        .then((data) => {
+          if (cancelled) return;
+          const pick = pickMoment(data.length ? data : FALLBACK_CLASHPICKS, preferred);
+          setRow(pick);
+          setLive(data.length >= 3);
+          setAsOf(formatAsOf(new Date()));
+        })
+        .catch(() => {
+          if (cancelled) return;
+          setRow((prev) => prev ?? pickMoment(FALLBACK_CLASHPICKS, preferred));
+          setLive(false);
+          setAsOf(formatAsOf(new Date()));
+        });
+    };
+    pull();
+    const timer = window.setInterval(pull, 60_000);
     return () => {
       cancelled = true;
+      window.clearInterval(timer);
     };
   }, []);
 

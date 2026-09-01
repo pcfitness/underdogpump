@@ -20,24 +20,29 @@ export function MarketBoard({ kicker, title, liveLabel, pausedLabel, footnote, f
 
   useEffect(() => {
     let cancelled = false;
-    load()
-      .then((data) => {
-        if (cancelled) return;
-        if (data.length >= 3) {
-          setRows(data);
-          setState("live");
-        } else {
-          setRows(fallback);
-          setState("examples");
-        }
-      })
-      .catch(() => {
-        if (cancelled) return;
-        setRows(fallback);
-        setState("examples");
-      });
+    const pull = () => {
+      load()
+        .then((data) => {
+          if (cancelled) return;
+          if (data.length >= 3) {
+            setRows(data);
+            setState("live");
+          } else {
+            setRows((prev) => (prev.length ? prev : fallback));
+            setState((s) => (s === "loading" ? "examples" : s));
+          }
+        })
+        .catch(() => {
+          if (cancelled) return;
+          setRows((prev) => (prev.length ? prev : fallback));
+          setState((s) => (s === "loading" ? "examples" : s));
+        });
+    };
+    pull();
+    const timer = window.setInterval(pull, 60_000);
     return () => {
       cancelled = true;
+      window.clearInterval(timer);
     };
   }, [fallback, load]);
 

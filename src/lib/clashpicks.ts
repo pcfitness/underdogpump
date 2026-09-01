@@ -4,6 +4,7 @@ import { diverseLongshots } from "@/lib/feed";
 
 export const getClashPicks = createServerFn({ method: "GET" }).handler(async (): Promise<Longshot[]> => {
   const res = await fetch("https://www.clashpicks.com/", {
+    cache: "no-store",
     headers: {
       Accept: "text/html",
       "User-Agent": "UnderdogPump/1.0 (public market display; +https://underdogpump.xyz)",

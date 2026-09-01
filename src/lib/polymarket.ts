@@ -5,7 +5,7 @@ import { diverseLongshots } from "@/lib/feed";
 export const getLongshots = createServerFn({ method: "GET" }).handler(async (): Promise<Longshot[]> => {
   const url =
     "https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=200&order=volume24hr&ascending=false";
-  const res = await fetch(url, { headers: { Accept: "application/json" } });
+  const res = await fetch(url, { cache: "no-store", headers: { Accept: "application/json" } });
   if (!res.ok) throw new Error(`polymarket ${res.status}`);
   const data: unknown = await res.json();
   return parsePolymarket(data);
