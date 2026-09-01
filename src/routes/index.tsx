@@ -118,8 +118,12 @@ function HowToBuy() {
         </p>
         <h2 className="mt-2 font-display text-4xl tracking-wide text-fg">How to buy $UNDERDOG</h2>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
-          Pump.fun is the only place. The official contract lands in the button below. Copy it from
-          this site. Anything else is not {SITE.ticker}.
+          Once{" "}
+          <span className="text-[0.7rem] font-semibold uppercase tracking-widest text-accent">
+            {SITE.ticker}
+          </span>{" "}
+          is live, use the official contract address from this site to find it on Pump.fun. Verify
+          the token, review the chart, and follow the three steps below.
         </p>
         <ol className="mt-6 grid gap-5 sm:grid-cols-3">
           <Step n="01" title="Get the contract">
@@ -134,7 +138,7 @@ function HowToBuy() {
             page, review the chart, choose your amount, and complete your purchase.
           </Step>
           <Step n="03" title="Long term mindset">
-            Buy on Pump.fun and hold with confidence.{" "}
+            Give the project time to grow and evolve.{" "}
             <span className="text-[0.7rem] font-semibold uppercase tracking-widest text-accent">
               {SITE.ticker}
             </span>{" "}
