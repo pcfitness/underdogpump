@@ -30,8 +30,8 @@ export function ClashTicker() {
   const loop = rows.length ? [...rows, ...rows, ...rows] : [];
 
   return (
-    <div className="flex h-12 items-center border-b border-line bg-bg text-fg shadow-[inset_0_-1px_0_0_var(--color-line)]">
-      <p className="flex h-12 shrink-0 items-center self-stretch border-r border-line bg-bg px-3 font-mono text-[0.65rem] font-semibold uppercase leading-none tracking-[0.18em] text-accent">
+    <div className="flex items-center border-b border-line bg-bg text-fg">
+      <p className="flex h-12 shrink-0 items-center border-r border-line px-3 font-mono text-[0.65rem] font-semibold uppercase leading-none tracking-[0.18em] text-accent">
         Live · ClashPicks
       </p>
       <div className="ticker-mask min-w-0 flex-1 overflow-hidden">
