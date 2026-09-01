@@ -164,6 +164,7 @@ export function SiteFooter() {
             >
               OzGaming.net
             </a>
+            .
           </p>
         </aside>
       </div>
