@@ -63,7 +63,31 @@
   }
 }
 
+@keyframes fog-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-3%, 4%, 0) scale(1.08);
+  }
+}
+
+.fog-shift {
+  animation: fog-drift 32s ease-in-out infinite;
+}
+
+.fog-wash {
+  background:
+    radial-gradient(ellipse 55% 45% at 100% 12%, color-mix(in oklab, var(--color-accent) 22%, transparent), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 92% 88%, color-mix(in oklab, var(--color-accent-dim) 20%, transparent), transparent 68%);
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .fog-shift {
+    animation: none;
+  }
+
   *,
   *::before,
   *::after {

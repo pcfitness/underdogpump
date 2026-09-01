@@ -27,18 +27,44 @@ function Odds101() {
           </div>
         </section>
 
+        <div className="mx-auto max-w-5xl px-4 py-8 sm:py-10">
+          <HotspotPoster />
+        </div>
+
+        <section className="border-y border-line">
+          <div className="mx-auto max-w-5xl px-4 py-8 sm:py-10">
+            <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-accent">
+              The dog
+            </p>
+            <h2 className="font-display text-4xl tracking-wide text-fg">Same long shot. In the rain.</h2>
+            <div className="mt-5 overflow-hidden rounded-xl border border-line">
+              <img
+                src="/hero-mobile.jpg"
+                alt="Black shepherd, crimson eyes"
+                className="aspect-[9/16] max-h-[32rem] w-full object-cover object-[center_12%] md:hidden"
+              />
+              <img
+                src="/hero-dog-v4.jpg"
+                alt="Black street dog in rain, crimson rim light"
+                className="hidden aspect-[16/9] w-full object-cover object-[center_28%] md:block"
+              />
+            </div>
+          </div>
+        </section>
+
         <OddsTranslator />
 
         <div className="mx-auto max-w-5xl px-4 py-8 sm:py-10">
-          <HotspotPoster />
-
-          <div className="mt-10">
+          <div className="mt-2">
             <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-accent">
               The six moves
             </p>
             <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {HOTSPOTS.map((spot) => (
-                <article key={spot.id} className="rounded-lg border border-line bg-surface px-4 py-4">
+                <article
+                  key={spot.id}
+                  className="rounded-lg border border-line bg-surface/80 px-4 py-4 shadow-[inset_3px_0_0_var(--color-accent)]"
+                >
                   <p className="font-display text-2xl tracking-wide text-fg">
                     <span className="text-accent">{spot.n}</span> {spot.label}
                   </p>
