@@ -160,7 +160,7 @@ export function SiteFooter() {
                 part
               ) : (
                 <span key="ticker">
-                  <span className="font-semibold text-accent">{SITE.ticker}</span>
+                  <span className="text-[0.7rem] font-semibold uppercase tracking-widest text-accent">{SITE.ticker}</span>
                   {part}
                 </span>
               ),
