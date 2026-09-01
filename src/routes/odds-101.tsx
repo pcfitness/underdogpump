@@ -46,7 +46,7 @@ function Odds101() {
               <img
                 src="/hero-dog-v4.jpg"
                 alt="Cane Corso in the rain, crimson rim light, spiked collar"
-                className="hidden aspect-[16/9] w-full object-cover object-[center_28%] md:block"
+                className="hidden aspect-[16/9] w-full object-cover object-[82%_8%] md:block"
               />
             </div>
           </div>

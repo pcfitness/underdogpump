@@ -99,7 +99,7 @@ export function HotspotPoster() {
           <img
             src="/hero-dog-v4.jpg"
             alt="Cane Corso in the rain, crimson rim light, spiked collar"
-            className="pointer-events-none absolute inset-0 hidden size-full object-cover object-[center_40%] md:block"
+            className="pointer-events-none absolute inset-0 hidden size-full object-cover object-[82%_8%] md:block"
             draggable={false}
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-bg/70 via-bg/20 to-transparent" />

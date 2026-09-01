@@ -25,15 +25,15 @@ function Home() {
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-bg to-transparent" />
           </div>
 
-          <div className="relative isolate md:min-h-[40rem]">
+          <div className="relative isolate md:min-h-[46rem]">
             <img
               src="/hero-dog-v4.jpg"
               alt=""
-              className="absolute inset-0 hidden size-full object-cover object-[80%_30%] md:block"
+              className="absolute inset-0 hidden size-full object-cover object-[82%_8%] md:block"
             />
             <div className="absolute inset-0 hidden bg-gradient-to-r from-bg from-0% via-bg/70 to-transparent to-45% md:block" />
 
-            <div className="relative mx-auto max-w-5xl px-4 py-8 md:flex md:min-h-[40rem] md:flex-col md:justify-end md:pb-12 md:pt-24">
+            <div className="relative mx-auto max-w-5xl px-4 py-8 md:flex md:min-h-[46rem] md:flex-col md:justify-end md:pb-12 md:pt-28">
               <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-accent">
                 An OzGaming.net project · Pump.fun
               </p>
