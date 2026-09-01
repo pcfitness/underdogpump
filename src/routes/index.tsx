@@ -136,7 +136,7 @@ function HowToBuy() {
               {SITE.ticker}
             </span>{" "}
             is built to stay active, maintained, and visible long after launch. Check back
-            anytime and follow the progress.
+            anytime to follow the progress.
           </Step>
         </ol>
         <div className="mt-6">
