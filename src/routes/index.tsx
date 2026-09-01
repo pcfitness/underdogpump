@@ -131,8 +131,8 @@ function HowToBuy() {
             yourself. Read the chart first. Do not buy from a random link in chat.
           </Step>
           <Step n="03" title="Buy, then hold">
-            Size it like a long shot, not a sure thing. If you cannot explain the price as a
-            percent, you are guessing. Then buy, sit, and check back later.
+            Buy on Pump.fun. Hold it. Check back when you want. That's the play — and this
+            project is built for it.
           </Step>
         </ol>
         <div className="mt-6">
