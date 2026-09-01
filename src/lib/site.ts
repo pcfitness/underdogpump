@@ -87,3 +87,24 @@ export const LESSONS = [
     top: "78%",
   },
 ] as const;
+
+export const UNDERDOG_MEANS = [
+  {
+    n: "01",
+    label: "Same dollar",
+    title: "Less out. More back if it hits.",
+    body: "A favorite turns $1 into a little more than $1. A 12-to-1 dog turns that same $1 into $12. Same money out of your pocket. The extra is the pay for taking the lonely side.",
+  },
+  {
+    n: "02",
+    label: "Sports",
+    title: "The team nobody picked.",
+    body: "Everyone is on the 1-seed. You are on the 12-seed. If they win, you do not get a pat on the back — you get a stack. That is an underdog. The price is ugly because most nights they lose.",
+  },
+  {
+    n: "03",
+    label: "Work",
+    title: "The safe check vs the long shot.",
+    body: "Salary hits every Friday. The side project might pay for the year, or nothing. You do not bet the rent on it. You size it so you can wait. Underdogs are that kind of bet.",
+  },
+] as const;
