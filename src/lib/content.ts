@@ -10,7 +10,7 @@ export const PROJECT = {
   platformUrl: "https://pump.fun",
   contract: "",
   mindset:
-    "Favorites are already priced in. The dog still pays. Most of this board loses — that's why a dollar can come back twelve.",
+    "Long shots are where the money is. Worse odds, bigger bag if you win. A 12-to-1 dog pays because it usually loses.",
   mission:
     "This project was built to educate those new at navigating prediction markets. ClashPicks, Polymarket, Kalshi, DraftKings, FanDuel, as well as the crypto and futures trading markets.",
 };

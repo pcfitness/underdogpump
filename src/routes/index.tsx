@@ -45,8 +45,8 @@ function Home() {
                 Favorites are priced in. The dog still pays.
               </p>
               <p className="mt-4 max-w-md text-base leading-relaxed text-muted">
-                Most of this board loses — that's why it pays 12 to 1. Can't say the
-                price as a percent? You're hoping.
+                Long shots are where the money is. Worse odds, bigger bag if you win. A 12-to-1
+                dog pays because it usually loses.
               </p>
               <ul className="mt-6 grid w-full max-w-md grid-cols-3 gap-2">
                 <HeroStat n="12×" label="If it hits" />
