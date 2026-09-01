@@ -116,10 +116,10 @@ function OddsField({
 }) {
   return (
     <div>
-      <label htmlFor={id} className="text-xs font-semibold uppercase tracking-widest text-subtle">
+      <label htmlFor={id} className="text-[0.7rem] font-semibold uppercase tracking-widest text-accent">
         {label}
       </label>
-      <p className="text-xs text-subtle">{hint}</p>
+      <p className="mt-1 text-sm font-medium text-muted">{hint}</p>
       <input
         id={id}
         value={value}
