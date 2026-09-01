@@ -130,9 +130,10 @@ function HowToBuy() {
             That is the only place to buy. Click the button below — or paste the CA on Pump.fun
             yourself. Read the chart first. Do not buy from a random link in chat.
           </Step>
-          <Step n="03" title="Buy, then hold">
-            Buy on Pump.fun. Hold it. Check back when you want. That's the play — and this
-            project is built for it.
+          <Step n="03" title="Buy with confidence">
+            Buy on Pump.fun and hold at your own pace. {SITE.ticker} is built to stay active,
+            maintained, and visible long after launch. Check back anytime and see the project
+            continuing to move forward.
           </Step>
         </ol>
         <div className="mt-6">
