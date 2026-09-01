@@ -41,17 +41,17 @@ function Home() {
                 {PROJECT.ticker}
                 <span className="block text-4xl text-accent sm:text-6xl">{PROJECT.tagline}</span>
               </h1>
-              <p className="mt-5 max-w-lg font-display text-3xl leading-none tracking-wide text-fg sm:text-4xl">
+              <p className="mt-5 max-w-md font-display text-3xl leading-none tracking-wide text-fg sm:text-4xl">
                 Favorites are priced in. The dog still pays.
               </p>
               <p className="mt-4 max-w-md text-base leading-relaxed text-muted">
-                Most of this board loses. That's why a dollar can come back twelve. If you
-                can't say the price as a percent, you're hoping — not betting.
+                Most of this board loses — that's why it pays 12 to 1. Can't say the
+                price as a percent? You're hoping.
               </p>
-              <ul className="mt-6 grid max-w-lg grid-cols-3 gap-2">
-                <HeroStat n="12x" label="If it hits" />
-                <HeroStat n="1 in 12" label="How often" />
-                <HeroStat n="$1 → $12" label="The only math" />
+              <ul className="mt-6 grid w-full max-w-md grid-cols-3 gap-2">
+                <HeroStat n="12×" label="If it hits" />
+                <HeroStat n="1/12" label="How often" />
+                <HeroStat n="$12" label="Back on $1" />
               </ul>
               <div className="mt-6 flex flex-wrap gap-2">
                 <Chip>{PROJECT.status}</Chip>
@@ -119,9 +119,9 @@ function Chip({ children }: { children: string }) {
 
 function HeroStat({ n, label }: { n: string; label: string }) {
   return (
-    <li className="rounded-md border border-line bg-bg/55 px-3 py-3">
-      <p className="font-display text-2xl leading-none tracking-wide text-accent sm:text-3xl">{n}</p>
-      <p className="mt-1 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-muted">{label}</p>
+    <li className="min-w-0 rounded-md border border-line bg-bg/55 px-2 py-3">
+      <p className="font-display text-xl leading-none tracking-wide text-accent sm:text-2xl">{n}</p>
+      <p className="mt-1 text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-muted">{label}</p>
     </li>
   );
 }

@@ -7,9 +7,9 @@ export function SiteHeader() {
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 px-4">
         <Link to="/" className="flex items-center gap-2 no-underline">
           <img
-            src="/header-mark.jpg"
+            src="/token-avatar.jpg"
             alt="$UNDERDOG"
-            className="size-10 rounded-full object-cover"
+            className="size-10 rounded-full bg-bg object-contain p-[3px]"
           />
           <span className="font-display text-2xl tracking-wide text-accent">
             {PROJECT.ticker}
