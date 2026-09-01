@@ -1,9 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
 import type { Longshot } from "@/lib/content";
+import { diverseLongshots } from "@/lib/feed";
 
 export const getLongshots = createServerFn({ method: "GET" }).handler(async (): Promise<Longshot[]> => {
   const url =
-    "https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=100&order=volume24hr&ascending=false";
+    "https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=200&order=volume24hr&ascending=false";
   const res = await fetch(url, { headers: { Accept: "application/json" } });
   if (!res.ok) throw new Error(`polymarket ${res.status}`);
   const data: unknown = await res.json();
@@ -46,7 +47,7 @@ function parsePolymarket(data: unknown): Longshot[] {
     });
   }
 
-  return out.sort((a, b) => (a.impliedValue ?? 0) - (b.impliedValue ?? 0)).slice(0, 8);
+  return diverseLongshots(out, 8);
 }
 
 function formatImplied(p: number): string {

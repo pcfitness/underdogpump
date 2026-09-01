@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import type { Longshot } from "@/lib/content";
+import { diverseLongshots } from "@/lib/feed";
 
 export const getClashPicks = createServerFn({ method: "GET" }).handler(async (): Promise<Longshot[]> => {
   const res = await fetch("https://www.clashpicks.com/", {
@@ -35,6 +36,7 @@ function parseClashHome(html: string): Longshot[] {
     for (const mk of markets) {
       const pick = decodeEscapes(mk[1]);
       if (!pick || pick === event.title) continue;
+      if (/^other$/i.test(pick)) continue;
       const pct = Number(mk[2]);
       if (!(pct >= 1.5) || pct > 28) continue;
       const key = `${event.slug}:${pick}`.toLowerCase();
@@ -52,7 +54,7 @@ function parseClashHome(html: string): Longshot[] {
     }
   }
 
-  return out.sort((a, b) => (a.impliedValue ?? 0) - (b.impliedValue ?? 0)).slice(0, 8);
+  return diverseLongshots(out, 8);
 }
 
 function formatImplied(p: number): string {
