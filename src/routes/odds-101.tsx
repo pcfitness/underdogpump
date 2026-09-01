@@ -31,27 +31,6 @@ function Odds101() {
           <HotspotPoster />
         </div>
 
-        <section className="border-y border-line">
-          <div className="mx-auto max-w-5xl px-4 py-8 sm:py-10">
-            <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-accent">
-              The dog
-            </p>
-            <h2 className="font-display text-4xl tracking-wide text-fg">Same long shot. In the rain.</h2>
-            <div className="mt-5 overflow-hidden rounded-xl border border-line">
-              <img
-                src="/hero-mobile.jpg"
-                alt="Black Cane Corso, crimson eyes, spiked collar"
-                className="aspect-[9/16] max-h-[32rem] w-full object-cover object-[center_12%] md:hidden"
-              />
-              <img
-                src="/hero-dog-v4.jpg"
-                alt="Cane Corso in the rain, crimson rim light, spiked collar"
-                className="hidden aspect-[16/9] w-full object-cover object-[82%_8%] md:block"
-              />
-            </div>
-          </div>
-        </section>
-
         <OddsTranslator />
 
         <div className="mx-auto max-w-5xl px-4 py-8 sm:py-10">
