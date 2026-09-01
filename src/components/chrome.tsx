@@ -160,7 +160,7 @@ export function SiteFooter() {
               href={SITE.builderUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-accent no-underline hover:text-accent"
+              className="font-semibold uppercase tracking-widest text-accent no-underline hover:text-accent"
             >
               OzGaming.net
             </a>
