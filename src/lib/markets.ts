@@ -78,6 +78,38 @@ export const CLASH_FALLBACK: MarketRow[] = [
     source: "ClashPicks",
     href: "https://www.clashpicks.com/event/what-will-be-clashs-highest-price-in-2026-pclash",
   },
+  {
+    id: "cp-5",
+    question: "EPL: Liverpool vs Ipswich Town — Ipswich Town Win",
+    implied: "2.4%",
+    impliedValue: 0.024,
+    source: "ClashPicks",
+    href: "https://www.clashpicks.com/event/epl-liverpool-vs-ipswich-town-pclash",
+  },
+  {
+    id: "cp-6",
+    question: "F1: Italian GP Winner — Charles Leclerc",
+    implied: "9.3%",
+    impliedValue: 0.093,
+    source: "ClashPicks",
+    href: "https://www.clashpicks.com/event/f1-italian-gp-winner-pclash",
+  },
+  {
+    id: "cp-7",
+    question: "Who Will Be the Next James Bond? — Jacob Elordi",
+    implied: "1.3%",
+    impliedValue: 0.013,
+    source: "ClashPicks",
+    href: "https://www.clashpicks.com/event/who-will-be-the-next-james-bond",
+  },
+  {
+    id: "cp-8",
+    question: "When Will Anthropic Launch Its IPO? — Q3 2026",
+    implied: "7.6%",
+    impliedValue: 0.076,
+    source: "ClashPicks",
+    href: "https://www.clashpicks.com/event/when-will-anthropic-launch-its-ipo",
+  },
 ];
 
 export function splitQuestion(question: string) {
