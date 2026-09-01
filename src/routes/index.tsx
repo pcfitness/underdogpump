@@ -5,7 +5,7 @@ import { SiteFooter, SiteHeader } from "@/components/chrome";
 import { LongshotBoards } from "@/components/longshots";
 import { DogTicket } from "@/components/ticket";
 import { OddsTranslator } from "@/components/translator";
-import { SITE } from "@/lib/site";
+import { SITE, buyUrl } from "@/lib/site";
 
 export const Route = createFileRoute("/")({ component: Home });
 
@@ -77,7 +77,7 @@ function Hero() {
               <ArrowRight className="size-4" />
             </Link>
             <a
-              href={SITE.platformUrl}
+              href={buyUrl()}
               target="_blank"
               rel="noreferrer"
               className="inline-flex min-h-11 items-center rounded-md border border-line bg-bg/60 px-5 py-2.5 text-sm font-semibold text-fg no-underline hover:border-accent hover:bg-accent/20"
@@ -109,23 +109,52 @@ function Stat({ n, label }: { n: string; label: string }) {
 }
 
 function HowToBuy() {
+  const contract = SITE.contract.trim();
   return (
     <section className="mx-auto max-w-5xl px-4 pb-8">
-      <div className="rounded-xl border border-line bg-surface px-5 py-6 sm:px-8">
+      <div className="rounded-xl border border-line bg-surface px-5 py-6 sm:px-8 sm:py-8">
         <p className="text-[0.7rem] font-semibold uppercase tracking-widest text-accent">
-          How to buy when we go live
+          The second we go live
         </p>
-        <ol className="mt-4 grid gap-4 sm:grid-cols-3">
-          <Step n="01" title="Wait for the contract">
-            The official CA will land in the footer. Anything else is not {SITE.ticker}.
+        <h2 className="mt-2 font-display text-4xl tracking-wide text-fg">How to buy $UNDERDOG</h2>
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+          Pump.fun is the only place. The official contract lands in the button below. Copy it from
+          this site. Anything else is not {SITE.ticker}.
+        </p>
+        <ol className="mt-6 grid gap-5 sm:grid-cols-3">
+          <Step n="01" title="Get the contract">
+            The official CA will appear in this button and in the footer the moment we launch. Copy
+            it here. If it did not come from underdogpump.xyz, it is not us.
           </Step>
           <Step n="02" title="Open Pump.fun">
-            Paste the contract. Read the chart. Size like a long shot — not like a sure thing.
+            That is the only place to buy. Click the button below — or paste the CA on Pump.fun
+            yourself. Read the chart first. Do not buy from a random link in chat.
           </Step>
-          <Step n="03" title="Then do the 101">
-            If you cannot explain the price as a percent, you are not betting. You are guessing.
+          <Step n="03" title="Buy, then hold">
+            Size it like a long shot, not a sure thing. If you cannot explain the price as a
+            percent, you are guessing. Then buy, sit, and check back later.
           </Step>
         </ol>
+        <div className="mt-6">
+          {contract ? (
+            <a
+              href={buyUrl()}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex min-h-11 items-center gap-2 rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg no-underline hover:bg-accent-dim"
+            >
+              Buy $UNDERDOG on Pump.fun
+              <ArrowRight className="size-4" />
+            </a>
+          ) : (
+            <p className="inline-flex min-h-11 flex-col justify-center rounded-md border border-line bg-bg px-5 py-3 sm:flex-row sm:items-center sm:gap-3">
+              <span className="text-sm font-semibold text-fg">Buy $UNDERDOG on Pump.fun</span>
+              <span className="text-[0.7rem] font-semibold uppercase tracking-widest text-accent">
+                Contract drops in this button
+              </span>
+            </p>
+          )}
+        </div>
       </div>
     </section>
   );

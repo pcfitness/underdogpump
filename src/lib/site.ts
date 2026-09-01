@@ -16,6 +16,11 @@ export const SITE = {
     "This project was built to educate those new at navigating prediction markets. ClashPicks, Polymarket, Kalshi, DraftKings, FanDuel, as well as the crypto and futures trading markets.",
 } as const;
 
+export function buyUrl() {
+  const ca = SITE.contract.trim();
+  return ca ? `https://pump.fun/coin/${ca}` : SITE.platformUrl;
+}
+
 export const PUMP_LAUNCH = {
   name: "Underdog",
   symbol: "UNDERDOG",
