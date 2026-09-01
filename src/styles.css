@@ -83,6 +83,23 @@
     radial-gradient(ellipse 50% 40% at 92% 88%, color-mix(in oklab, var(--color-accent-dim) 20%, transparent), transparent 68%);
 }
 
+@keyframes ticker-move {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-33.333%, 0, 0);
+  }
+}
+
+.ticker-track {
+  animation: ticker-move 42s linear infinite;
+}
+
+.ticker-mask:hover .ticker-track {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .fog-shift {
     animation: none;
