@@ -70,9 +70,9 @@ function Home() {
                   href={PROJECT.platformUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex min-h-11 items-center rounded-md border border-line bg-bg/60 px-5 py-2.5 text-sm font-semibold text-fg no-underline hover:border-accent"
+                  className="inline-flex min-h-11 items-center rounded-md border border-line bg-bg/60 px-5 py-2.5 text-sm font-semibold text-fg no-underline hover:border-accent hover:bg-accent/20"
                 >
-                  Buy $UNDERDOG on Pump.fun
+                  BUY $UNDERDOG
                 </a>
               </div>
             </div>
