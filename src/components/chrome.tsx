@@ -118,7 +118,7 @@ export function SiteFooter() {
   const contract = SITE.contract.trim();
   return (
     <footer className="border-t border-line bg-surface">
-      <div className="mx-auto grid max-w-5xl gap-6 px-4 py-10 md:grid-cols-2">
+      <div className="mx-auto grid max-w-5xl gap-6 px-4 py-10 md:grid-cols-[1.2fr_1fr]">
         <div>
           <a
             href={SITE.builderUrl}
