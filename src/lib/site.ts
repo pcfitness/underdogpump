@@ -83,7 +83,7 @@ export const LESSONS: Lesson[] = [
     label: "DYOR",
     kicker: "Entertainment, not advice",
     title: "This is a classroom, not a tip sheet",
-    body: "$UNDERDOG is for education and entertainment. Nothing here is financial advice, a guaranteed pick, or a promise of profit. Betting involves risk, and you can lose the entire stake. Odds and outcomes can change. 18+ only. Do your own work.",
+    body: "$UNDERDOG is for education and entertainment. Nothing here is financial advice, a guaranteed pick, or a promise of profit. Betting involves risk, and you can lose the entire stake. Odds and outcomes can change. Do your own research.",
     top: "78%",
   },
 ];
