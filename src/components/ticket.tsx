@@ -11,31 +11,29 @@ import {
 import { loadClashPicks } from "@/lib/load-markets";
 import { payoutFromImplied } from "@/lib/odds";
 
-function HitStrip({ payout }: { payout: number }) {
+function FairPrice({ payout }: { payout: number }) {
   const total = Math.max(2, Math.round(payout));
-  const shown = Math.min(total, 32);
   const misses = total - 1;
   return (
-    <div className="mt-8">
+    <div className="mt-8 max-w-lg">
       <p className="text-[0.65rem] font-semibold tracking-widest text-subtle uppercase">
-        1 red hit · {misses} {misses === 1 ? "miss" : "misses"}
+        Buy this ticket {total} times at $1
       </p>
-      <div
-        className="mt-3 grid h-2 w-full gap-px sm:h-2.5"
-        style={{ gridTemplateColumns: `repeat(${shown}, minmax(0, 1fr))` }}
-        aria-hidden="true"
-      >
-        {Array.from({ length: shown }, (_, index) => (
-          <span
-            key={index}
-            className={index === 0 ? "hit-pip rounded-sm bg-accent" : "rounded-sm bg-line"}
-          />
-        ))}
-      </div>
-      <p className="mt-2 max-w-lg text-sm leading-relaxed text-muted">
-        {shown} shots. One red. That is a {total}x. It hits about{" "}
-        <span className="text-fg">1 time in {total}</span>
-        {total > shown ? ` — strip shows the first ${shown}.` : "."} That is why it pays.
+      <ul className="mt-3 grid grid-cols-2 gap-2">
+        <li className="rounded-md border border-accent/50 bg-accent/10 px-4 py-4">
+          <p className="font-display text-4xl leading-none tracking-wide text-accent">1 win</p>
+          <p className="mt-2 text-sm text-fg">Pays ${total} back</p>
+        </li>
+        <li className="rounded-md border border-line bg-bg/70 px-4 py-4">
+          <p className="font-display text-4xl leading-none tracking-wide text-muted">
+            {misses} losses
+          </p>
+          <p className="mt-2 text-sm text-muted">Pays $0</p>
+        </li>
+      </ul>
+      <p className="mt-3 text-sm leading-relaxed text-muted">
+        ${total} in. ${total} back. That is a fair {total}x. You only beat the price if you think the
+        dog wins <span className="text-fg">more than once</span>.
       </p>
     </div>
   );
@@ -114,7 +112,7 @@ export function DogTicket() {
                 Only interesting if you think the dog wins <span className="text-fg">more often</span>{" "}
                 than 1 in {payout}.
               </p>
-              <HitStrip payout={payout} />
+              <FairPrice payout={payout} />
             </div>
             <div className="flex flex-col justify-between gap-6 border-t border-line bg-elevated px-5 py-6 sm:px-8 sm:py-8 md:border-t-0 md:border-l">
               <p className="text-sm leading-relaxed text-muted">
