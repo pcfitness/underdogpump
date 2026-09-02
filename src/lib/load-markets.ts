@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import {
   CLASHPICKS_EXAMPLES,
   marketsFromGamma,
+  pickClashTicket,
   type Market,
 } from "./markets";
 import { formatPercent } from "./odds";
@@ -83,6 +84,11 @@ export const loadClashPicks = createServerFn({ method: "GET" }).handler(
       const rows = marketsFromClash(await fetchClashEvents());
       const unique: Market[] = [];
       const events = new Set<string>();
+      const ticket = pickClashTicket(rows);
+      if (ticket.source === "ClashPicks") {
+        unique.push(ticket);
+        events.add(ticket.question.split(" — ")[0] ?? ticket.question);
+      }
       for (const row of rows) {
         const event = row.question.split(" — ")[0] ?? row.question;
         if (events.has(event)) continue;

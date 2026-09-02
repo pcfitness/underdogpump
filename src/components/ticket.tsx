@@ -5,6 +5,7 @@ import {
   CLASSROOM_TICKET,
   CLASHPICKS_EXAMPLES,
   isUfcQuestion,
+  isUsOpenQuestion,
   pickClashTicket,
   shareTicketText,
   splitQuestion,
@@ -45,6 +46,20 @@ export function DogTicket() {
   const parts = splitQuestion(market.question);
   const live = market.source === "ClashPicks" && Boolean(market.href);
   const ufc = isUfcQuestion(market.question);
+  const usOpen = isUsOpenQuestion(market.question);
+  const person = ufc ? "fighter" : "player";
+  const kicker = ufc
+    ? "UFC · ClashPicks"
+    : usOpen
+      ? "US Open · ClashPicks"
+      : live
+        ? "ClashPicks ticket"
+        : "UFC example";
+  const opener = ufc
+    ? "In a UFC fight, one fighter is the favorite and the other is the underdog."
+    : usOpen
+      ? "At the US Open, one player is the favorite and the other is the underdog."
+      : "One side is the favorite and the other is the underdog.";
   const shareUrl =
     typeof window !== "undefined"
       ? `${window.location.origin}/?dog=${encodeURIComponent(market.id)}#ticket`
@@ -72,19 +87,17 @@ export function DogTicket() {
         <article className="mt-6 overflow-hidden rounded-xl border border-line bg-elevated">
           <div className="px-5 py-6 sm:px-8 sm:py-8">
             <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
-              {ufc ? "UFC · ClashPicks" : live ? "ClashPicks ticket" : "UFC example"}
+              {kicker}
             </p>
             <p className="mt-3 text-base leading-snug text-muted">{parts.event}</p>
             <h3 className="mt-1 font-display text-4xl tracking-wide text-accent sm:text-5xl">
               {parts.pick}
             </h3>
 
-            <div className="mt-5 max-w-2xl space-y-1 text-base leading-5 text-muted">
-              <p className="text-fg">
-                In a UFC fight, one fighter is the favorite and the other is the underdog.
-              </p>
-              <Line>The favorite is the fighter expected to win.</Line>
-              <Line>The underdog is the fighter expected to lose.</Line>
+            <div className="mt-6 max-w-2xl space-y-2.5 text-base leading-6 text-muted">
+              <p className="text-fg">{opener}</p>
+              <Line>The favorite is the {person} expected to win.</Line>
+              <Line>The underdog is the {person} expected to lose.</Line>
               <p className="text-fg">
                 Now imagine you wager $5 on the favorite or $5 on the underdog.
               </p>

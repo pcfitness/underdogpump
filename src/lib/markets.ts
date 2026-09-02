@@ -46,6 +46,14 @@ export const POLYMARKET_EXAMPLES: Market[] = [
 
 export const CLASHPICKS_EXAMPLES: Market[] = [
   {
+    id: "cp-usopen",
+    question: "Tennis: US Open Winner — Novak Djokovic",
+    implied: "4.6%",
+    impliedValue: 0.046,
+    source: "ClashPicks",
+    href: "https://www.clashpicks.com/event/tennis-us-open-winner-pclash",
+  },
+  {
     id: "cp-1",
     question: "U.S. Tornado Count - August 2026 — 76–100 Tornadoes",
     implied: "6.7%",
@@ -120,11 +128,14 @@ export const CLASSROOM_TICKET: Market = {
 };
 
 const UFC_RE = /\bufc\b|\bmma\b|fight night|octagon|bellator|\bpfl\b/i;
-const SPORT_RE =
-  /\bufc\b|\bmma\b|\bepl\b|\bnfl\b|\bnba\b|\bmlb\b|\bnhl\b|\bf1\b|\bwnba\b|\bvs\.?\b|fight night|grand prix|open winner/i;
+const US_OPEN_RE = /us open|u\.s\. open/i;
 
 export function isUfcQuestion(question: string) {
   return UFC_RE.test(question);
+}
+
+export function isUsOpenQuestion(question: string) {
+  return US_OPEN_RE.test(question);
 }
 
 export function splitQuestion(question: string) {
@@ -152,10 +163,10 @@ export function pickClashTicket(list: Market[], id: string | null = null) {
   const pool = clash.length ? clash : list;
   const ufc = rankDogs(pool.filter((row) => isUfcQuestion(row.question)));
   if (ufc[0]) return ufc[0];
+  const open = rankDogs(pool.filter((row) => isUsOpenQuestion(row.question)));
+  if (open[0]) return open[0];
   const fight = rankDogs(pool.filter((row) => /\bvs\.?\b/i.test(row.question)));
   if (fight[0]) return fight[0];
-  const sports = rankDogs(pool.filter((row) => SPORT_RE.test(row.question)));
-  if (sports[0]) return sports[0];
   return rankDogs(pool)[0] ?? CLASSROOM_TICKET;
 }
 
@@ -168,7 +179,7 @@ export function shareTicketText(url: string, market?: Market) {
   return [
     "$UNDERDOG · Dog of the moment",
     parts ? `${parts.event} — ${parts.pick}` : "UFC · the underdog",
-    "The favorite is the fighter expected to win. The underdog is the fighter expected to lose.",
+    "The favorite is expected to win. The underdog is expected to lose.",
     "Same $5 wager. If the underdog wins, you win more money.",
     "That’s what an underdog is: the side expected to lose, with a bigger potential reward if they win.",
     url,
