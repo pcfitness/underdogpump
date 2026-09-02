@@ -146,11 +146,6 @@ export function DogTicket() {
                 </p>
               </div>
             </div>
-
-            <p className="mt-6 max-w-xl text-base leading-6 text-fg">
-              That’s what an underdog is: the side expected to lose, with a bigger potential reward if
-              they win.
-            </p>
           </div>
           <div className="flex flex-wrap gap-2 border-t border-line px-5 py-4 sm:px-8">
             <button
