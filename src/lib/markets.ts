@@ -134,12 +134,13 @@ export function pickDog(list: Market[], id: string | null) {
   return CLASSROOM_TICKET;
 }
 
-export function shareTicketText(market: Market, url: string) {
+export function shareTicketText(url: string) {
   return [
     "$UNDERDOG · What an underdog is",
-    market.question,
-    "The favorite is expected to win. The underdog is expected to lose.",
-    "Same wager. If the underdog wins, it generally pays more.",
+    "In a UFC fight, one fighter is the favorite and the other is the underdog.",
+    "The favorite is the fighter expected to win. The underdog is the fighter expected to lose.",
+    "Wager $5 on either. If the favorite wins, you win less money. If the underdog wins, you win more money.",
+    "That’s what an underdog is: the side expected to lose, with a bigger potential reward if they win.",
     url,
   ].join("\n");
 }
