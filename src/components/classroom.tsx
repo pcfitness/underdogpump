@@ -15,17 +15,15 @@ export function Classroom() {
       <div className="mx-auto max-w-5xl px-4 py-10 sm:py-12">
         <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Classroom</p>
         <h2 className="font-display text-5xl tracking-wide text-fg sm:text-6xl">
-          What an underdog is
+          Favorites pay less
         </h2>
         <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted">
-          You put up the same dollar. If the favorite hits, you take a little extra. If the dog
-          hits, you take a lot extra. That bigger bag is the whole word. You get paid more because
-          most nights the dog loses.
+          A favorite is the fighter or team expected to win. Because the favorite has the better chance on paper, the payout is smaller. You usually have to risk more money to win the same amount you could win by betting less on an underdog.
         </p>
         <ul className="mt-6 grid w-full max-w-lg grid-cols-3 gap-2">
-          <Stat n="$1" label="Out of pocket" />
-          <Stat n="$12" label="If the 12-to-1 hits" />
-          <Stat n="1/12" label="How often it should" />
+        <Stat n="$10" label="Your bet" />
+        <Stat n="+$$" label="If the favorite wins" />
+        <Stat n="+$$$$" label="If the underdog wins" />
         </ul>
         <div className="mt-8 grid gap-3 sm:grid-cols-3">
           {CLASSROOM.map((card) => (

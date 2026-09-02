@@ -91,20 +91,20 @@ export const LESSONS: Lesson[] = [
 export const CLASSROOM = [
   {
     n: "01",
-    label: "Same dollar",
-    title: "Less out. More back if it hits.",
-    body: "A favorite turns $1 into a little more than $1. A 12-to-1 dog turns that same $1 into $12. Same money out of your pocket. The extra is the pay for taking the lonely side.",
+    label: "Minus money",
+    title: "What the minus number means.",
+    body: "Minus money is the − minus sign next to a name or team, like −150. That's the favorite. At −150, you bet/risk $150 to win/make $100 profit. Since favorites are expected to win, they cost more to bet and pay less when they win.",
   },
   {
     n: "02",
-    label: "Sports",
-    title: "The team nobody picked.",
-    body: "Everyone is on the 1-seed. You are on the 12-seed. If they win, you do not get a pat on the back — you get a stack. That is an underdog. The price is ugly because most nights they lose.",
+    label: "Plus money",
+    title: "What the plus number means.",
+    body: "Plus money is the + plus sign next to a name or team, like +150. That is the underdog. At +150, you bet/risk $100 to win/make $150 profit. Underdogs are expected to lose, so they cost less to bet and pay more when they win.",
   },
   {
     n: "03",
-    label: "Work",
-    title: "The safe check vs the long shot.",
-    body: "Salary hits every Friday. The side project might pay for the year, or nothing. You do not bet the rent on it. You size it so you can wait. Underdogs are that kind of bet.",
+    label: "The moneyline",
+    title: "One fight. You pick who wins.",
+    body: "The moneyline is a bet on who wins. No score or point spread to figure out. The minus number is the favorite and pays less. The plus number is the underdog and pays more. You simply choose who you think will win.",
   },
 ];
