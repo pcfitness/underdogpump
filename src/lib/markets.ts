@@ -111,6 +111,14 @@ export const CLASHPICKS_EXAMPLES: Market[] = [
   },
 ];
 
+export const CLASSROOM_TICKET: Market = {
+  id: "classroom-12",
+  question: "Super Bowl — the underdog wins",
+  implied: "8.3%",
+  impliedValue: 1 / 12,
+  source: "Classroom",
+};
+
 export function splitQuestion(question: string) {
   const at = question.indexOf(" — ");
   if (at < 0) return { event: question, pick: "Long shot" };
@@ -118,20 +126,12 @@ export function splitQuestion(question: string) {
 }
 
 export function pickDog(list: Market[], id: string | null) {
+  if (id === CLASSROOM_TICKET.id) return CLASSROOM_TICKET;
   if (id) {
     const found = list.find((item) => item.id === id);
     if (found) return found;
   }
-  const clash = list.filter((item) => item.source === "ClashPicks");
-  const pool = clash.length ? clash : list;
-  const valued = pool.filter((item) => {
-    const implied = item.impliedValue ?? 0;
-    return implied >= 0.04 && implied <= 0.18 && !/— Other$/i.test(item.question);
-  });
-  const ranked = [...(valued.length ? valued : pool)].sort(
-    (a, b) => (a.impliedValue ?? 1) - (b.impliedValue ?? 1),
-  );
-  return ranked[0] ?? null;
+  return CLASSROOM_TICKET;
 }
 
 export function shareTicketText(market: Market, url: string) {
@@ -139,8 +139,8 @@ export function shareTicketText(market: Market, url: string) {
   return [
     "$UNDERDOG · Dog of the moment",
     market.question,
-    `${market.source} pays $${payout} for every $1 if this hits.`,
-    `Things priced like this hit about 1 time in ${payout}. That's why it pays — it usually loses.`,
+    `This ticket pays $${payout} for every $1 if the dog hits.`,
+    `A ${payout}-to-1 underdog is priced to win about 1 time in ${payout}. That's why it pays — it usually loses.`,
     url,
   ].join("\n");
 }
