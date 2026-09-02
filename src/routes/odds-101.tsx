@@ -18,14 +18,10 @@ function Odds101() {
   return (
     <SiteChrome>
       <main>
-        <div className="mx-auto max-w-5xl px-4 pt-6 pb-8 sm:pt-8 sm:pb-10">
+        <div className="mx-auto max-w-5xl px-4 pt-6 pb-4 sm:pt-8 sm:pb-6">
           <OddsInfographic />
         </div>
-        <Classroom />
-        <Parlays />
-        <PayoutLab />
-        <OddsTranslator />
-        <div className="mx-auto max-w-5xl px-4 py-8 sm:py-10">
+        <div className="mx-auto max-w-5xl px-4 pb-8 sm:pb-10">
           <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
             The six moves
           </p>
@@ -44,6 +40,10 @@ function Odds101() {
             ))}
           </div>
         </div>
+        <Classroom />
+        <Parlays />
+        <PayoutLab />
+        <OddsTranslator />
       </main>
     </SiteChrome>
   );
