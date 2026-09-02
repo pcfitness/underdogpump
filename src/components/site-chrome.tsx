@@ -1,4 +1,5 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { ArrowUp } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { loadClashPicks } from "@/lib/load-markets";
 import { CLASHPICKS_EXAMPLES, splitQuestion, type Market } from "@/lib/markets";
@@ -109,11 +110,41 @@ function SiteHeader() {
             <Link to="/odds-101" className="nav-link">
               Odds 101
             </Link>
+            <span className="nav-rule" aria-hidden="true">
+              |
+            </span>
+            <Link to="/" hash="how-to-buy" className="nav-link">
+              How to buy
+            </Link>
           </nav>
         </div>
       </header>
       <Ticker />
     </div>
+  );
+}
+
+function BackToTop() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > 480);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  if (!show) return null;
+
+  return (
+    <button
+      type="button"
+      aria-label="Back to top"
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      className="fixed right-4 bottom-5 z-50 inline-flex size-12 items-center justify-center rounded-full border border-accent bg-accent text-accent-fg shadow-[0_0_24px_color-mix(in_oklab,var(--color-accent)_45%,transparent)] hover:bg-accent-dim sm:right-6 sm:bottom-6"
+    >
+      <ArrowUp className="size-5" />
+    </button>
   );
 }
 
@@ -202,6 +233,15 @@ function SiteFooter() {
 }
 
 export function SiteChrome({ children }: { children: ReactNode }) {
+  const hash = useRouterState({ select: (s) => s.location.hash });
+
+  useEffect(() => {
+    if (hash !== "how-to-buy") return;
+    const jump = () => document.getElementById("how-to-buy")?.scrollIntoView({ behavior: "smooth" });
+    const timer = window.setTimeout(jump, 50);
+    return () => window.clearTimeout(timer);
+  }, [hash]);
+
   return (
     <>
       <Fog />
@@ -210,6 +250,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
           <SiteHeader />
           {children}
           <SiteFooter />
+          <BackToTop />
         </div>
       </div>
     </>
