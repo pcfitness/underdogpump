@@ -20,9 +20,7 @@ function Stat({ n, label }: { n: string; label: string }) {
   );
 }
 
-export function Hero({ variant = "home" }: { variant?: "home" | "soon" }) {
-  const soon = variant === "soon";
-
+export function Hero() {
   return (
     <section className="overflow-hidden border-b border-line">
       <div className="relative h-80 overflow-hidden md:hidden">
@@ -42,19 +40,18 @@ export function Hero({ variant = "home" }: { variant?: "home" | "soon" }) {
         <div className="absolute inset-0 hidden bg-gradient-to-r from-bg from-0% via-bg/70 to-transparent to-45% md:block" />
         <div className="relative mx-auto max-w-5xl px-4 py-8 md:flex md:min-h-[46rem] md:flex-col md:justify-end md:pt-28 md:pb-12">
           <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
-            {soon ? "Coming soon · Pump.fun" : "An OzGaming.net project · Pump.fun"}
+            An OzGaming.net project · Pump.fun
           </p>
           <h1 className="mt-3 font-display text-6xl leading-[0.85] tracking-wide text-fg sm:text-8xl">
             {SITE.ticker}
             <span className="block text-4xl text-accent sm:text-6xl">{SITE.tagline}</span>
           </h1>
           <p className="mt-5 max-w-md font-display text-3xl leading-none tracking-wide text-fg sm:text-4xl">
-            {soon ? "The contract is not live. The work is." : "Favorites are priced in. The dog still pays."}
+            Favorites are priced in. The dog still pays.
           </p>
           <p className="mt-4 max-w-md text-base leading-relaxed text-muted">
-            {soon
-              ? "Long shots are where the money is. Worse odds, bigger bag if you win. Until the CA drops here, sit in the classroom and watch the live boards."
-              : "Long shots are where the money is. Worse odds, bigger bag if you win. A 12-to-1 dog pays because it usually loses."}
+            Long shots are where the money is. Worse odds, bigger bag if you win. A 12-to-1 dog pays
+            because it usually loses.
           </p>
           <ul className="mt-6 grid w-full max-w-md grid-cols-3 gap-2">
             <Stat n="12×" label="If it hits" />
@@ -67,41 +64,21 @@ export function Hero({ variant = "home" }: { variant?: "home" | "soon" }) {
             <Chip>Contract TBA</Chip>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
-            {soon ? (
-              <>
-                <Link
-                  to="/live"
-                  className="inline-flex min-h-11 items-center gap-2 rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg no-underline hover:bg-accent-dim"
-                >
-                  Watch live boards
-                  <ArrowRight className="size-4" />
-                </Link>
-                <Link
-                  to="/odds-101"
-                  className="inline-flex min-h-11 items-center rounded-md border border-line bg-bg/60 px-5 py-2.5 text-sm font-semibold text-fg no-underline hover:border-accent hover:bg-accent/20"
-                >
-                  Open Odds 101
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/odds-101"
-                  className="inline-flex min-h-11 items-center gap-2 rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg no-underline hover:bg-accent-dim"
-                >
-                  Open Odds 101
-                  <ArrowRight className="size-4" />
-                </Link>
-                <a
-                  href={pumpUrl()}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex min-h-11 items-center rounded-md border border-line bg-bg/60 px-5 py-2.5 text-sm font-semibold text-fg no-underline hover:border-accent hover:bg-accent/20"
-                >
-                  BUY $UNDERDOG
-                </a>
-              </>
-            )}
+            <Link
+              to="/odds-101"
+              className="inline-flex min-h-11 items-center gap-2 rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg no-underline hover:bg-accent-dim"
+            >
+              Open Odds 101
+              <ArrowRight className="size-4" />
+            </Link>
+            <a
+              href={pumpUrl()}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex min-h-11 items-center rounded-md border border-line bg-bg/60 px-5 py-2.5 text-sm font-semibold text-fg no-underline hover:border-accent hover:bg-accent/20"
+            >
+              BUY $UNDERDOG
+            </a>
           </div>
         </div>
       </div>

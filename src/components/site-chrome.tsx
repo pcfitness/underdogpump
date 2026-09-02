@@ -99,7 +99,7 @@ function SiteHeader() {
             </span>
           </Link>
           <nav aria-label="Site" className="flex items-center">
-            <Link to="/live" className="nav-link">
+            <Link to="/" className="nav-link" activeOptions={{ exact: true }}>
               <span className="nav-pip" aria-hidden="true" />
               Live
             </Link>
