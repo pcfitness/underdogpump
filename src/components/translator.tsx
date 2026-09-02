@@ -75,7 +75,7 @@ export function OddsTranslator() {
         <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
           Bookmark this
         </p>
-        <h2 className="font-display text-4xl tracking-wide text-fg">Odds translator</h2>
+        <h2 className="font-display text-5xl tracking-wide text-fg sm:text-6xl">Odds translator</h2>
         <p className="mt-2 max-w-xl text-base leading-relaxed text-muted">
           Type the number you’re looking at. The other two fill in.
         </p>
