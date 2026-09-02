@@ -46,29 +46,32 @@ export function PayoutLab() {
         </p>
 
         <div className="mt-8 rounded-xl border border-line bg-elevated px-5 py-6 sm:px-8">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <label className="block min-w-40 flex-1">
-              <span className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <label className="block min-w-56 flex-1">
+              <span className="block text-sm font-semibold tracking-widest text-accent uppercase">
                 Your bet on each side
               </span>
-              <input
-                value={stakeText}
-                onChange={(event) => {
-                  setStakeText(event.target.value);
-                  setLost(null);
-                }}
-                inputMode="decimal"
-                autoComplete="off"
-                className="mt-2 h-14 w-full max-w-xs rounded-md border border-line bg-bg px-3 font-display text-3xl tracking-wide text-accent outline-none focus:border-accent"
-              />
+              <span className="mt-3 flex h-14 max-w-xs items-center rounded-md border border-line bg-bg px-3">
+                <span className="pr-2 font-display text-3xl text-accent">$</span>
+                <input
+                  value={stakeText}
+                  onChange={(event) => {
+                    setStakeText(event.target.value);
+                    setLost(null);
+                  }}
+                  inputMode="decimal"
+                  autoComplete="off"
+                  className="h-full min-w-0 flex-1 bg-transparent font-display text-3xl tracking-wide text-accent outline-none"
+                />
+              </span>
             </label>
-            <p className="font-mono text-xs tracking-widest text-muted uppercase">
+            <p className="pb-2 font-mono text-sm tracking-widest text-muted uppercase">
               Favorite {formatAmerican(favOdds)} · Underdog {formatAmerican(dogOdds)}
             </p>
           </div>
 
           <label className="mt-6 block">
-            <span className="flex justify-between text-[0.7rem] font-semibold tracking-widest text-muted uppercase">
+            <span className="flex justify-between text-sm font-semibold tracking-widest text-muted uppercase">
               <span>Bigger favorite</span>
               <span>Bigger underdog</span>
             </span>
@@ -97,21 +100,21 @@ export function PayoutLab() {
                 : "border-line bg-elevated hover:border-accent"
             }`}
           >
-            <p className="text-[0.7rem] font-semibold tracking-widest text-muted uppercase">
+            <p className="text-sm font-semibold tracking-widest text-muted uppercase">
               The favorite · {formatAmerican(favOdds)}
             </p>
-            <p className="mt-2 font-display text-3xl tracking-wide text-fg">Expected to win</p>
-            <p className="mt-6 text-[0.7rem] font-semibold tracking-widest text-muted uppercase">
+            <p className="mt-2 font-display text-4xl tracking-wide text-fg sm:text-5xl">Expected to win</p>
+            <p className="mt-6 text-sm font-semibold tracking-widest text-muted uppercase">
               If this side wins
             </p>
             <p
-              className={`font-display text-5xl leading-none tracking-wide ${
+              className={`font-display text-6xl leading-none tracking-wide ${
                 lost === "favorite" ? "text-muted line-through" : "text-fg"
               }`}
             >
               {lost === "favorite" ? "$0" : money(favBack)}
             </p>
-            <p className="mt-4 text-sm text-muted">
+            <p className="mt-4 text-base text-muted">
               {lost === "favorite" ? "Tapped lose. The bet is gone." : "Tap this ticket to mark a loss."}
             </p>
           </button>
@@ -125,21 +128,21 @@ export function PayoutLab() {
                 : "border-accent/60 bg-accent/10 hover:border-accent"
             }`}
           >
-            <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
+            <p className="text-sm font-semibold tracking-widest text-accent uppercase">
               The underdog · {formatAmerican(dogOdds)}
             </p>
-            <p className="mt-2 font-display text-3xl tracking-wide text-accent">Expected to lose</p>
-            <p className="mt-6 text-[0.7rem] font-semibold tracking-widest text-muted uppercase">
+            <p className="mt-2 font-display text-4xl tracking-wide text-accent sm:text-5xl">Expected to lose</p>
+            <p className="mt-6 text-sm font-semibold tracking-widest text-muted uppercase">
               If this side wins
             </p>
             <p
-              className={`font-display text-5xl leading-none tracking-wide ${
+              className={`font-display text-6xl leading-none tracking-wide ${
                 lost === "underdog" ? "text-muted line-through" : "text-accent"
               }`}
             >
               {lost === "underdog" ? "$0" : money(dogBack)}
             </p>
-            <p className="mt-4 text-sm text-fg">
+            <p className="mt-4 text-base text-fg">
               {lost === "underdog" ? "Tapped lose. The bet is gone." : "Tap this ticket to mark a loss."}
             </p>
           </button>
