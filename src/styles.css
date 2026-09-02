@@ -131,6 +131,68 @@
   animation: 2.4s ease-in-out infinite hit-pulse;
 }
 
+@keyframes to-top-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.86);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes to-top-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.to-top {
+  animation: 0.35s var(--ease-out) both to-top-in;
+}
+
+.to-top-orbit {
+  pointer-events: none;
+  position: absolute;
+  inset: -7px;
+  animation: 10s linear infinite to-top-orbit;
+}
+
+.to-top-orbit i {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 999px;
+  background: #f3efe6;
+  box-shadow: 0 0 6px #f3efe6;
+}
+
+.to-top-orbit i:nth-child(2) {
+  top: auto;
+  right: 0;
+  bottom: 50%;
+  left: auto;
+  margin: 0 -2px -2px 0;
+}
+
+.to-top-orbit i:nth-child(3) {
+  top: auto;
+  bottom: 0;
+  left: 50%;
+}
+
+.to-top-orbit i:nth-child(4) {
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  left: 0;
+  margin: -2px 0 0;
+}
+
 .nav-link {
   position: relative;
   display: inline-flex;
@@ -210,7 +272,9 @@
   .fog-shift,
   .ticker-track,
   .hit-pip,
-  .nav-pip {
+  .nav-pip,
+  .to-top,
+  .to-top-orbit {
     animation: none;
   }
 }
