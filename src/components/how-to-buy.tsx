@@ -23,7 +23,7 @@ function TickerMark() {
 export function HowToBuy() {
   const contract = SITE.contract.trim();
   return (
-    <section className="mx-auto max-w-5xl px-4 py-8">
+    <section id="how-to-buy" className="mx-auto max-w-5xl scroll-mt-28 px-4 py-8">
       <div className="rounded-xl border border-line bg-surface px-5 py-6 sm:px-8 sm:py-8">
         <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
           The second we go live
