@@ -86,12 +86,12 @@ function SiteHeader() {
   return (
     <div className="sticky top-0 z-40">
       <header className="border-b border-line bg-bg/90 backdrop-blur-sm">
-        <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 px-4">
-          <Link to="/" className="flex items-center gap-2 no-underline">
+        <div className="mx-auto flex h-18 max-w-5xl items-center justify-between gap-3 px-4">
+          <Link to="/" className="flex items-center gap-2.5 no-underline">
             <img
               src="/token-avatar.jpg"
               alt="$UNDERDOG"
-              className="size-10 rounded-full border border-accent bg-bg object-contain p-px"
+              className="size-14 rounded-full border border-accent bg-bg object-contain p-px"
             />
             <span className="font-display text-2xl tracking-wide text-accent">{SITE.ticker}</span>
             <span className="hidden text-xs font-medium tracking-widest text-muted uppercase sm:inline">
