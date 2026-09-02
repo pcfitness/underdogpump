@@ -50,7 +50,7 @@ export function Hero() {
             Favorites are expected to win. Underdogs pay more.
           </p>
           <p className="mt-4 max-w-md text-base leading-relaxed text-muted">
-            A 12× underdog pays $12 on a $1 bet because it is only expected to win about 1 time in 12 times.
+            A 12× underdog pays $12 on a $1 bet because it is only expected to win about 1 time in 12.
           </p>
           <ul className="mt-6 grid w-full max-w-md grid-cols-3 gap-2">
             <Stat n="12×" label="Payout if it hits" />
