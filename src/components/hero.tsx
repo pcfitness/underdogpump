@@ -47,11 +47,10 @@ export function Hero() {
             <span className="block text-4xl text-accent sm:text-6xl">{SITE.tagline}</span>
           </h1>
           <p className="mt-5 max-w-md font-display text-3xl leading-none tracking-wide text-fg sm:text-4xl">
-            Favorites are priced in. The dog still pays.
+            Favorites are expected to win. Underdogs pay more.
           </p>
           <p className="mt-4 max-w-md text-base leading-relaxed text-muted">
-            Long shots are where the money is. Worse odds, bigger bag if you win. A 12-to-1 dog pays
-            because it usually loses.
+            Long shots pay more because they win less often. A 12× pick is priced around 1 in 12. Bet $1, get $12 back if it hits.
           </p>
           <ul className="mt-6 grid w-full max-w-md grid-cols-3 gap-2">
             <Stat n="12×" label="If it hits" />

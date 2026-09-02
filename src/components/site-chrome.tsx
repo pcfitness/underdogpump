@@ -195,10 +195,7 @@ function SiteFooter() {
         <MetaCard label="Contract">{contract || "To be announced"}</MetaCard>
       </div>
       <p className="mx-auto max-w-5xl px-4 pb-10 text-xs leading-relaxed text-subtle">
-        {SITE.ticker} is an educational and entertainment project. Nothing on this site is financial
-        advice or a promise of value or return. DYOR. 18+ only. Built for speculators, traders,
-        believers. Live market data, when shown, is public information. Not affiliated with
-        Polymarket, Kalshi, DraftKings, FanDuel, or ClashPicks.
+        {SITE.ticker} is for education and entertainment only. Nothing on this site is betting or financial advice, a recommendation, or a promise of profit. You can lose money. 18+ only. Live odds, when shown, are from public sources. $UNDERDOG is not affiliated with Polymarket, Kalshi, DraftKings, FanDuel, or ClashPicks. Do your own research.
       </p>
     </footer>
   );
