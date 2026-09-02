@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Classroom } from "@/components/classroom";
 import { OddsInfographic } from "@/components/odds-infographic";
+import { Parlays } from "@/components/parlays";
 import { SiteChrome } from "@/components/site-chrome";
 import { OddsTranslator } from "@/components/translator";
 import { LESSONS } from "@/lib/site";
@@ -8,7 +9,7 @@ import { LESSONS } from "@/lib/site";
 export const Route = createFileRoute("/odds-101")({
   component: Odds101,
   head: () => ({
-    meta: [{ title: "$UNDERDOG · Odds 101" }],
+    meta: [{ title: "$UNDERDOG \u00b7 Odds 101" }],
   }),
 });
 
@@ -20,6 +21,7 @@ function Odds101() {
           <OddsInfographic />
         </div>
         <Classroom />
+        <Parlays />
         <OddsTranslator />
         <div className="mx-auto max-w-5xl px-4 py-8 sm:py-10">
           <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
