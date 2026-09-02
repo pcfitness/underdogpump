@@ -16,22 +16,22 @@ export const SITE = {
     "This project was built to educate those new at navigating prediction markets. ClashPicks, Polymarket, Kalshi, DraftKings, FanDuel, as well as the crypto and futures trading markets.",
 } as const;
 
-export function buyUrl() {
+export function pumpUrl() {
   const ca = SITE.contract.trim();
   return ca ? `https://pump.fun/coin/${ca}` : SITE.platformUrl;
 }
 
-export const PUMP_LAUNCH = {
-  name: "Underdog",
-  symbol: "UNDERDOG",
-  website: "https://www.underdogpump.xyz",
-  avatarFile: "pump-avatar.jpg",
-  avatarSpec: "1200×1200 · 1:1 square · JPG · ~470 KB",
-  description:
-    "Bet on the Dog. Long shots pay because they usually lose. $UNDERDOG is an OzGaming.net classroom for prediction markets — ClashPicks, Polymarket, Kalshi, DraftKings, FanDuel — sized like a 12-to-1. Learn the price as a percent before you ape. DYOR. 18+. underdogpump.xyz",
+export type Lesson = {
+  id: string;
+  n: number;
+  label: string;
+  kicker: string;
+  title: string;
+  body: string;
+  top: string;
 };
 
-export const LESSONS = [
+export const LESSONS: Lesson[] = [
   {
     id: "implied",
     n: 1,
@@ -86,9 +86,9 @@ export const LESSONS = [
     body: "$UNDERDOG is an educational and entertainment project. Nothing here is financial advice or a promise of value or return. Markets can go to zero. You can lose the whole stake. 18+ only. Do your own work.",
     top: "78%",
   },
-] as const;
+];
 
-export const UNDERDOG_MEANS = [
+export const CLASSROOM = [
   {
     n: "01",
     label: "Same dollar",
@@ -107,4 +107,4 @@ export const UNDERDOG_MEANS = [
     title: "The safe check vs the long shot.",
     body: "Salary hits every Friday. The side project might pay for the year, or nothing. You do not bet the rent on it. You size it so you can wait. Underdogs are that kind of bet.",
   },
-] as const;
+];

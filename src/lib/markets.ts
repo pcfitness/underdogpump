@@ -1,15 +1,15 @@
-import { payoutFromImplied } from "./odds";
+import { formatPercent, payoutFromImplied } from "./odds";
 
-export type MarketRow = {
+export type Market = {
   id: string;
   question: string;
   implied: string;
   impliedValue: number;
-  source: "ClashPicks" | "Polymarket";
+  source: string;
   href?: string;
 };
 
-export const POLY_FALLBACK: MarketRow[] = [
+export const POLYMARKET_EXAMPLES: Market[] = [
   {
     id: "ex-1",
     question: "Will Bitcoin dip to $75,000 in August?",
@@ -44,7 +44,7 @@ export const POLY_FALLBACK: MarketRow[] = [
   },
 ];
 
-export const CLASH_FALLBACK: MarketRow[] = [
+export const CLASHPICKS_EXAMPLES: Market[] = [
   {
     id: "cp-1",
     question: "U.S. Tornado Count - August 2026 — 76–100 Tornadoes",
@@ -55,8 +55,7 @@ export const CLASH_FALLBACK: MarketRow[] = [
   },
   {
     id: "cp-2",
-    question:
-      "Whale Watch: Will any bid >700K $CLASH occur by end of August? — Yes",
+    question: "Whale Watch: Will any bid >700K $CLASH occur by end of August? — Yes",
     implied: "8%",
     impliedValue: 0.08,
     source: "ClashPicks",
@@ -113,41 +112,99 @@ export const CLASH_FALLBACK: MarketRow[] = [
 ];
 
 export function splitQuestion(question: string) {
-  const i = question.indexOf(" — ");
-  if (i < 0) return { event: question, pick: "Long shot" };
-  return { event: question.slice(0, i), pick: question.slice(i + 3) };
+  const at = question.indexOf(" — ");
+  if (at < 0) return { event: question, pick: "Long shot" };
+  return { event: question.slice(0, at), pick: question.slice(at + 3) };
 }
 
-export function pickDog(rows: MarketRow[], id?: string | null) {
+export function pickDog(list: Market[], id: string | null) {
   if (id) {
-    const match = rows.find((row) => row.id === id);
-    if (match) return match;
+    const found = list.find((item) => item.id === id);
+    if (found) return found;
   }
-  const clash = rows.filter((row) => row.source === "ClashPicks");
-  const pool = clash.length ? clash : rows;
-  const ranged = pool.filter((row) => {
-    const v = row.impliedValue ?? 0;
-    return v >= 0.04 && v <= 0.18 && !/— Other$/i.test(row.question);
+  const clash = list.filter((item) => item.source === "ClashPicks");
+  const pool = clash.length ? clash : list;
+  const valued = pool.filter((item) => {
+    const implied = item.impliedValue ?? 0;
+    return implied >= 0.04 && implied <= 0.18 && !/— Other$/i.test(item.question);
   });
-  const ranked = [...(ranged.length ? ranged : pool)].sort(
+  const ranked = [...(valued.length ? valued : pool)].sort(
     (a, b) => (a.impliedValue ?? 1) - (b.impliedValue ?? 1),
   );
   return ranked[0] ?? null;
 }
 
-export function shareTicket(row: MarketRow, url: string) {
-  const n = payoutFromImplied(row.impliedValue ?? 0);
+export function shareTicketText(market: Market, url: string) {
+  const payout = payoutFromImplied(market.impliedValue ?? 0);
   return [
-    `$UNDERDOG · Dog of the moment`,
-    row.question,
-    `${row.source} pays $${n} for every $1 if this hits.`,
-    `Things priced like this hit about 1 time in ${n}. That's why it pays — it usually loses.`,
+    "$UNDERDOG · Dog of the moment",
+    market.question,
+    `${market.source} pays $${payout} for every $1 if this hits.`,
+    `Things priced like this hit about 1 time in ${payout}. That's why it pays — it usually loses.`,
     url,
   ].join("\n");
 }
 
-export function formatImplied(value: number) {
-  const pct = value * 100;
-  if (pct < 10) return `${pct.toFixed(1)}%`;
-  return `${Math.round(pct * 10) / 10}%`.replace(/\.0%/, "%");
+export function clockLabel(date: Date) {
+  return date.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+}
+
+type GammaMarket = {
+  id?: string;
+  question?: string;
+  slug?: string;
+  closed?: boolean;
+  outcomePrices?: string | string[];
+  outcomes?: string | string[];
+  groupItemTitle?: string;
+  events?: Array<{ slug?: string; title?: string }>;
+};
+
+function parseJsonList(value: unknown): string[] {
+  if (Array.isArray(value)) return value.map(String);
+  if (typeof value === "string") {
+    try {
+      const parsed = JSON.parse(value) as unknown;
+      if (Array.isArray(parsed)) return parsed.map(String);
+    } catch {
+      return [];
+    }
+  }
+  return [];
+}
+
+export function marketsFromGamma(raw: unknown): Market[] {
+  if (!Array.isArray(raw)) return [];
+  const seen = new Set<string>();
+  const out: Market[] = [];
+  for (const item of raw as GammaMarket[]) {
+    if (!item || item.closed) continue;
+    const prices = parseJsonList(item.outcomePrices).map(Number);
+    const outcomes = parseJsonList(item.outcomes);
+    let best = Infinity;
+    let pick = "";
+    prices.forEach((price, index) => {
+      if (Number.isFinite(price) && price > 0 && price < best) {
+        best = price;
+        pick = outcomes[index] ?? "";
+      }
+    });
+    if (!(best >= 0.008 && best <= 0.12)) continue;
+    const question = item.question?.trim();
+    if (!question) continue;
+    const label = pick && pick.toLowerCase() !== "yes" ? `${question} — ${pick}` : question;
+    const key = label.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const eventSlug = item.events?.[0]?.slug || item.slug;
+    out.push({
+      id: `pm-${item.id ?? out.length}`,
+      question: label,
+      implied: formatPercent(best),
+      impliedValue: best,
+      source: "Polymarket",
+      href: eventSlug ? `https://polymarket.com/event/${eventSlug}` : undefined,
+    });
+  }
+  return out.sort((a, b) => a.impliedValue - b.impliedValue).slice(0, 8);
 }

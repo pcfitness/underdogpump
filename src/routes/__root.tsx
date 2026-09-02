@@ -4,8 +4,6 @@ import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
 
 const APP_NAME = "$UNDERDOG · Bet on the Dog";
-const DESCRIPTION =
-  "OzGaming long-term project for prediction markets, long shots, and underdogs. Pre-launch on Pump.fun.";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -13,7 +11,11 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: APP_NAME },
-      { name: "description", content: DESCRIPTION },
+      {
+        name: "description",
+        content:
+          "OzGaming long-term project for prediction markets, long shots, and underdogs. Pre-launch on Pump.fun.",
+      },
       { name: "theme-color", content: "#070708" },
       { name: "apple-mobile-web-app-title", content: "$UNDERDOG" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black" },
@@ -41,24 +43,7 @@ export const Route = createRootRoute({
       <body>
         <PreviewHostBridge />
         <AuthProvider>
-          <div id="app-root">
-            <div
-              className="pointer-events-none fixed inset-0 z-0 isolate overflow-hidden"
-              aria-hidden="true"
-            >
-              <div className="fog-wash absolute inset-0 max-md:opacity-40" />
-              <div className="fog-shift absolute inset-y-[-8%] -right-[8%] hidden w-[min(34vw,26rem)] md:block">
-                <img
-                  src="/red-fog.jpg"
-                  alt=""
-                  className="size-full object-cover object-right opacity-30"
-                />
-              </div>
-            </div>
-            <div className="relative z-10">
-              <Outlet />
-            </div>
-          </div>
+          <Outlet />
         </AuthProvider>
         <Scripts />
       </body>
