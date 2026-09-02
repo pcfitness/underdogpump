@@ -141,9 +141,15 @@ function BackToTop() {
       type="button"
       aria-label="Back to top"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className="fixed right-4 bottom-5 z-50 inline-flex size-12 items-center justify-center rounded-full border border-accent bg-accent text-accent-fg shadow-[0_0_24px_color-mix(in_oklab,var(--color-accent)_45%,transparent)] hover:bg-accent-dim sm:right-6 sm:bottom-6"
+      className="to-top hit-pip fixed right-4 bottom-5 z-50 inline-flex size-12 items-center justify-center rounded-full border border-accent bg-accent text-accent-fg hover:bg-accent-dim sm:right-6 sm:bottom-6"
     >
-      <ArrowUp className="size-5" />
+      <span className="to-top-orbit" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+        <i />
+      </span>
+      <ArrowUp className="relative size-5" />
     </button>
   );
 }
