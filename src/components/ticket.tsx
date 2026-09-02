@@ -1,5 +1,5 @@
 import { ArrowUpRight, Check, Copy, Share2 } from "lucide-react";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { loadClashPicks } from "@/lib/load-markets";
 import {
   CLASSROOM_TICKET,
@@ -12,8 +12,8 @@ import {
   type Market,
 } from "@/lib/markets";
 
-function Line({ children }: { children: ReactNode }) {
-  return <p>{children}</p>;
+function eventLabel(event: string) {
+  return event.replace(/^Tennis:\s*/i, "").replace(/\s*Winner$/i, "").trim() || event;
 }
 
 export function DogTicket() {
@@ -60,6 +60,8 @@ export function DogTicket() {
     : usOpen
       ? "At the US Open, one player is the favorite and the other is the underdog."
       : "One side is the favorite and the other is the underdog.";
+  const favoriteName = market.favorite?.trim() || null;
+  const dogName = parts.pick && parts.pick !== "Long shot" ? parts.pick : null;
   const shareUrl =
     typeof window !== "undefined"
       ? `${window.location.origin}/?dog=${encodeURIComponent(market.id)}#ticket`
@@ -81,7 +83,7 @@ export function DogTicket() {
             <h2 className="font-display text-4xl tracking-wide text-fg">The ticket</h2>
           </div>
           <p className="font-mono text-xs tracking-widest text-muted uppercase">
-            {live ? "Live · ClashPicks" : "UFC example"}
+            {live ? "Live · ClashPicks" : "Example"}
           </p>
         </div>
         <article className="mt-6 overflow-hidden rounded-xl border border-line bg-elevated">
@@ -89,24 +91,29 @@ export function DogTicket() {
             <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
               {kicker}
             </p>
-            <p className="mt-3 text-base leading-snug text-muted">{parts.event}</p>
-            <h3 className="mt-1 font-display text-4xl tracking-wide text-accent sm:text-5xl">
-              {parts.pick}
+            <h3 className="mt-2 font-display text-4xl tracking-wide text-fg sm:text-5xl">
+              {eventLabel(parts.event)}
             </h3>
 
-            <div className="mt-6 max-w-2xl space-y-2.5 text-base leading-6 text-muted">
+            <div className="mt-6 max-w-xl text-base leading-6 text-muted">
               <p className="text-fg">{opener}</p>
-              <Line>The favorite is the {person} expected to win.</Line>
-              <Line>The underdog is the {person} expected to lose.</Line>
-              <p className="text-fg">
+              <ul className="mt-4 space-y-1.5 border-l border-line pl-4">
+                <li>The favorite is the {person} expected to win.</li>
+                <li>The underdog is the {person} expected to lose.</li>
+              </ul>
+              <p className="mt-5 text-fg">
                 Now imagine you wager $5 on the favorite or $5 on the underdog.
               </p>
-              <Line>If the favorite wins, your $5 wager wins you less money.</Line>
-              <p>
-                If the underdog wins, your $5 wager wins you{" "}
-                <span className="text-accent">more money</span>.
+              <ul className="mt-4 space-y-1.5 border-l border-accent/50 pl-4">
+                <li>If the favorite wins, your $5 wager wins you less money.</li>
+                <li>
+                  If the underdog wins, your $5 wager wins you{" "}
+                  <span className="text-accent">more money</span>.
+                </li>
+              </ul>
+              <p className="mt-5 text-fg">
+                Why? Because the underdog was considered less likely to win.
               </p>
-              <p className="text-fg">Why? Because the underdog was considered less likely to win.</p>
             </div>
 
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -114,10 +121,11 @@ export function DogTicket() {
                 <p className="text-[0.7rem] font-semibold tracking-widest text-muted uppercase">
                   The favorite
                 </p>
-                <p className="mt-2 font-display text-2xl leading-none tracking-wide text-muted sm:text-3xl">
-                  expected to win
+                <p className="mt-2 font-display text-3xl leading-none tracking-wide text-muted">
+                  {favoriteName ?? "expected to win"}
                 </p>
-                <p className="mt-3 font-mono text-sm tracking-wide text-muted">
+                <p className="mt-3 text-sm text-muted">Expected to win.</p>
+                <p className="mt-2 font-mono text-sm tracking-wide text-muted">
                   $5 wager
                   <span className="mx-2 text-subtle">→</span>
                   lower potential profit
@@ -127,10 +135,11 @@ export function DogTicket() {
                 <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
                   The underdog
                 </p>
-                <p className="mt-2 font-display text-2xl leading-none tracking-wide text-accent sm:text-3xl">
-                  expected to lose
+                <p className="mt-2 font-display text-3xl leading-none tracking-wide text-accent">
+                  {dogName ?? "expected to lose"}
                 </p>
-                <p className="mt-3 font-mono text-sm tracking-wide text-fg">
+                <p className="mt-3 text-sm text-fg">Expected to lose.</p>
+                <p className="mt-2 font-mono text-sm tracking-wide text-fg">
                   $5 wager
                   <span className="mx-2 text-accent">→</span>
                   higher potential profit
@@ -138,7 +147,7 @@ export function DogTicket() {
               </div>
             </div>
 
-            <p className="mt-6 max-w-2xl text-base leading-snug text-fg">
+            <p className="mt-6 max-w-xl text-base leading-6 text-fg">
               That’s what an underdog is: the side expected to lose, with a bigger potential reward if
               they win.
             </p>

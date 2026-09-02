@@ -30,6 +30,17 @@ function marketsFromClash(events: ClashEvent[]): Market[] {
     if (event.closed || event.active === false) continue;
     const title = event.title?.trim();
     if (!title) continue;
+    let favoriteName = "";
+    let favoriteP = 0;
+    for (const market of event.markets ?? []) {
+      const implied = toImplied(market.yesPercentage);
+      const pick = market.title?.trim() ?? "";
+      if (implied == null || !pick || /other$/i.test(pick)) continue;
+      if (implied > favoriteP) {
+        favoriteP = implied;
+        favoriteName = pick;
+      }
+    }
     for (const market of event.markets ?? []) {
       const implied = toImplied(market.yesPercentage);
       const pick = market.title?.trim() ?? "";
@@ -47,6 +58,7 @@ function marketsFromClash(events: ClashEvent[]): Market[] {
         impliedValue: implied,
         source: "ClashPicks",
         href: slug ? `https://www.clashpicks.com/event/${slug}` : undefined,
+        favorite: favoriteName && favoriteName !== pick ? favoriteName : undefined,
       });
     }
   }

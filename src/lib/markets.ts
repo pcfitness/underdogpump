@@ -7,6 +7,7 @@ export type Market = {
   impliedValue: number;
   source: string;
   href?: string;
+  favorite?: string;
 };
 
 export const POLYMARKET_EXAMPLES: Market[] = [
@@ -52,6 +53,7 @@ export const CLASHPICKS_EXAMPLES: Market[] = [
     impliedValue: 0.046,
     source: "ClashPicks",
     href: "https://www.clashpicks.com/event/tennis-us-open-winner-pclash",
+    favorite: "Carlos Alcaraz",
   },
   {
     id: "cp-1",
