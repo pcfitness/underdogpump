@@ -119,27 +119,57 @@ export const CLASSROOM_TICKET: Market = {
   source: "Classroom",
 };
 
+const UFC_RE = /\bufc\b|\bmma\b|fight night|octagon|bellator|\bpfl\b/i;
+const SPORT_RE =
+  /\bufc\b|\bmma\b|\bepl\b|\bnfl\b|\bnba\b|\bmlb\b|\bnhl\b|\bf1\b|\bwnba\b|\bvs\.?\b|fight night|grand prix|open winner/i;
+
+export function isUfcQuestion(question: string) {
+  return UFC_RE.test(question);
+}
+
 export function splitQuestion(question: string) {
   const at = question.indexOf(" — ");
   if (at < 0) return { event: question, pick: "Long shot" };
   return { event: question.slice(0, at), pick: question.slice(at + 3) };
 }
 
-export function pickDog(list: Market[], id: string | null) {
+function rankDogs(list: Market[]) {
+  return [...list]
+    .filter((row) => {
+      const v = row.impliedValue ?? 0;
+      return v >= 0.01 && v < 0.5 && !/— Other$/i.test(row.question);
+    })
+    .sort((a, b) => a.impliedValue - b.impliedValue);
+}
+
+export function pickClashTicket(list: Market[], id: string | null = null) {
   if (id === CLASSROOM_TICKET.id) return CLASSROOM_TICKET;
   if (id) {
     const found = list.find((item) => item.id === id);
     if (found) return found;
   }
-  return CLASSROOM_TICKET;
+  const clash = list.filter((row) => row.source === "ClashPicks");
+  const pool = clash.length ? clash : list;
+  const ufc = rankDogs(pool.filter((row) => isUfcQuestion(row.question)));
+  if (ufc[0]) return ufc[0];
+  const fight = rankDogs(pool.filter((row) => /\bvs\.?\b/i.test(row.question)));
+  if (fight[0]) return fight[0];
+  const sports = rankDogs(pool.filter((row) => SPORT_RE.test(row.question)));
+  if (sports[0]) return sports[0];
+  return rankDogs(pool)[0] ?? CLASSROOM_TICKET;
 }
 
-export function shareTicketText(url: string) {
+export function pickDog(list: Market[], id: string | null) {
+  return pickClashTicket(list, id);
+}
+
+export function shareTicketText(url: string, market?: Market) {
+  const parts = market ? splitQuestion(market.question) : null;
   return [
-    "$UNDERDOG · What an underdog is",
-    "In a UFC fight, one fighter is the favorite and the other is the underdog.",
+    "$UNDERDOG · Dog of the moment",
+    parts ? `${parts.event} — ${parts.pick}` : "UFC · the underdog",
     "The favorite is the fighter expected to win. The underdog is the fighter expected to lose.",
-    "Wager $5 on either. If the favorite wins, you win less money. If the underdog wins, you win more money.",
+    "Same $5 wager. If the underdog wins, you win more money.",
     "That’s what an underdog is: the side expected to lose, with a bigger potential reward if they win.",
     url,
   ].join("\n");

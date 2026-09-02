@@ -1,17 +1,54 @@
-import { Check, Copy, Share2 } from "lucide-react";
-import { useState } from "react";
-import { shareTicketText } from "@/lib/markets";
+import { ArrowUpRight, Check, Copy, Share2 } from "lucide-react";
+import { useEffect, useState, type ReactNode } from "react";
+import { loadClashPicks } from "@/lib/load-markets";
+import {
+  CLASSROOM_TICKET,
+  CLASHPICKS_EXAMPLES,
+  isUfcQuestion,
+  pickClashTicket,
+  shareTicketText,
+  splitQuestion,
+  type Market,
+} from "@/lib/markets";
 
-function Line({ children }: { children: string }) {
-  return <p className="max-w-2xl text-base leading-relaxed text-muted">{children}</p>;
+function Line({ children }: { children: ReactNode }) {
+  return <p>{children}</p>;
 }
 
 export function DogTicket() {
+  const [market, setMarket] = useState<Market>(CLASSROOM_TICKET);
   const [copied, setCopied] = useState<"card" | "link" | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const wanted =
+      typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("dog") : null;
+    const pull = () => {
+      loadClashPicks()
+        .then((rows) => {
+          if (cancelled) return;
+          const list = Array.isArray(rows) && rows.length ? rows : CLASHPICKS_EXAMPLES;
+          setMarket(pickClashTicket(list, wanted));
+        })
+        .catch(() => {
+          if (!cancelled) setMarket(pickClashTicket(CLASHPICKS_EXAMPLES, wanted));
+        });
+    };
+    pull();
+    const timer = window.setInterval(pull, 60_000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(timer);
+    };
+  }, []);
+
+  const parts = splitQuestion(market.question);
+  const live = market.source === "ClashPicks" && Boolean(market.href);
+  const ufc = isUfcQuestion(market.question);
   const shareUrl =
     typeof window !== "undefined"
-      ? `${window.location.origin}/#ticket`
-      : "https://underdogpump.xyz/#ticket";
+      ? `${window.location.origin}/?dog=${encodeURIComponent(market.id)}#ticket`
+      : `https://underdogpump.xyz/?dog=${encodeURIComponent(market.id)}#ticket`;
 
   const flash = (kind: "card" | "link") => {
     setCopied(kind);
@@ -21,38 +58,42 @@ export function DogTicket() {
   return (
     <section className="border-b border-line bg-surface" id="ticket">
       <div className="mx-auto max-w-5xl px-4 py-10">
-        <div>
-          <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
-            Dog of the moment
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
+              Dog of the moment
+            </p>
+            <h2 className="font-display text-4xl tracking-wide text-fg">The ticket</h2>
+          </div>
+          <p className="font-mono text-xs tracking-widest text-muted uppercase">
+            {live ? "Live · ClashPicks" : "UFC example"}
           </p>
-          <h2 className="font-display text-4xl tracking-wide text-fg">The ticket</h2>
         </div>
         <article className="mt-6 overflow-hidden rounded-xl border border-line bg-elevated">
           <div className="px-5 py-6 sm:px-8 sm:py-8">
             <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
-              UFC example
+              {ufc ? "UFC · ClashPicks" : live ? "ClashPicks ticket" : "UFC example"}
             </p>
-            <h3 className="mt-2 font-display text-4xl tracking-wide text-accent sm:text-5xl">
-              THE UNDERDOG
+            <p className="mt-3 text-base leading-snug text-muted">{parts.event}</p>
+            <h3 className="mt-1 font-display text-4xl tracking-wide text-accent sm:text-5xl">
+              {parts.pick}
             </h3>
 
-            <div className="mt-6 space-y-3">
-              <p className="max-w-2xl text-base leading-relaxed text-fg">
+            <div className="mt-5 max-w-2xl space-y-1 text-base leading-5 text-muted">
+              <p className="text-fg">
                 In a UFC fight, one fighter is the favorite and the other is the underdog.
               </p>
               <Line>The favorite is the fighter expected to win.</Line>
               <Line>The underdog is the fighter expected to lose.</Line>
-              <p className="max-w-2xl pt-1 text-base leading-relaxed text-fg">
+              <p className="text-fg">
                 Now imagine you wager $5 on the favorite or $5 on the underdog.
               </p>
               <Line>If the favorite wins, your $5 wager wins you less money.</Line>
-              <p className="max-w-2xl text-base leading-relaxed text-muted">
+              <p>
                 If the underdog wins, your $5 wager wins you{" "}
                 <span className="text-accent">more money</span>.
               </p>
-              <p className="max-w-2xl text-base leading-relaxed text-fg">
-                Why? Because the underdog was considered less likely to win.
-              </p>
+              <p className="text-fg">Why? Because the underdog was considered less likely to win.</p>
             </div>
 
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -84,7 +125,7 @@ export function DogTicket() {
               </div>
             </div>
 
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-fg">
+            <p className="mt-6 max-w-2xl text-base leading-snug text-fg">
               That’s what an underdog is: the side expected to lose, with a bigger potential reward if
               they win.
             </p>
@@ -93,11 +134,11 @@ export function DogTicket() {
             <button
               type="button"
               onClick={async () => {
-                const text = shareTicketText(shareUrl);
+                const text = shareTicketText(shareUrl, market);
                 if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
                   try {
                     await navigator.share({
-                      title: "$UNDERDOG · What an underdog is",
+                      title: "$UNDERDOG · Dog of the moment",
                       text,
                       url: shareUrl,
                     });
@@ -125,6 +166,17 @@ export function DogTicket() {
               {copied === "link" ? <Check className="size-4" /> : <Copy className="size-4" />}
               {copied === "link" ? "Link copied" : "Copy link"}
             </button>
+            {market.href ? (
+              <a
+                href={market.href}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-line px-4 py-2.5 text-sm font-semibold text-fg no-underline hover:border-accent"
+              >
+                Open on ClashPicks
+                <ArrowUpRight className="size-4" />
+              </a>
+            ) : null}
           </div>
         </article>
       </div>
