@@ -50,12 +50,12 @@ export function Hero() {
             Favorites are expected to win. Underdogs pay more.
           </p>
           <p className="mt-4 max-w-md text-base leading-relaxed text-muted">
-            Long shots pay more because they win less often. A 12× pick is priced around 1 in 12. Bet $1, get $12 back if it hits.
+            A 12× underdog pays $12 on a $1 bet because it is only expected to win about 1 time in 12 times.
           </p>
           <ul className="mt-6 grid w-full max-w-md grid-cols-3 gap-2">
-            <Stat n="12×" label="If it hits" />
-            <Stat n="1/12" label="How often" />
-            <Stat n="$12" label="Back on $1" />
+            <Stat n="12×" label="Payout if it hits" />
+            <Stat n="1/12" label="How often it should win" />
+            <Stat n="$12" label="Earned on a $1 bet" />
           </ul>
           <div className="mt-6 flex flex-wrap gap-2">
             <Chip>{SITE.status}</Chip>
