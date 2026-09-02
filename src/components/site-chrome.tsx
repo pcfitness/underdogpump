@@ -84,6 +84,9 @@ function Ticker() {
 }
 
 function SiteHeader() {
+  const hash = useRouterState({ select: (state) => state.location.hash });
+  const onHowToBuy = hash === "how-to-buy";
+
   return (
     <div className="sticky top-0 z-40">
       <header className="border-b border-line bg-bg/90 backdrop-blur-sm">
@@ -113,9 +116,9 @@ function SiteHeader() {
             <span className="nav-rule" aria-hidden="true">
               |
             </span>
-            <Link to="/" hash="how-to-buy" className="nav-link">
+            <a href="/#how-to-buy" className="nav-link" data-status={onHowToBuy ? "active" : undefined}>
               How to buy
-            </Link>
+            </a>
           </nav>
         </div>
       </header>
