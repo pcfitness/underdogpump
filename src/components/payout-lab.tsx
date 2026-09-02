@@ -39,12 +39,12 @@ export function PayoutLab() {
         <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
           Play money
         </p>
-        <h2 className="font-display text-5xl tracking-wide text-fg sm:text-6xl">Same fight. Two pays.</h2>
+        <h2 className="font-display text-5xl tracking-wide text-fg sm:text-6xl">Favorite vs Underdog.</h2>
         <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted">
           Type a bet. Drag the line. Watch the favorite pay less and the underdog pay more. Tap a
           ticket to see a loss. Practice money only.
         </p>
-
+git
         <div className="mt-8 rounded-xl border border-line bg-elevated px-5 py-6 sm:px-8">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <label className="block min-w-56 flex-1">
