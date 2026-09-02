@@ -97,14 +97,14 @@ export function DogTicket() {
 
             <div className="mt-6 max-w-xl text-base leading-6 text-muted">
               <p className="text-fg">{opener}</p>
-              <ul className="mt-4 space-y-1.5 border-l border-line pl-4">
+              <ul className="mt-4 space-y-1.5 border-l-2 border-accent pl-4 leading-snug">
                 <li>The favorite is the {person} expected to win.</li>
                 <li>The underdog is the {person} expected to lose.</li>
               </ul>
               <p className="mt-5 text-fg">
                 Now imagine you wager $5 on the favorite or $5 on the underdog.
               </p>
-              <ul className="mt-4 space-y-1.5 border-l border-accent/50 pl-4">
+              <ul className="mt-4 space-y-1.5 border-l-2 border-accent pl-4 leading-snug">
                 <li>If the favorite wins, your $5 wager wins you less money.</li>
                 <li>
                   If the underdog wins, your $5 wager wins you{" "}
