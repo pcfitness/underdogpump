@@ -44,7 +44,6 @@ export function PayoutLab() {
           Type a bet. Drag the line. Watch the favorite pay less and the underdog pay more. Tap a
           ticket to see a loss. Practice money only.
         </p>
-git
         <div className="mt-8 rounded-xl border border-line bg-elevated px-5 py-6 sm:px-8">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <label className="block min-w-56 flex-1">
