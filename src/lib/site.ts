@@ -38,7 +38,7 @@ export const LESSONS: Lesson[] = [
     label: "Implied odds",
     kicker: "Price is a probability",
     title: "Every price is a percent",
-    body: "Decimal 4.00 means the market is pricing a 25% chance (1 ÷ 4). American +300 is the same math. If you think it hits more often than that, you found an underdog with value. If you just like the story, you found a donation.",
+    body: "A price shows the sportsbook’s estimated chance. If it works out to 1 in 4, that side is priced at 25%. You can disagree. If you think it wins more often, the bet may have value. If you just like the story, you are donating.",
     top: "28%",
   },
   {
@@ -46,8 +46,8 @@ export const LESSONS: Lesson[] = [
     n: 2,
     label: "Long shots",
     kicker: "Big number, thin ice",
-    title: "A 12x is not free money",
-    body: "Long shots pay because they usually lose. A 12.00 price implies about an 8% chance before fees. You need that event to be more likely than the market says — not merely exciting. Underdogs are a study in patience, not a lottery ticket.",
+    title: "A big payout is not free money",
+    body: "A long shot pays a lot because it is expected to lose more often. That is the trade. A huge payout does not make it a good bet. Bet small. Be patient. If you need that ticket to hit tonight, it is the wrong ticket.",
     top: "38%",
   },
   {
@@ -55,8 +55,8 @@ export const LESSONS: Lesson[] = [
     n: 3,
     label: "The vig",
     kicker: "The cut you never see",
-    title: "Books and pools take a slice",
-    body: "Sportsbooks build juice into both sides so the implied probabilities add up to more than 100%. Prediction pools take a fee or spread. Always convert the posted price back to a percent, then ask what you are paying for the privilege of being wrong.",
+    title: "The house takes a cut",
+    body: "Sportsbooks are not charities. Their edge is built into the odds. That means the prices are tilted slightly in their favor. Convert the odds back into a simple chance, then decide if the bet still looks good after the house gets its cut.",
     top: "48%",
   },
   {
@@ -64,8 +64,8 @@ export const LESSONS: Lesson[] = [
     n: 4,
     label: "Underdog value",
     kicker: "When the crowd is loud",
-    title: "Value is a disagreement",
-    body: "An underdog is only a bet when your number is higher than the market’s. Favorites get overbet because they feel safe. Long shots get overbet because they feel cinematic. The edge, when it exists, is in the boring gap between those two feelings.",
+    title: "When the underdog is a smart bet",
+    body: "An underdog is only interesting if you think it wins more often than the price says. Favorites can get overbet because they feel safer. Long shots can get overbet because they feel exciting. The gap between those feelings is where a price can be wrong.",
     top: "58%",
   },
   {
@@ -73,8 +73,8 @@ export const LESSONS: Lesson[] = [
     n: 5,
     label: "Bankroll",
     kicker: "Stay in the game",
-    title: "Never bet the bag",
-    body: "Size so a losing streak is survivable. One or two percent of a dedicated bankroll per opinion is a starting point, not a promise. If a loss would change how you sleep, the size is wrong — even if the price is right.",
+    title: "Never bet the rent",
+    body: "Only bet money you can lose and still sleep. Use a small piece of a separate pile, not the bills. If one loss would change your week, the bet is too big — even if you love the pick. Good bets still lose, so protect the bankroll first.",
     top: "68%",
   },
   {
@@ -83,7 +83,7 @@ export const LESSONS: Lesson[] = [
     label: "DYOR",
     kicker: "Entertainment, not advice",
     title: "This is a classroom, not a tip sheet",
-    body: "$UNDERDOG is an educational and entertainment project. Nothing here is financial advice or a promise of value or return. Markets can go to zero. You can lose the whole stake. 18+ only. Do your own work.",
+    body: "$UNDERDOG is for education and entertainment. Nothing here is financial advice, a guaranteed pick, or a promise of profit. Betting involves risk, and you can lose the entire stake. Odds and outcomes can change. 18+ only. Do your own work.",
     top: "78%",
   },
 ];
