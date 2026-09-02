@@ -11,29 +11,42 @@ import {
 import { loadClashPicks } from "@/lib/load-markets";
 import { payoutFromImplied } from "@/lib/odds";
 
-function FairPrice({ payout }: { payout: number }) {
-  const total = Math.max(2, Math.round(payout));
-  const misses = total - 1;
+function WhyTheDogPays({ payout }: { payout: number }) {
+  const pile = Math.max(2, Math.round(payout));
   return (
     <div className="mt-8 max-w-lg">
       <p className="text-[0.65rem] font-semibold tracking-widest text-subtle uppercase">
-        Buy this ticket {total} times at $1
+        Same $1.
       </p>
-      <ul className="mt-3 grid grid-cols-2 gap-2">
-        <li className="rounded-md border border-accent/50 bg-accent/10 px-4 py-4">
-          <p className="font-display text-4xl leading-none tracking-wide text-accent">1 win</p>
-          <p className="mt-2 text-sm text-fg">Pays ${total} back</p>
-        </li>
-        <li className="rounded-md border border-line bg-bg/70 px-4 py-4">
-          <p className="font-display text-4xl leading-none tracking-wide text-muted">
-            {misses} losses
+      <div className="mt-3 grid grid-cols-2 gap-2">
+        <div className="rounded-md border border-line bg-bg/70 px-4 py-5">
+          <p className="text-[0.65rem] font-semibold tracking-widest text-muted uppercase">
+            Everybody's team
           </p>
-          <p className="mt-2 text-sm text-muted">Pays $0</p>
-        </li>
-      </ul>
+          <p className="mt-4 font-display text-5xl leading-none tracking-wide text-muted">snack</p>
+          <p className="mt-3 text-sm leading-relaxed text-muted">
+            The famous team. They win all the time.
+          </p>
+        </div>
+        <div className="rounded-md border border-accent/50 bg-accent/10 px-4 py-5">
+          <p className="text-[0.65rem] font-semibold tracking-widest text-accent uppercase">
+            The little dog
+          </p>
+          <div className="mt-4 flex items-center gap-2">
+            <img
+              src="/token-avatar.jpg"
+              alt=""
+              className="size-9 rounded-full border border-accent object-contain"
+            />
+            <p className="font-display text-5xl leading-none tracking-wide text-accent">${pile}</p>
+          </div>
+          <p className="mt-3 text-sm leading-relaxed text-fg">
+            Nobody thinks he wins. If he does, you get the whole pizza.
+          </p>
+        </div>
+      </div>
       <p className="mt-3 text-sm leading-relaxed text-muted">
-        ${total} in. ${total} back. That is a fair {total}x. You only beat the price if you think the
-        dog wins <span className="text-fg">more than once</span>.
+        Harder thing. Bigger prize. That’s betting on the underdog.
       </p>
     </div>
   );
@@ -112,7 +125,7 @@ export function DogTicket() {
                 Only interesting if you think the dog wins <span className="text-fg">more often</span>{" "}
                 than 1 in {payout}.
               </p>
-              <FairPrice payout={payout} />
+              <WhyTheDogPays payout={payout} />
             </div>
             <div className="flex flex-col justify-between gap-6 border-t border-line bg-elevated px-5 py-6 sm:px-8 sm:py-8 md:border-t-0 md:border-l">
               <p className="text-sm leading-relaxed text-muted">
