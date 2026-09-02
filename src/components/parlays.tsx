@@ -107,7 +107,7 @@ export function Parlays() {
                 <div className="min-w-0 flex-1">
                   <p className="font-display text-xl tracking-wide text-fg">Fight {index + 1}</p>
                   <p className="text-sm text-muted">
-                    {side === "favorite" ? "Favorite \u00b7 \u2212150" : "Underdog \u00b7 +150"}
+                    {side === "favorite" ? "Favorite · -150" : "Underdog · +150"}
                   </p>
                 </div>
                 <div className="flex rounded-md border border-line p-1">
@@ -143,9 +143,8 @@ export function Parlays() {
                 {money(ifAllWin)}
               </p>
               <p className="mt-2 text-sm text-muted">
-                {favCount} {favCount === 1 ? "favorite" : "favorites"}
-                {" \u00b7 "}
-                {dogCount} {dogCount === 1 ? "underdog" : "underdogs"}
+                {favCount} {favCount === 1 ? "favorite" : "favorites"} · {dogCount}{" "}
+                {dogCount === 1 ? "underdog" : "underdogs"}
               </p>
             </div>
             <div className="bg-accent/10 px-5 py-5 sm:px-8">
@@ -159,7 +158,7 @@ export function Parlays() {
 
           <p className="border-t border-line px-5 py-4 text-base leading-relaxed text-fg sm:px-8">
             More picks can pay more. They also need more things to go right. This ticket uses the
-            same classroom numbers: \u2212150 on a favorite, +150 on an underdog. Real apps change those
+            same classroom numbers: -150 on a favorite, +150 on an underdog. Real apps change those
             numbers every fight.
           </p>
 
@@ -170,7 +169,7 @@ export function Parlays() {
                 if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
                   try {
                     await navigator.share({
-                      title: "$UNDERDOG \u00b7 Parlays",
+                      title: "$UNDERDOG · Parlays",
                       text: shareText,
                       url: shareUrl,
                     });
