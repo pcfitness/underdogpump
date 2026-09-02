@@ -1,4 +1,4 @@
-import { formatPercent, payoutFromImplied } from "./odds";
+import { formatPercent } from "./odds";
 
 export type Market = {
   id: string;
@@ -112,8 +112,8 @@ export const CLASHPICKS_EXAMPLES: Market[] = [
 ];
 
 export const CLASSROOM_TICKET: Market = {
-  id: "classroom-12",
-  question: "Super Bowl — the underdog wins",
+  id: "classroom-ufc",
+  question: "UFC main event — the underdog",
   implied: "8.3%",
   impliedValue: 1 / 12,
   source: "Classroom",
@@ -135,12 +135,11 @@ export function pickDog(list: Market[], id: string | null) {
 }
 
 export function shareTicketText(market: Market, url: string) {
-  const payout = payoutFromImplied(market.impliedValue ?? 0);
   return [
-    "$UNDERDOG · Dog of the moment",
+    "$UNDERDOG · What an underdog is",
     market.question,
-    `This ticket pays $${payout} for every $1 if the dog hits.`,
-    `A ${payout}-to-1 underdog is priced to win about 1 time in ${payout}. That's why it pays — it usually loses.`,
+    "The favorite is expected to win. The underdog is expected to lose.",
+    "Same wager. If the underdog wins, it generally pays more.",
     url,
   ].join("\n");
 }

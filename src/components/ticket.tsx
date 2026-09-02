@@ -9,44 +9,35 @@ import {
   type Market,
 } from "@/lib/markets";
 import { loadClashPicks } from "@/lib/load-markets";
-import { payoutFromImplied } from "@/lib/odds";
 
-function WhyTheDogPays({ payout }: { payout: number }) {
-  const pile = Math.max(2, Math.round(payout));
+function UnderdogMeans() {
   return (
     <div className="mt-8 max-w-lg">
       <p className="text-[0.65rem] font-semibold tracking-widest text-subtle uppercase">
-        Same $1.
+        What an underdog is
       </p>
       <div className="mt-3 grid grid-cols-2 gap-2">
         <div className="rounded-md border border-line bg-bg/70 px-4 py-5">
           <p className="text-[0.65rem] font-semibold tracking-widest text-muted uppercase">
-            Everybody's team
+            The favorite
           </p>
-          <p className="mt-4 font-display text-5xl leading-none tracking-wide text-muted">snack</p>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            The famous team. They win all the time.
+          <p className="mt-4 font-display text-3xl leading-none tracking-wide text-muted">
+            expected to win
           </p>
+          <p className="mt-3 text-sm leading-relaxed text-muted">Same $1 pays less.</p>
         </div>
         <div className="rounded-md border border-accent/50 bg-accent/10 px-4 py-5">
           <p className="text-[0.65rem] font-semibold tracking-widest text-accent uppercase">
-            The little dog
+            The underdog
           </p>
-          <div className="mt-4 flex items-center gap-2">
-            <img
-              src="/token-avatar.jpg"
-              alt=""
-              className="size-9 rounded-full border border-accent object-contain"
-            />
-            <p className="font-display text-5xl leading-none tracking-wide text-accent">${pile}</p>
-          </div>
-          <p className="mt-3 text-sm leading-relaxed text-fg">
-            Nobody thinks he wins. If he does, you get the whole pizza.
+          <p className="mt-4 font-display text-3xl leading-none tracking-wide text-accent">
+            expected to lose
           </p>
+          <p className="mt-3 text-sm leading-relaxed text-fg">Same $1 generally pays more.</p>
         </div>
       </div>
       <p className="mt-3 text-sm leading-relaxed text-muted">
-        Harder thing. Bigger prize. That’s betting on the underdog.
+        That’s the word. It does not change because of where you put the wager.
       </p>
     </div>
   );
@@ -76,7 +67,6 @@ export function DogTicket() {
   }, []);
 
   const parts = splitQuestion(market.question);
-  const payout = payoutFromImplied(market.impliedValue ?? 0);
   const shareUrl =
     typeof window !== "undefined"
       ? `${window.location.origin}/?dog=${encodeURIComponent(market.id)}`
@@ -99,39 +89,36 @@ export function DogTicket() {
             <h2 className="font-display text-4xl tracking-wide text-fg">The ticket</h2>
           </div>
           <p className="font-mono text-xs tracking-widest text-muted uppercase">
-            {classroom ? "Classroom example" : `${market.source} example`}
+            {classroom ? "The word" : `${market.source} example`}
           </p>
         </div>
         <article className="mt-6 overflow-hidden rounded-xl border border-line bg-elevated">
           <div className="grid gap-0 md:grid-cols-[1.3fr_0.7fr]">
             <div className="relative bg-elevated px-5 py-6 sm:px-8 sm:py-8">
               <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
-                {classroom ? "Classroom ticket" : `${market.source} ticket`}
+                UFC example
               </p>
               <p className="mt-4 text-lg leading-snug font-medium text-muted">{parts.event}</p>
               <h3 className="mt-1 font-display text-5xl leading-none tracking-wide text-fg">
                 {parts.pick}
               </h3>
               <p className="mt-6 max-w-lg text-xl leading-snug text-fg">
-                This ticket pays{" "}
-                <span className="text-accent">${payout} for every $1</span> if the dog hits.
+                Two fighters. Same $1. One is expected to win. One is expected to lose.
               </p>
               <p className="mt-3 max-w-lg text-base leading-relaxed text-muted">
-                A {payout}-to-1 underdog is priced to win about{" "}
-                <span className="text-fg">1 time in {payout}</span>. That’s why it pays. Not because
-                it’s a secret. Because it usually loses.
+                The favorite is the fighter everyone expects to win. The underdog is the fighter
+                everyone expects to lose.
               </p>
               <p className="mt-3 max-w-lg text-base leading-relaxed text-muted">
-                Only interesting if you think the dog wins <span className="text-fg">more often</span>{" "}
-                than 1 in {payout}.
+                Put the same wager on either one. If the underdog wins, that wager generally{" "}
+                <span className="text-fg">pays more</span>.
               </p>
-              <WhyTheDogPays payout={payout} />
+              <UnderdogMeans />
             </div>
             <div className="flex flex-col justify-between gap-6 border-t border-line bg-elevated px-5 py-6 sm:px-8 sm:py-8 md:border-t-0 md:border-l">
               <p className="text-sm leading-relaxed text-muted">
-                {classroom
-                  ? "A made-up ticket so the math is obvious. Same idea as a real long shot on ClashPicks or Polymarket. Not a bet. A question."
-                  : `Public price from ${market.source}. $UNDERDOG is not affiliated. Nothing here is a recommendation to buy the pick or the token. Not a bet. A question.`}
+                Not a tip. A definition. Sportsbook, fight night, anywhere you can put a wager — the
+                word is the same.
               </p>
               <div className="flex flex-col gap-2">
                 <button
@@ -141,7 +128,7 @@ export function DogTicket() {
                     if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
                       try {
                         await navigator.share({
-                          title: "$UNDERDOG · Dog of the moment",
+                          title: "$UNDERDOG · What an underdog is",
                           text,
                           url: shareUrl,
                         });
