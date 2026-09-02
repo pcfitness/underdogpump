@@ -98,7 +98,7 @@ function SiteHeader() {
               {SITE.tagline}
             </span>
           </Link>
-          <nav aria-label="Site" className="flex items-center">
+          <nav aria-label="Site" className="flex shrink-0 items-center">
             <Link to="/" className="nav-link" activeOptions={{ exact: true }}>
               <span className="nav-pip" aria-hidden="true" />
               Live

@@ -142,6 +142,7 @@
   font-size: 1.35rem;
   letter-spacing: 0.12em;
   line-height: 1;
+  white-space: nowrap;
   color: var(--color-fg);
   text-decoration: none;
   transition: color 150ms var(--ease-out);
@@ -190,6 +191,19 @@
   box-shadow:
     0 0 0 3px var(--color-bg),
     0 0 22px color-mix(in oklab, var(--color-accent) 42%, transparent);
+}
+
+@media (width <= 639px) {
+  .nav-link {
+    padding: 0 0.45rem;
+    font-size: 1.15rem;
+    letter-spacing: 0.08em;
+  }
+
+  .nav-link[data-status="active"]::after {
+    right: 0.45rem;
+    left: 0.45rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
