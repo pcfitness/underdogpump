@@ -109,15 +109,11 @@ export function PayoutLab() {
                 lost === "favorite" ? "text-muted line-through" : "text-fg"
               }`}
             >
-              {money(favBack)}
+              {lost === "favorite" ? "$0" : money(favBack)}
             </p>
-            <p className="mt-4 text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
-              If you tapped lose
+            <p className="mt-4 text-sm text-muted">
+              {lost === "favorite" ? "Tapped lose. The bet is gone." : "Tap this ticket to mark a loss."}
             </p>
-            <p className="font-display text-4xl leading-none tracking-wide text-accent">
-              {lost === "favorite" ? "$0" : money(stake)}
-            </p>
-            <p className="mt-3 text-sm text-muted">Tap this ticket to mark it a loss.</p>
           </button>
 
           <button
@@ -141,15 +137,11 @@ export function PayoutLab() {
                 lost === "underdog" ? "text-muted line-through" : "text-accent"
               }`}
             >
-              {money(dogBack)}
+              {lost === "underdog" ? "$0" : money(dogBack)}
             </p>
-            <p className="mt-4 text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
-              If you tapped lose
+            <p className="mt-4 text-sm text-fg">
+              {lost === "underdog" ? "Tapped lose. The bet is gone." : "Tap this ticket to mark a loss."}
             </p>
-            <p className="font-display text-4xl leading-none tracking-wide text-accent">
-              {lost === "underdog" ? "$0" : money(stake)}
-            </p>
-            <p className="mt-3 text-sm text-fg">Tap this ticket to mark it a loss.</p>
           </button>
         </div>
       </div>
