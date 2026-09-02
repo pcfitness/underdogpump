@@ -142,55 +142,37 @@
   }
 }
 
-@keyframes to-top-orbit {
+@keyframes to-top-rings {
+  0%,
   to {
-    transform: rotate(360deg);
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.2;
+    transform: scale(1.04);
   }
 }
 
 .to-top {
+  overflow: hidden;
   animation: 0.35s var(--ease-out) both to-top-in;
 }
 
-.to-top-orbit {
+.to-top-ring {
   pointer-events: none;
   position: absolute;
-  inset: -7px;
-  animation: 10s linear infinite to-top-orbit;
-}
-
-.to-top-orbit i {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 4px;
-  height: 4px;
-  margin-left: -2px;
+  inset: 7px;
   border-radius: 999px;
-  background: #f3efe6;
-  box-shadow: 0 0 6px #f3efe6;
+  border: 1px solid rgb(243 239 230 / 0.28);
+  background: linear-gradient(180deg, rgb(243 239 230 / 0.16), rgb(243 239 230 / 0));
+  animation: 3.2s ease-in-out infinite to-top-rings;
 }
 
-.to-top-orbit i:nth-child(2) {
-  top: auto;
-  right: 0;
-  bottom: 50%;
-  left: auto;
-  margin: 0 -2px -2px 0;
-}
-
-.to-top-orbit i:nth-child(3) {
-  top: auto;
-  bottom: 0;
-  left: 50%;
-}
-
-.to-top-orbit i:nth-child(4) {
-  top: 50%;
-  right: auto;
-  bottom: auto;
-  left: 0;
-  margin: -2px 0 0;
+.to-top-ring-2 {
+  inset: 12px;
+  border-color: rgb(243 239 230 / 0.16);
+  animation-delay: 0.6s;
 }
 
 .nav-link {
@@ -274,7 +256,7 @@
   .hit-pip,
   .nav-pip,
   .to-top,
-  .to-top-orbit {
+  .to-top-ring {
     animation: none;
   }
 }
