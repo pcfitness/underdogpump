@@ -3,7 +3,7 @@ import { useState } from "react";
 import { shareTicketText } from "@/lib/markets";
 
 function Line({ children }: { children: string }) {
-  return <p className="max-w-2xl text-lg leading-relaxed text-muted">{children}</p>;
+  return <p className="max-w-2xl text-base leading-relaxed text-muted">{children}</p>;
 }
 
 export function DogTicket() {
@@ -28,55 +28,55 @@ export function DogTicket() {
           <h2 className="font-display text-4xl tracking-wide text-fg">The ticket</h2>
         </div>
         <article className="mt-6 overflow-hidden rounded-xl border border-line bg-elevated">
-          <div className="px-5 py-6 sm:px-8 sm:py-10">
+          <div className="px-5 py-6 sm:px-8 sm:py-8">
             <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
               UFC example
             </p>
-            <h3 className="mt-3 font-display text-6xl leading-[0.85] tracking-wide text-accent sm:text-8xl">
+            <h3 className="mt-2 font-display text-4xl tracking-wide text-accent sm:text-5xl">
               THE UNDERDOG
             </h3>
 
-            <div className="mt-8 space-y-4">
-              <p className="max-w-2xl text-xl leading-snug text-fg">
+            <div className="mt-6 space-y-3">
+              <p className="max-w-2xl text-base leading-relaxed text-fg">
                 In a UFC fight, one fighter is the favorite and the other is the underdog.
               </p>
               <Line>The favorite is the fighter expected to win.</Line>
               <Line>The underdog is the fighter expected to lose.</Line>
-              <p className="max-w-2xl pt-2 text-xl leading-snug text-fg">
+              <p className="max-w-2xl pt-1 text-base leading-relaxed text-fg">
                 Now imagine you wager $5 on the favorite or $5 on the underdog.
               </p>
               <Line>If the favorite wins, your $5 wager wins you less money.</Line>
-              <p className="max-w-2xl text-lg leading-relaxed text-muted">
+              <p className="max-w-2xl text-base leading-relaxed text-muted">
                 If the underdog wins, your $5 wager wins you{" "}
                 <span className="text-accent">more money</span>.
               </p>
-              <p className="max-w-2xl text-lg leading-relaxed text-fg">
+              <p className="max-w-2xl text-base leading-relaxed text-fg">
                 Why? Because the underdog was considered less likely to win.
               </p>
             </div>
 
-            <div className="mt-10 grid gap-3 sm:grid-cols-2">
-              <div className="rounded-lg border border-line bg-bg/70 px-5 py-6">
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <div className="rounded-lg border border-line bg-bg/70 px-4 py-5">
                 <p className="text-[0.7rem] font-semibold tracking-widest text-muted uppercase">
                   The favorite
                 </p>
-                <p className="mt-3 font-display text-4xl leading-none tracking-wide text-muted sm:text-5xl">
+                <p className="mt-2 font-display text-2xl leading-none tracking-wide text-muted sm:text-3xl">
                   expected to win
                 </p>
-                <p className="mt-4 font-mono text-sm tracking-wide text-muted">
+                <p className="mt-3 font-mono text-sm tracking-wide text-muted">
                   $5 wager
                   <span className="mx-2 text-subtle">→</span>
                   lower potential profit
                 </p>
               </div>
-              <div className="rounded-lg border border-accent/60 bg-accent/10 px-5 py-6">
+              <div className="rounded-lg border border-accent/60 bg-accent/10 px-4 py-5">
                 <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
                   The underdog
                 </p>
-                <p className="mt-3 font-display text-4xl leading-none tracking-wide text-accent sm:text-5xl">
+                <p className="mt-2 font-display text-2xl leading-none tracking-wide text-accent sm:text-3xl">
                   expected to lose
                 </p>
-                <p className="mt-4 font-mono text-sm tracking-wide text-fg">
+                <p className="mt-3 font-mono text-sm tracking-wide text-fg">
                   $5 wager
                   <span className="mx-2 text-accent">→</span>
                   higher potential profit
@@ -84,7 +84,7 @@ export function DogTicket() {
               </div>
             </div>
 
-            <p className="mt-8 max-w-3xl font-display text-3xl leading-none tracking-wide text-fg sm:text-5xl">
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-fg">
               That’s what an underdog is: the side expected to lose, with a bigger potential reward if
               they win.
             </p>
