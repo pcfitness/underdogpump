@@ -39,7 +39,7 @@ export function PayoutLab() {
         <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
           Play money
         </p>
-        <h2 className="font-display text-5xl tracking-wide text-fg sm:text-6xl">Favorite vs Underdog.</h2>
+        <h2 className="font-display text-5xl tracking-wide text-fg sm:text-6xl">Favorite vs Underdog</h2>
         <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted">
           Type a bet. Drag the line. Watch the favorite pay less and the underdog pay more. Tap a
           ticket to see a loss. Practice money only.
