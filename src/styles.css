@@ -239,20 +239,20 @@
 
 @media (width <= 639px) {
   .nav-link {
-    padding: 0 0.22rem;
-    font-size: 0.9rem;
-    letter-spacing: 0.04em;
-    gap: 0.22rem;
+    padding: 0 0.28rem;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    gap: 0.25rem;
   }
 
   .nav-link[data-status="active"]::after {
-    right: 0.22rem;
-    left: 0.22rem;
+    right: 0.28rem;
+    left: 0.28rem;
   }
 
   .nav-rule {
-    font-size: 0.9rem;
-    padding: 0 0.04rem;
+    font-size: 1rem;
+    padding: 0 0.06rem;
   }
 
   .nav-pip {
