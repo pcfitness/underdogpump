@@ -94,7 +94,7 @@ function Hero() {
             <span className="block text-4xl text-accent sm:text-6xl">{SITE.tagline}</span>
           </h1>
           <p className="mt-5 max-w-md font-display text-3xl leading-none tracking-wide text-fg sm:text-4xl">
-            Favorites are expected to win. Underdogs pay more.
+            A Pump.fun coin that teaches you why long shots pay.
           </p>
           <p className="mt-4 max-w-md text-base leading-relaxed text-muted">
             A 12× underdog pays $12 on a $1 bet because it is only expected to win about 1 time in 12.

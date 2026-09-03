@@ -23,7 +23,7 @@ export function SiteHeader({
             className="relative z-10 flex shrink-0 items-center gap-1.5 no-underline sm:gap-2.5"
           >
             <img
-              src="/token-avatar.png?v=4"
+              src="/token-avatar.png?v=5"
               alt={SITE.ticker}
               className="size-8 min-h-8 min-w-8 shrink-0 rounded-full bg-bg object-cover sm:size-14 sm:min-h-14 sm:min-w-14"
             />

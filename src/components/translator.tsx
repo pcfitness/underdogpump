@@ -31,7 +31,7 @@ function line(odds: OddsTriple) {
   return `A ${x} is not free money. The market is saying ${formatChance(odds.implied)} (${formatPercent(odds.implied)}).`;
 }
 
-export function OddsTranslator() {
+export function OddsTranslator({ ruled = true }: { ruled?: boolean }) {
   const [odds, setOdds] = useState(START);
   const [raw, setRaw] = useState(display(START));
 
@@ -50,7 +50,7 @@ export function OddsTranslator() {
   const shown = useMemo(() => raw, [raw]);
 
   return (
-    <section className="border-b border-line bg-surface" id="translator">
+    <section className={`${ruled ? "border-b border-line " : ""}bg-surface`} id="translator">
       <div className="mx-auto max-w-5xl px-4 py-10">
         <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Bookmark this</p>
         <h2 className="font-display text-5xl tracking-wide text-fg sm:text-6xl">Odds translator</h2>
