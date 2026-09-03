@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { pingVisitor } from "@/lib/visitors";
+import { pingVisitors } from "@/lib/ping-visitors";
 
-const SEG = {
+const SEG: Record<string, string> = {
   "0": "abcdef",
   "1": "bc",
   "2": "abged",
@@ -12,25 +12,23 @@ const SEG = {
   "7": "abc",
   "8": "abcdefg",
   "9": "abfgcd",
-} as const;
+};
 
-function LedDigit({ value }: { value: string }) {
-  const on = SEG[value as keyof typeof SEG] ?? "";
+function Digit({ value }: { value: string }) {
+  const on = SEG[value] ?? "";
   return (
     <span className="led-digit" aria-hidden="true">
-      {(["a", "b", "c", "d", "e", "f", "g"] as const).map((seg) => (
-        <i
-          key={seg}
-          className={on.includes(seg) ? `led-seg led-seg-${seg} is-on` : `led-seg led-seg-${seg}`}
-        />
+      {["a", "b", "c", "d", "e", "f", "g"].map((seg) => (
+        <i key={seg} className={on.includes(seg) ? `led-seg led-seg-${seg} is-on` : `led-seg led-seg-${seg}`} />
       ))}
     </span>
   );
 }
 
 function pad(n: number) {
-  const safe = Number.isFinite(n) && n > 0 ? Math.floor(n) : 0;
-  return String(safe).padStart(6, "0").slice(-8);
+  return String(Number.isFinite(n) && n > 0 ? Math.floor(n) : 0)
+    .padStart(6, "0")
+    .slice(-8);
 }
 
 export function VisitorClock() {
@@ -40,26 +38,25 @@ export function VisitorClock() {
 
   useEffect(() => {
     let alive = true;
-    let timer: number | undefined;
-
+    let timer: number;
     const key = "ud_vid";
-    let clientId = "";
+    let id = "";
     try {
-      clientId = localStorage.getItem(key) ?? "";
-      if (!clientId) {
-        clientId = crypto.randomUUID();
-        localStorage.setItem(key, clientId);
+      id = localStorage.getItem(key) ?? "";
+      if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem(key, id);
       }
     } catch {
-      clientId = crypto.randomUUID();
+      id = crypto.randomUUID();
     }
 
-    const beat = async () => {
+    const ping = async () => {
       try {
-        const next = await pingVisitor({ data: { clientId } });
+        const n = await pingVisitors({ data: { clientId: id } });
         if (!alive) return;
-        setTotal(next.total);
-        setOnline(next.online);
+        setTotal(n.total);
+        setOnline(n.online);
         setReady(true);
       } catch {
         if (alive) setReady(true);
@@ -67,20 +64,18 @@ export function VisitorClock() {
     };
 
     const loop = () => {
-      void beat();
-      timer = window.setTimeout(loop, document.hidden ? 20000 : 4000);
+      void ping();
+      timer = window.setTimeout(loop, document.hidden ? 20_000 : 4_000);
     };
-
-    void beat();
-    timer = window.setTimeout(loop, 4000);
+    void ping();
+    timer = window.setTimeout(loop, 4_000);
     const onVis = () => {
-      if (!document.hidden) void beat();
+      if (!document.hidden) void ping();
     };
     document.addEventListener("visibilitychange", onVis);
-
     return () => {
       alive = false;
-      if (timer) window.clearTimeout(timer);
+      window.clearTimeout(timer);
       document.removeEventListener("visibilitychange", onVis);
     };
   }, []);
@@ -96,12 +91,10 @@ export function VisitorClock() {
         </p>
         <div className="visitor-clock-face">
           {digits.map((d, i) => (
-            <LedDigit key={`${i}-${d}`} value={d} />
+            <Digit key={`${i}-${d}`} value={d} />
           ))}
         </div>
-        <p className="visitor-clock-online">
-          {ready ? `${online} online` : "live"}
-        </p>
+        <p className="visitor-clock-online">{ready ? `${online} online` : "live"}</p>
       </div>
     </div>
   );
