@@ -86,15 +86,15 @@ function Ticker() {
 function SiteHeader() {
   return (
     <div className="sticky top-0 z-40">
-      <header className="border-b border-line bg-bg/90 backdrop-blur-sm">
-        <div className="mx-auto flex h-18 max-w-5xl items-center justify-between gap-3 px-4">
-          <Link to="/" className="flex items-center gap-2.5 no-underline">
+      <header className="overflow-x-clip border-b border-line bg-bg/90 backdrop-blur-sm">
+        <div className="mx-auto flex h-18 max-w-5xl items-center justify-between gap-2 px-3 sm:gap-3 sm:px-4">
+          <Link to="/" className="flex min-w-0 items-center gap-2 no-underline sm:gap-2.5">
             <img
               src="/token-avatar.jpg"
               alt="$UNDERDOG"
-              className="size-14 rounded-full border border-accent bg-bg object-contain p-px"
+              className="size-10 shrink-0 rounded-full border border-accent bg-bg object-contain p-px sm:size-14"
             />
-            <span className="font-display text-2xl tracking-wide text-accent">{SITE.ticker}</span>
+            <span className="font-display text-xl tracking-wide text-accent sm:text-2xl">{SITE.ticker}</span>
             <span className="hidden text-xs font-medium tracking-widest text-muted uppercase sm:inline">
               {SITE.tagline}
             </span>
