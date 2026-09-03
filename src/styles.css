@@ -117,16 +117,17 @@
 @media (width <= 639px) {
   .nav-link {
     min-height: 36px;
-    gap: 0.18rem;
-    padding: 0 0.28rem;
-    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    gap: 0.14rem;
+    padding: 0 0.18rem;
+    font-size: 0.8rem;
   }
   .nav-pip {
-    width: 0.26rem;
-    height: 0.26rem;
+    width: 0.22rem;
+    height: 0.22rem;
   }
   .nav-rule {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     padding: 0;
   }
 }
