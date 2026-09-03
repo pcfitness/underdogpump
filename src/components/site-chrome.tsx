@@ -5,6 +5,7 @@ import { loadClashPicks } from "@/lib/load-markets";
 import { CLASHPICKS_EXAMPLES, splitQuestion, type Market } from "@/lib/markets";
 import { americanFromImplied } from "@/lib/odds";
 import { SITE } from "@/lib/site";
+import { VisitorClock } from "@/components/visitor-clock";
 
 function Fog() {
   return (
@@ -252,6 +253,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
           <SiteHeader />
           {children}
           <SiteFooter />
+          <VisitorClock />
           <BackToTop />
         </div>
       </div>
