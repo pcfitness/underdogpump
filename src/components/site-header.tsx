@@ -16,25 +16,25 @@ export function SiteHeader({
   return (
     <div className="sticky top-0 z-40">
       <header className="overflow-x-clip border-b border-line bg-bg/90 backdrop-blur-sm">
-        <div className="mx-auto flex h-18 max-w-5xl items-center justify-between gap-2 px-3 sm:gap-3 sm:px-4">
+        <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-2 px-3 sm:h-18 sm:gap-3 sm:px-4">
           <Link
             to="/"
             search={{}}
-            className="flex min-w-0 items-center gap-2 no-underline sm:gap-2.5"
+            className="relative z-10 flex shrink-0 items-center gap-1.5 no-underline sm:gap-2.5"
           >
             <img
               src="/token-avatar.png?v=4"
               alt={SITE.ticker}
-              className="size-10 shrink-0 rounded-full bg-bg object-cover sm:size-14"
+              className="size-8 min-h-8 min-w-8 shrink-0 rounded-full bg-bg object-cover sm:size-14 sm:min-h-14 sm:min-w-14"
             />
-            <span className="font-display text-xl tracking-wide text-accent sm:text-2xl">
+            <span className="font-display text-lg tracking-wide text-accent sm:text-2xl">
               {SITE.ticker}
             </span>
             <span className="hidden text-xs font-medium tracking-widest text-muted uppercase sm:inline">
               {SITE.tagline}
             </span>
           </Link>
-          <nav aria-label="Site" className="flex shrink-0 items-center">
+          <nav aria-label="Site" className="flex min-w-0 items-center justify-end overflow-hidden">
             <Link
               to="/"
               search={{}}
@@ -50,12 +50,14 @@ export function SiteHeader({
             <Link to="/odds-101" className="nav-link">
               Odds 101
             </Link>
-            <span className="nav-rule" aria-hidden="true">
-              |
+            <span className="hidden sm:contents">
+              <span className="nav-rule" aria-hidden="true">
+                |
+              </span>
+              <a href="/#how-to-buy" className="nav-link">
+                How to buy
+              </a>
             </span>
-            <a href="/#how-to-buy" className="nav-link">
-              How to buy
-            </a>
           </nav>
         </div>
       </header>

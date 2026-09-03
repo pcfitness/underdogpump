@@ -114,6 +114,23 @@
   color: var(--color-accent);
 }
 
+@media (width <= 639px) {
+  .nav-link {
+    min-height: 36px;
+    gap: 0.18rem;
+    padding: 0 0.28rem;
+    font-size: 0.95rem;
+  }
+  .nav-pip {
+    width: 0.26rem;
+    height: 0.26rem;
+  }
+  .nav-rule {
+    font-size: 0.9rem;
+    padding: 0;
+  }
+}
+
 .nav-pip {
   background: var(--color-accent);
   border-radius: 999px;
