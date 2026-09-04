@@ -123,8 +123,8 @@ function Odds101() {
         </div>
         <Classroom />
         <PayoutLab />
-        <OddsTranslator />
         <Parlays />
+        <OddsTranslator />
         <div className="mx-auto max-w-5xl px-4 pt-10 pb-8 sm:pt-12 sm:pb-10">
           <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
             The six moves
@@ -442,7 +442,7 @@ function Parlays() {
   }
 
   return (
-    <section className="border-b border-line bg-surface" id="parlays">
+    <section className="border-t border-line bg-surface" id="parlays">
       <div className="mx-auto max-w-5xl px-4 py-10 sm:py-12">
         <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Next lesson</p>
         <h2 className="font-display text-5xl tracking-wide text-fg sm:text-6xl">Parlays</h2>
