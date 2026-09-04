@@ -80,9 +80,10 @@ function Hero() {
         <img
           src="/hero-dog-v11.jpg"
           alt=""
-          className="absolute inset-0 size-full object-cover object-left"
+          className="absolute inset-0 size-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-l from-bg from-0% via-bg/75 to-transparent to-55%" />
+        <div className="absolute inset-0 bg-gradient-to-l from-bg/70 via-bg/20 to-transparent to-55%" />
+        <div className="absolute inset-0 bg-gradient-to-t from-bg/35 via-transparent to-transparent" />
         <div className="relative mx-auto flex h-full max-w-5xl flex-col justify-center px-4 py-12">
           <div className="w-full max-w-lg text-left md:ml-auto md:translate-x-[100px]">
           <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
