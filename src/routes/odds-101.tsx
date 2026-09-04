@@ -122,8 +122,8 @@ function Odds101() {
           <Infographic />
         </div>
         <Classroom />
-        <OddsTranslator />
         <PayoutLab />
+        <OddsTranslator />
         <Parlays />
         <div className="mx-auto max-w-5xl px-4 pt-10 pb-8 sm:pt-12 sm:pb-10">
           <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
@@ -612,7 +612,7 @@ function PayoutLab() {
   const dogPays = useMemo(() => Math.round((stake + profit(stake, dog)) * 100) / 100, [stake, dog]);
 
   return (
-    <section className="border-b border-line bg-surface" id="payout-lab">
+    <section className="border-t border-line bg-surface" id="payout-lab">
       <div className="mx-auto max-w-5xl px-4 py-10 sm:py-12 max-md:py-6">
         <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Play money</p>
         <h2 className="font-display text-5xl tracking-wide text-fg sm:text-6xl max-md:text-4xl">Favorite vs Underdog</h2>
