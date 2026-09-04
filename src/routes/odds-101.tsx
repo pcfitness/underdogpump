@@ -118,10 +118,14 @@ function Odds101() {
   return (
     <PageShell picks={ticker}>
       <main>
-        <div className="mx-auto max-w-5xl px-4 pt-6 pb-4 sm:pt-8 sm:pb-6">
+        <div className="mx-auto max-w-5xl px-4 py-8">
           <Infographic />
         </div>
-        <div className="mx-auto max-w-5xl px-4 pb-8 sm:pb-10">
+        <OddsTranslator />
+        <Classroom />
+        <PayoutLab />
+        <Parlays />
+        <div className="mx-auto max-w-5xl px-4 pt-10 pb-8 sm:pt-12 sm:pb-10">
           <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
             The six moves
           </p>
@@ -140,10 +144,6 @@ function Odds101() {
             ))}
           </div>
         </div>
-        <Classroom />
-        <Parlays />
-        <PayoutLab />
-        <OddsTranslator ruled={false} />
       </main>
     </PageShell>
   );
@@ -160,7 +160,7 @@ function Stat({ n, label }: { n: string; label: string }) {
 
 function Classroom() {
   return (
-    <section className="border-y border-line bg-surface">
+    <section className="border-b border-line bg-surface">
       <div className="mx-auto max-w-5xl px-4 py-10 sm:py-12">
         <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Classroom</p>
         <h2 className="font-display text-5xl tracking-wide text-fg sm:text-6xl">Favorites pay less</h2>
@@ -315,7 +315,6 @@ function Infographic() {
 
   return (
     <section className="w-full">
-      <p className="mb-3 text-xs font-medium tracking-widest text-muted uppercase">Tap a number</p>
       <div className="overflow-hidden rounded-xl border border-line bg-bg">
         <div className="relative h-[32rem] w-full overflow-hidden bg-bg md:aspect-video md:h-auto md:min-h-[28rem]">
           <img
@@ -335,7 +334,6 @@ function Infographic() {
           <div className="pointer-events-none absolute inset-x-0 top-0 px-4 pt-5 sm:px-8 sm:pt-8">
             <p className="text-[0.65rem] font-semibold tracking-widest text-accent uppercase">Infographic</p>
             <h2 className="font-display text-5xl leading-none tracking-wide text-fg sm:text-6xl">Odds 101</h2>
-            <p className="mt-1 max-w-sm text-sm text-muted">How a long shot is priced. Tap a number.</p>
           </div>
           <div className="absolute inset-x-0 top-[7.25rem] bottom-3 z-10 flex flex-col justify-between px-4 md:hidden">
             {SPOTS.map((s) => (
@@ -615,21 +613,21 @@ function PayoutLab() {
 
   return (
     <section className="border-b border-line bg-surface" id="payout-lab">
-      <div className="mx-auto max-w-5xl px-4 py-10 sm:py-12">
+      <div className="mx-auto max-w-5xl px-4 py-10 sm:py-12 max-md:py-6">
         <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Play money</p>
-        <h2 className="font-display text-5xl tracking-wide text-fg sm:text-6xl">Favorite vs Underdog</h2>
-        <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted">
+        <h2 className="font-display text-5xl tracking-wide text-fg sm:text-6xl max-md:text-4xl">Favorite vs Underdog</h2>
+        <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted max-md:hidden">
           Type a bet. Drag the line. Watch the favorite pay less and the underdog pay more. Tap a ticket to see a
           loss. Practice money only.
         </p>
-        <div className="mt-8 rounded-xl border border-line bg-elevated px-5 py-6 sm:px-8">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <label className="block min-w-56 flex-1">
-              <span className="block text-sm font-semibold tracking-widest text-accent uppercase">
+        <div className="mt-8 rounded-xl border border-line bg-elevated px-5 py-6 sm:px-8 max-md:mt-4 max-md:px-3 max-md:py-3">
+          <div className="flex flex-wrap items-end justify-between gap-6 max-md:gap-2">
+            <label className="block min-w-56 flex-1 max-md:min-w-0">
+              <span className="block text-sm font-semibold tracking-widest text-accent uppercase max-md:text-[0.65rem]">
                 Your bet on each side
               </span>
-              <span className="mt-3 flex h-14 max-w-xs items-center rounded-md border border-line bg-bg px-3">
-                <span className="pr-2 font-display text-3xl text-accent">$</span>
+              <span className="mt-3 flex h-14 max-w-xs items-center rounded-md border border-line bg-bg px-3 max-md:mt-1.5 max-md:h-11">
+                <span className="pr-2 font-display text-3xl text-accent max-md:text-2xl">$</span>
                 <input
                   value={raw}
                   onChange={(e) => {
@@ -638,16 +636,16 @@ function PayoutLab() {
                   }}
                   inputMode="decimal"
                   autoComplete="off"
-                  className="h-full min-w-0 flex-1 bg-transparent font-display text-3xl tracking-wide text-accent outline-none"
+                  className="h-full min-w-0 flex-1 bg-transparent font-display text-3xl tracking-wide text-accent outline-none max-md:text-2xl"
                 />
               </span>
             </label>
-            <p className="pb-2 font-mono text-sm tracking-widest text-muted uppercase">
+            <p className="pb-2 font-mono text-sm tracking-widest text-muted uppercase max-md:pb-0 max-md:text-[0.65rem]">
               Favorite {signed(fav)} · Underdog {signed(dog)}
             </p>
           </div>
-          <label className="mt-6 block">
-            <span className="flex justify-between text-sm font-semibold tracking-widest text-muted uppercase">
+          <label className="mt-6 block max-md:mt-3">
+            <span className="flex justify-between text-sm font-semibold tracking-widest text-muted uppercase max-md:text-[0.65rem]">
               <span>Bigger favorite</span>
               <span>Bigger underdog</span>
             </span>
@@ -661,44 +659,54 @@ function PayoutLab() {
                 setLine(Number(e.target.value));
                 setLost(null);
               }}
-              className="mt-3 h-2 w-full cursor-pointer appearance-none rounded-full bg-line accent-[var(--color-accent)]"
+              className="mt-3 h-2 w-full cursor-pointer appearance-none rounded-full bg-line accent-[var(--color-accent)] max-md:mt-2"
             />
           </label>
         </div>
-        <div className="mt-4 grid gap-3 md:grid-cols-2">
+        <div className="mt-4 grid gap-3 md:grid-cols-2 max-md:mt-2 max-md:grid-cols-2 max-md:gap-2">
           <button
             type="button"
             onClick={() => setLost((v) => (v === "favorite" ? null : "favorite"))}
-            className={`rounded-xl border px-5 py-6 text-left transition ${lost === "favorite" ? "border-accent bg-accent/10" : "border-line bg-elevated hover:border-accent"}`}
+            className={`rounded-xl border px-5 py-6 text-left transition max-md:px-3 max-md:py-3 ${lost === "favorite" ? "border-accent bg-accent/10" : "border-line bg-elevated hover:border-accent"}`}
           >
-            <p className="text-sm font-semibold tracking-widest text-muted uppercase">The favorite · {signed(fav)}</p>
-            <p className="mt-2 font-display text-4xl tracking-wide text-fg sm:text-5xl">Expected to win</p>
-            <p className="mt-6 text-sm font-semibold tracking-widest text-muted uppercase">If this side wins</p>
+            <p className="text-sm font-semibold tracking-widest text-muted uppercase max-md:text-[0.6rem]">
+              The favorite · {signed(fav)}
+            </p>
+            <p className="mt-2 font-display text-4xl tracking-wide text-fg sm:text-5xl max-md:mt-1 max-md:text-xl">
+              Expected to win
+            </p>
+            <p className="mt-6 text-sm font-semibold tracking-widest text-muted uppercase max-md:mt-2 max-md:text-[0.6rem]">
+              If this side wins
+            </p>
             <p
-              className={`font-display text-6xl leading-none tracking-wide ${lost === "favorite" ? "text-muted line-through" : "text-fg"}`}
+              className={`font-display text-6xl leading-none tracking-wide max-md:text-3xl ${lost === "favorite" ? "text-muted line-through" : "text-fg"}`}
             >
               {lost === "favorite" ? "$0" : dollars(favPays)}
             </p>
-            <p className="mt-4 text-base text-muted">
+            <p className="mt-4 text-base text-muted max-md:mt-1.5 max-md:text-xs">
               {lost === "favorite" ? "Tapped lose. The bet is gone." : "Tap this ticket to mark a loss."}
             </p>
           </button>
           <button
             type="button"
             onClick={() => setLost((v) => (v === "underdog" ? null : "underdog"))}
-            className={`rounded-xl border px-5 py-6 text-left transition ${lost === "underdog" ? "border-accent bg-accent/10" : "border-accent/60 bg-accent/10 hover:border-accent"}`}
+            className={`rounded-xl border px-5 py-6 text-left transition max-md:px-3 max-md:py-3 ${lost === "underdog" ? "border-accent bg-accent/10" : "border-accent/60 bg-accent/10 hover:border-accent"}`}
           >
-            <p className="text-sm font-semibold tracking-widest text-accent uppercase">
+            <p className="text-sm font-semibold tracking-widest text-accent uppercase max-md:text-[0.6rem]">
               The underdog · {signed(dog)}
             </p>
-            <p className="mt-2 font-display text-4xl tracking-wide text-accent sm:text-5xl">Expected to lose</p>
-            <p className="mt-6 text-sm font-semibold tracking-widest text-muted uppercase">If this side wins</p>
+            <p className="mt-2 font-display text-4xl tracking-wide text-accent sm:text-5xl max-md:mt-1 max-md:text-xl">
+              Expected to lose
+            </p>
+            <p className="mt-6 text-sm font-semibold tracking-widest text-muted uppercase max-md:mt-2 max-md:text-[0.6rem]">
+              If this side wins
+            </p>
             <p
-              className={`font-display text-6xl leading-none tracking-wide ${lost === "underdog" ? "text-muted line-through" : "text-accent"}`}
+              className={`font-display text-6xl leading-none tracking-wide max-md:text-3xl ${lost === "underdog" ? "text-muted line-through" : "text-accent"}`}
             >
               {lost === "underdog" ? "$0" : dollars(dogPays)}
             </p>
-            <p className="mt-4 text-base text-fg">
+            <p className="mt-4 text-base text-fg max-md:mt-1.5 max-md:text-xs">
               {lost === "underdog" ? "Tapped lose. The bet is gone." : "Tap this ticket to mark a loss."}
             </p>
           </button>

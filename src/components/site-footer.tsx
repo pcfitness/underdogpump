@@ -28,6 +28,7 @@ export function SiteFooter() {
               className="size-full object-cover object-[center_18%]"
             />
           </a>
+          <div className="overflow-hidden">
           <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Doxxed</p>
           <h2 className="mt-1 font-display text-4xl leading-none tracking-wide text-fg [text-wrap:unset]">
             Built by{" "}
@@ -41,14 +42,26 @@ export function SiteFooter() {
               <span className="text-fg">.net</span>
             </a>
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted">{SITE.mission}</p>
+          <p className="mt-3 text-sm leading-relaxed text-muted">
+            {SITE.mission} The photo is the builder: Oz, the same person behind{" "}
+            <a
+              href={SITE.builderUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="whitespace-nowrap text-[0.7rem] font-normal tracking-widest text-accent no-underline hover:text-accent"
+            >
+              OzGaming.net
+            </a>
+            .
+          </p>
+          </div>
           <div className="clear-both" />
         </div>
         <aside className="border-t border-l-0 border-line pt-6 md:border-t-0 md:border-l md:pt-0 md:pl-6">
           <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
             {SITE.mindsetTitle}
           </p>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
+          <p className="mt-1 text-sm leading-relaxed text-muted">
             {SITE.mindset.split("$UNDERDOG").map((part, i) =>
               i === 0 ? (
                 part

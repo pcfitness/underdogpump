@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { pingVisitors } from "@/lib/ping-visitors";
+import { pingVisitor } from "@/lib/visitors";
 
 const SEG: Record<string, string> = {
   "0": "abcdef",
@@ -31,6 +31,20 @@ function pad(n: number) {
     .slice(-8);
 }
 
+function visitorId() {
+  const key = "ud_vid";
+  try {
+    let id = localStorage.getItem(key) ?? "";
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem(key, id);
+    }
+    return id;
+  } catch {
+    return crypto.randomUUID();
+  }
+}
+
 export function VisitorClock() {
   const [total, setTotal] = useState(0);
   const [online, setOnline] = useState(0);
@@ -39,27 +53,17 @@ export function VisitorClock() {
   useEffect(() => {
     let alive = true;
     let timer: number;
-    const key = "ud_vid";
-    let id = "";
-    try {
-      id = localStorage.getItem(key) ?? "";
-      if (!id) {
-        id = crypto.randomUUID();
-        localStorage.setItem(key, id);
-      }
-    } catch {
-      id = crypto.randomUUID();
-    }
+    const id = visitorId();
 
     const ping = async () => {
       try {
-        const n = await pingVisitors({ data: { clientId: id } });
+        const n = await pingVisitor({ data: { clientId: id } });
         if (!alive) return;
         setTotal(n.total);
         setOnline(n.online);
         setReady(true);
       } catch {
-        if (alive) setReady(true);
+        /* keep retrying; don't lock the face on 0 */
       }
     };
 

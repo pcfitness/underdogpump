@@ -4,7 +4,6 @@ import { ArrowRight } from "lucide-react";
 import { LongShotsBoard } from "@/components/long-shots";
 import { PageShell } from "@/components/page-shell";
 import { Ticket } from "@/components/ticket";
-import { OddsTranslator } from "@/components/translator";
 import { CLASSROOM_PICK } from "@/lib/markets";
 import { loadMarkets } from "@/lib/load-markets";
 import { pumpLink, SITE } from "@/lib/site";
@@ -26,7 +25,6 @@ function Home() {
     <PageShell picks={ticker}>
       <Hero />
       <Ticket pick={featured} />
-      <OddsTranslator />
       <LongShotsBoard
         kicker="Kalshi live"
         title="Long shots on Kalshi"
@@ -97,7 +95,9 @@ function Hero() {
             A Pump.fun coin that teaches you why long shots pay.
           </p>
           <p className="mt-4 max-w-md text-base leading-relaxed text-muted">
-            A 12× underdog pays $12 on a $1 bet because it is only expected to win about 1 time in 12.
+            A 12× underdog pays $12 on a $1 bet because it is
+            <br />
+            only expected to win about 1 time in 12.
           </p>
           <ul className="mt-6 grid w-full max-w-md grid-cols-3 gap-2">
             <Stat n="12×" label="Payout if it hits" />
@@ -105,7 +105,6 @@ function Hero() {
             <Stat n="$12" label="Earned on a $1 bet" />
           </ul>
           <div className="mt-6 flex flex-wrap gap-2">
-            <Chip>{SITE.status}</Chip>
             <Chip>{SITE.platform}</Chip>
             <Chip>Contract TBA</Chip>
           </div>
@@ -134,7 +133,7 @@ function Hero() {
 
 function Step({ n, title, children }: { n: string; title: string; children: ReactNode }) {
   return (
-    <li>
+    <li className="rounded-lg border border-line bg-surface/80 px-4 py-4 shadow-[inset_3px_0_0_var(--color-accent)]">
       <p className="font-mono text-xs text-accent">{n}</p>
       <p className="mt-1 font-display text-2xl tracking-wide text-fg">{title}</p>
       <p className="mt-1 text-sm leading-relaxed text-muted">{children}</p>
@@ -147,7 +146,6 @@ function TickerWord() {
 }
 
 function HowToBuy() {
-  const ca = SITE.contract.trim();
   return (
     <section id="how-to-buy" className="mx-auto max-w-5xl scroll-mt-28 px-4 py-8">
       <div className="rounded-xl border border-line bg-surface px-5 py-6 sm:px-8 sm:py-8">
@@ -162,8 +160,8 @@ function HowToBuy() {
         </p>
         <ol className="mt-6 grid gap-5 sm:grid-cols-3">
           <Step n="01" title="Get the contract">
-            The official contract address (CA) will appear here and in the footer at launch. Copy it only from
-            underdogpump.xyz. If it came from anywhere else, do not use it.
+            The official contract address (CA) will appear at the top of this page and in the footer at launch. Click
+            it to copy. Copy it only from underdogpump.xyz. If it came from anywhere else, do not use it.
           </Step>
           <Step n="02" title="Open Pump.fun">
             Open Pump.fun and paste in the official CA. Confirm you are on the correct <TickerWord /> page, review the
@@ -174,26 +172,6 @@ function HowToBuy() {
             long after launch. Check back anytime to follow the progress.
           </Step>
         </ol>
-        <div className="mt-6">
-          {ca ? (
-            <a
-              href={pumpLink()}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex min-h-11 items-center gap-2 rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg no-underline hover:bg-accent-dim"
-            >
-              Buy $UNDERDOG on Pump.fun
-              <ArrowRight className="size-4" />
-            </a>
-          ) : (
-            <p className="inline-flex min-h-11 flex-col justify-center rounded-md border border-line bg-bg px-5 py-3 sm:flex-row sm:items-center sm:gap-3">
-              <span className="text-sm font-semibold text-fg">Buy $UNDERDOG on Pump.fun</span>
-              <span className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
-                Contract drops in this button
-              </span>
-            </p>
-          )}
-        </div>
       </div>
     </section>
   );

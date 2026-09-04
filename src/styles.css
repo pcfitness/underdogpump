@@ -221,8 +221,9 @@
   background: linear-gradient(#222226 0%, #161618 45%, #141416 100%);
   border: 1px solid #1c1c1e;
   border-radius: 10px;
-  width: min(15.5rem, 100%);
-  padding: 0.4rem 0.85rem 0.38rem;
+  width: max-content;
+  max-width: 100%;
+  padding: 0.42rem 0.7rem 0.4rem;
   box-shadow:
     inset 0 1px #36363c,
     inset 0 -8px 14px #00000073,
@@ -244,10 +245,12 @@
   background: linear-gradient(#050506, #101012 55%, #000);
   border-radius: 6px;
   justify-content: center;
-  gap: 0.24rem;
-  margin-top: 0.28rem;
-  padding: 0.28rem 0.4rem 0.22rem;
+  align-items: center;
+  gap: 0.32rem;
+  margin-top: 0.3rem;
+  padding: 0.5rem 0.62rem 0.48rem;
   display: flex;
+  width: max-content;
   box-shadow:
     inset 0 0 0 1px #1c1c20,
     inset 0 6px 12px #000000b3;
@@ -259,20 +262,21 @@
   text-transform: uppercase;
   text-align: center;
   color: #c81e2b;
-  margin: 0.28rem 0 0;
+  margin: 0.3rem 0 0;
   font-size: 0.52rem;
   line-height: 1;
 }
 
 .led-digit {
-  width: 0.72rem;
-  height: 1.12rem;
+  width: 0.95rem;
+  height: 1.58rem;
+  flex: 0 0 auto;
   display: block;
   position: relative;
 }
 
 .led-seg {
-  opacity: 0.55;
+  opacity: 0.42;
   background: #3a1014;
   position: absolute;
 }
@@ -280,22 +284,22 @@
 .led-seg.is-on {
   opacity: 1;
   background: #e31b2a;
-  box-shadow:
-    0 0 5px #c81e2b,
-    0 0 10px #c81e2b8c;
+  filter:
+    drop-shadow(0 0 2px #c81e2b)
+    drop-shadow(0 0 5px #c81e2b80);
 }
 
 .led-seg-a,
 .led-seg-d,
 .led-seg-g {
-  border-radius: 2px;
-  height: 0.1rem;
-  left: 0.12rem;
-  right: 0.12rem;
+  height: 0.15rem;
+  left: 0.2rem;
+  right: 0.2rem;
+  clip-path: polygon(14% 0, 86% 0, 100% 50%, 86% 100%, 14% 100%, 0 50%);
 }
 
 .led-seg-a {
-  top: 0.05rem;
+  top: 0.1rem;
 }
 
 .led-seg-g {
@@ -304,35 +308,35 @@
 }
 
 .led-seg-d {
-  bottom: 0.05rem;
-}
-
-.led-seg-b,
-.led-seg-c,
-.led-seg-e,
-.led-seg-f {
-  border-radius: 2px;
-  width: 0.1rem;
-}
-
-.led-seg-b,
-.led-seg-f {
-  height: 0.42rem;
-  top: 0.1rem;
-}
-
-.led-seg-c,
-.led-seg-e {
-  height: 0.42rem;
   bottom: 0.1rem;
 }
 
 .led-seg-b,
+.led-seg-c,
+.led-seg-e,
+.led-seg-f {
+  width: 0.15rem;
+  clip-path: polygon(50% 0, 100% 14%, 100% 86%, 50% 100%, 0 86%, 0 14%);
+}
+
+.led-seg-b,
+.led-seg-f {
+  height: 0.58rem;
+  top: 0.2rem;
+}
+
+.led-seg-c,
+.led-seg-e {
+  height: 0.58rem;
+  bottom: 0.2rem;
+}
+
+.led-seg-b,
 .led-seg-c {
-  right: 0.05rem;
+  right: 0.1rem;
 }
 
 .led-seg-e,
 .led-seg-f {
-  left: 0.05rem;
+  left: 0.1rem;
 }

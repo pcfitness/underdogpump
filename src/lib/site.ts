@@ -15,9 +15,9 @@ export const SITE = {
   platform: "Pump.fun",
   platformUrl: "https://pump.fun",
   contract: "",
-  mindsetTitle: "Built to stay",
+  mindsetTitle: "On the record",
   mindset:
-    "I put my name and a long public track record on what I build. $UNDERDOG is meant to stay up, stay updated, and have a real person behind it long after launch.",
+    "The name on this project is public, and OzGaming.net has been online since 2008. $UNDERDOG is meant to remain live and keep improving after launch. Come back for new lessons, live odds, and a contract that only lives on this page.",
   mission:
     "This project was built to help beginners understand odds and prediction markets across Polymarket, Kalshi, DraftKings and FanDuel.",
 } as const;

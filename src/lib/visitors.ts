@@ -1,16 +1,19 @@
 import { createServerFn } from "@tanstack/react-start";
 
 const COOKIE = "ud_vid";
-const UUID =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const BASELINE = 378;
 
 function newId() {
   return crypto.randomUUID();
 }
 
+function isVid(value: string | undefined): value is string {
+  return typeof value === "string" && value.length >= 8 && value.length <= 80;
+}
+
 function pickId(cookie: string | undefined, clientId: string) {
-  if (cookie && UUID.test(cookie)) return cookie;
-  if (clientId && UUID.test(clientId)) return clientId;
+  if (isVid(cookie)) return cookie;
+  if (isVid(clientId)) return clientId;
   return newId();
 }
 
@@ -30,13 +33,23 @@ export const pingVisitor = createServerFn({ method: "POST" })
     const sql = await getSql();
 
     const id = pickId(getCookie(COOKIE), data.clientId);
-    setCookie(COOKIE, id, {
-      path: "/",
-      httpOnly: true,
-      sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 365,
-      secure: true,
-    });
+    try {
+      setCookie(COOKIE, id, {
+        path: "/",
+        httpOnly: true,
+        sameSite: "lax",
+        maxAge: 60 * 60 * 24 * 365,
+        secure: true,
+      });
+    } catch {
+      /* clientId in localStorage still identifies the browser */
+    }
+
+    await sql`
+      insert into visitor_counters (id, total)
+      values ('all', ${BASELINE})
+      on conflict (id) do nothing
+    `;
 
     const inserted = await sql<{ id: string }>`
       insert into visitor_sessions (id, last_seen)
@@ -45,10 +58,26 @@ export const pingVisitor = createServerFn({ method: "POST" })
       returning id
     `;
 
-    if (inserted.length) {
-      await sql`update visitor_counters set total = total + 1 where id = 'all'`;
-    } else {
+    if (!inserted.length) {
       await sql`update visitor_sessions set last_seen = now() where id = ${id}`;
+    }
+
+    const [current] = await sql<{ total: number }>`
+      select total from visitor_counters where id = 'all'
+    `;
+    const n = Number(current?.total ?? 0);
+    if (n < BASELINE) {
+      await sql`
+        update visitor_counters
+        set total = ${BASELINE}
+        where id = 'all' and total < ${BASELINE}
+      `;
+    } else if (inserted.length) {
+      await sql`
+        update visitor_counters
+        set total = total + 1
+        where id = 'all'
+      `;
     }
 
     const [countRow] = await sql<{ total: number }>`
@@ -61,7 +90,7 @@ export const pingVisitor = createServerFn({ method: "POST" })
     `;
 
     return {
-      total: Number(countRow?.total ?? 0),
-      online: Number(onlineRow?.n ?? 1),
+      total: Number(countRow?.total ?? BASELINE),
+      online: Math.max(Number(onlineRow?.n ?? 0), 1),
     };
   });
