@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { pumpUrl, SITE } from "@/lib/site";
+import { CopyCa } from "@/components/copy-ca";
 
 function Chip({ children }: { children: ReactNode }) {
   return (
@@ -61,7 +62,7 @@ export function Hero() {
           </ul>
           <div className="mt-6 flex flex-wrap gap-2">
             <Chip>{SITE.platform}</Chip>
-            <Chip>Contract TBA</Chip>
+            <CopyCa />
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link

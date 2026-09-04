@@ -7,6 +7,7 @@ import { Ticket } from "@/components/ticket";
 import { CLASSROOM_PICK } from "@/lib/markets";
 import { loadMarkets } from "@/lib/load-markets";
 import { pumpLink, SITE } from "@/lib/site";
+import { CopyCa } from "@/components/copy-ca";
 
 export const Route = createFileRoute("/")({
   validateSearch: (s: Record<string, unknown>): { dog?: string } =>
@@ -90,7 +91,7 @@ function HeroCopy() {
       </ul>
       <div className="mt-6 flex flex-wrap justify-start gap-2">
         <Chip>{SITE.platform}</Chip>
-        <Chip>Contract TBA</Chip>
+        <CopyCa />
       </div>
       <div className="mt-8 flex flex-wrap justify-start gap-3">
         <Link
@@ -173,8 +174,8 @@ function HowToBuy() {
         </p>
         <ol className="mt-6 grid gap-5 sm:grid-cols-3">
           <Step n="01" title="Get the contract">
-            The official contract address (CA) will appear at the top of this page and in the footer at launch. Click
-            it to copy. Copy it only from underdogpump.xyz. If it came from anywhere else, do not use it.
+            The official contract address (CA) is at the top of this page and in the footer. Click it to copy. Copy it
+            only from underdogpump.xyz. If it came from anywhere else, do not use it.
           </Step>
           <Step n="02" title="Open Pump.fun">
             Open Pump.fun and paste in the official CA. Confirm you are on the correct <TickerWord /> page, review the

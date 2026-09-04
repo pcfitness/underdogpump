@@ -34,9 +34,8 @@ export function HowToBuy() {
         </p>
         <ol className="mt-6 grid gap-5 sm:grid-cols-3">
           <Step n="01" title="Get the contract">
-            The official contract address (CA) will appear at the top of this page and in the footer
-            at launch. Click it to copy. Copy it only from underdogpump.xyz. If it came from anywhere
-            else, do not use it.
+            The official contract address (CA) is at the top of this page and in the footer. Click it
+            to copy. Copy it only from underdogpump.xyz. If it came from anywhere else, do not use it.
           </Step>
           <Step n="02" title="Open Pump.fun">
             Open Pump.fun and paste in the official CA. Confirm you are on the correct <TickerMark />{" "}

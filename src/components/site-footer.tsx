@@ -1,17 +1,17 @@
 import type { ReactNode } from "react";
 import { DISCLAIMER, SITE, pumpLink } from "@/lib/site";
+import { CopyCa } from "@/components/copy-ca";
 
 function Meta({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="rounded-lg border border-line bg-bg px-4 py-3">
       <p className="text-[0.65rem] font-semibold tracking-widest text-accent uppercase">{label}</p>
-      <p className="mt-1 truncate font-mono text-sm text-fg">{children}</p>
+      <div className="mt-1 truncate font-mono text-sm text-fg">{children}</div>
     </div>
   );
 }
 
 export function SiteFooter() {
-  const ca = SITE.contract.trim();
   return (
     <footer className="border-t border-line bg-surface">
       <div className="mx-auto grid max-w-5xl gap-6 px-4 py-10 md:grid-cols-[1.2fr_1fr]">
@@ -89,7 +89,9 @@ export function SiteFooter() {
           </a>
         </Meta>
         <Meta label="Project status">{SITE.status}</Meta>
-        <Meta label="Contract">{ca || "To be announced"}</Meta>
+        <Meta label="Contract">
+          <CopyCa variant="meta" />
+        </Meta>
       </div>
       <p className="mx-auto max-w-5xl px-4 pb-10 text-xs leading-relaxed text-subtle">{DISCLAIMER}</p>
     </footer>
