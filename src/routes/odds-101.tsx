@@ -118,9 +118,7 @@ function Odds101() {
   return (
     <PageShell picks={ticker}>
       <main>
-        <div className="mx-auto max-w-5xl px-4 py-8">
-          <Infographic />
-        </div>
+        <Infographic />
         <Classroom />
         <PayoutLab />
         <Parlays />
@@ -160,7 +158,7 @@ function Stat({ n, label }: { n: string; label: string }) {
 
 function Classroom() {
   return (
-    <section className="border-t border-line bg-surface">
+    <section className="bg-surface">
       <div className="mx-auto max-w-5xl px-4 py-10 sm:py-12">
         <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Classroom</p>
         <h2 className="font-display text-5xl tracking-wide text-fg sm:text-6xl">Favorites pay less</h2>
@@ -314,37 +312,46 @@ function Infographic() {
   };
 
   return (
-    <section className="w-full">
-      <div className="overflow-hidden rounded-xl border border-line bg-bg">
-        <div className="relative h-[32rem] w-full overflow-hidden bg-bg md:aspect-video md:h-auto md:min-h-[28rem]">
-          <img
-            src="/odds-101-hero-mobile.jpg"
-            alt=""
-            className="pointer-events-none absolute inset-0 size-full object-cover object-[center_18%] md:hidden"
-            draggable={false}
-          />
-          <img
-            src="/odds-101-hero.jpg"
-            alt="Cane Corso in glasses teaching Odds 101"
-            className="pointer-events-none absolute inset-0 hidden size-full object-cover object-center md:block"
-            draggable={false}
-          />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-bg/80 via-bg/25 to-transparent" />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg/50 via-transparent to-bg/20" />
-          <div className="pointer-events-none absolute inset-x-0 top-0 px-4 pt-5 sm:px-8 sm:pt-8">
+    <section className="overflow-hidden border-b border-line">
+      <div className="relative h-[32rem] overflow-hidden bg-bg md:hidden">
+        <img
+          src="/odds-101-hero-mobile.jpg"
+          alt=""
+          className="pointer-events-none absolute inset-0 size-full object-cover object-[center_18%]"
+          draggable={false}
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg/70 via-bg/20 to-bg/30" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 px-4 pt-5">
+          <p className="text-[0.65rem] font-semibold tracking-widest text-accent uppercase">Infographic</p>
+          <h2 className="font-display text-5xl leading-none tracking-wide text-fg">Odds 101</h2>
+        </div>
+        <div className="absolute inset-x-0 top-[7.25rem] bottom-3 z-10 flex flex-col justify-between px-4">
+          {SPOTS.map((s) => (
+            <Hotspot key={s.id} spot={s} open={openId === s.id} onOpen={onOpen} compact />
+          ))}
+        </div>
+      </div>
+      <div className="relative isolate hidden md:block md:aspect-video">
+        <img
+          src="/odds-101-hero.jpg"
+          alt="Cane Corso in glasses teaching Odds 101"
+          className="pointer-events-none absolute inset-0 size-full object-cover object-center"
+          draggable={false}
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-bg/80 via-bg/25 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg/40 via-transparent to-bg/15" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 px-4 pt-8 sm:px-8">
+          <div className="mx-auto max-w-5xl">
             <p className="text-[0.65rem] font-semibold tracking-widest text-accent uppercase">Infographic</p>
             <h2 className="font-display text-5xl leading-none tracking-wide text-fg sm:text-6xl">Odds 101</h2>
           </div>
-          <div className="absolute inset-x-0 top-[7.25rem] bottom-3 z-10 flex flex-col justify-between px-4 md:hidden">
-            {SPOTS.map((s) => (
-              <Hotspot key={s.id} spot={s} open={openId === s.id} onOpen={onOpen} compact />
-            ))}
-          </div>
-          <div className="hidden md:block">
+        </div>
+        <div className="pointer-events-none absolute inset-0">
+          <div className="relative mx-auto h-full max-w-5xl">
             {SPOTS.map((s) => (
               <div
                 key={s.id}
-                className={`absolute z-10 ${s.n % 2 === 0 ? "left-[46%]" : "left-5"}`}
+                className={`pointer-events-auto absolute z-10 ${s.n % 2 === 0 ? "left-[46%]" : "left-5"}`}
                 style={{ top: s.top }}
               >
                 <Hotspot spot={s} open={openId === s.id} onOpen={onOpen} />
