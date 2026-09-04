@@ -65,16 +65,66 @@ function Stat({ n, label }: { n: string; label: string }) {
   );
 }
 
+function HeroCopy() {
+  return (
+    <>
+      <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
+        An OzGaming.net project · Pump.fun
+      </p>
+      <h1 className="mt-3 font-display text-6xl leading-[0.85] tracking-wide text-fg sm:text-8xl">
+        {SITE.ticker}
+        <span className="block text-4xl text-accent sm:text-6xl">{SITE.tagline}</span>
+      </h1>
+      <p className="mt-5 font-display text-3xl leading-none tracking-wide text-fg sm:text-4xl">
+        A Pump.fun coin that teaches you why long shots pay.
+      </p>
+      <p className="mt-4 text-base leading-relaxed text-muted">
+        A 12× underdog pays $12 on a $1 bet because it is
+        <br />
+        only expected to win about 1 time in 12.
+      </p>
+      <ul className="mt-6 grid w-full grid-cols-3 gap-2">
+        <Stat n="12×" label="Payout if it hits" />
+        <Stat n="1/12" label="How often it should win" />
+        <Stat n="$12" label="Earned on a $1 bet" />
+      </ul>
+      <div className="mt-6 flex flex-wrap justify-start gap-2">
+        <Chip>{SITE.platform}</Chip>
+        <Chip>Contract TBA</Chip>
+      </div>
+      <div className="mt-8 flex flex-wrap justify-start gap-3">
+        <Link
+          to="/odds-101"
+          className="inline-flex min-h-11 items-center gap-2 rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg no-underline hover:bg-accent-dim"
+        >
+          Open Odds 101
+          <ArrowRight className="size-4" />
+        </Link>
+        <a
+          href={pumpLink()}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex min-h-11 items-center rounded-md border border-line bg-bg/60 px-5 py-2.5 text-sm font-semibold text-fg no-underline hover:border-accent hover:bg-accent/20"
+        >
+          BUY $UNDERDOG
+        </a>
+      </div>
+    </>
+  );
+}
+
 function Hero() {
   return (
     <section className="overflow-hidden border-b border-line">
-      <div className="relative h-80 overflow-hidden md:hidden">
+      <div className="relative aspect-video overflow-hidden md:hidden">
         <img
-          src="/hero-mobile-v11.jpg"
+          src="/hero-dog-v11.jpg"
           alt="Black Cane Corso in glasses, spiked collar"
-          className="size-full object-cover object-[center_18%] brightness-75 contrast-110"
+          className="size-full object-cover object-center"
         />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-bg to-transparent" />
+      </div>
+      <div className="px-4 py-8 md:hidden">
+        <HeroCopy />
       </div>
       <div className="relative isolate hidden md:block md:aspect-video">
         <img
@@ -86,47 +136,7 @@ function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-bg/35 via-transparent to-transparent" />
         <div className="relative mx-auto flex h-full max-w-5xl flex-col justify-center px-4 py-12">
           <div className="w-full max-w-lg text-left md:ml-auto md:translate-x-[100px]">
-          <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
-            An OzGaming.net project · Pump.fun
-          </p>
-          <h1 className="mt-3 font-display text-6xl leading-[0.85] tracking-wide text-fg sm:text-8xl">
-            {SITE.ticker}
-            <span className="block text-4xl text-accent sm:text-6xl">{SITE.tagline}</span>
-          </h1>
-          <p className="mt-5 font-display text-3xl leading-none tracking-wide text-fg sm:text-4xl">
-            A Pump.fun coin that teaches you why long shots pay.
-          </p>
-          <p className="mt-4 text-base leading-relaxed text-muted">
-            A 12× underdog pays $12 on a $1 bet because it is
-            <br />
-            only expected to win about 1 time in 12.
-          </p>
-          <ul className="mt-6 grid w-full grid-cols-3 gap-2">
-            <Stat n="12×" label="Payout if it hits" />
-            <Stat n="1/12" label="How often it should win" />
-            <Stat n="$12" label="Earned on a $1 bet" />
-          </ul>
-          <div className="mt-6 flex flex-wrap justify-start gap-2">
-            <Chip>{SITE.platform}</Chip>
-            <Chip>Contract TBA</Chip>
-          </div>
-          <div className="mt-8 flex flex-wrap justify-start gap-3">
-            <Link
-              to="/odds-101"
-              className="inline-flex min-h-11 items-center gap-2 rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg no-underline hover:bg-accent-dim"
-            >
-              Open Odds 101
-              <ArrowRight className="size-4" />
-            </Link>
-            <a
-              href={pumpLink()}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex min-h-11 items-center rounded-md border border-line bg-bg/60 px-5 py-2.5 text-sm font-semibold text-fg no-underline hover:border-accent hover:bg-accent/20"
-            >
-              BUY $UNDERDOG
-            </a>
-          </div>
+            <HeroCopy />
           </div>
         </div>
       </div>
