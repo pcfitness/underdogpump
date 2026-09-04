@@ -318,15 +318,15 @@ function Infographic() {
       <div className="overflow-hidden rounded-xl border border-line bg-bg">
         <div className="relative h-[32rem] w-full overflow-hidden bg-bg md:aspect-video md:h-auto md:min-h-[28rem]">
           <img
-            src="/hero-mobile.jpg"
+            src="/odds-101-hero-mobile.jpg"
             alt=""
-            className="pointer-events-none absolute inset-0 size-full object-cover object-[center_12%] md:hidden"
+            className="pointer-events-none absolute inset-0 size-full object-cover object-[center_18%] md:hidden"
             draggable={false}
           />
           <img
-            src="/hero-dog-v4.jpg"
-            alt="Cane Corso in the rain, crimson rim light, spiked collar"
-            className="pointer-events-none absolute inset-0 hidden size-full object-cover object-[82%_8%] md:block"
+            src="/odds-101-hero.jpg"
+            alt="Cane Corso in glasses teaching Odds 101"
+            className="pointer-events-none absolute inset-0 hidden size-full object-cover object-center md:block"
             draggable={false}
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-bg/80 via-bg/25 to-transparent" />

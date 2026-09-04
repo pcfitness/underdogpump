@@ -70,20 +70,21 @@ function Hero() {
     <section className="overflow-hidden border-b border-line">
       <div className="relative h-80 overflow-hidden md:hidden">
         <img
-          src="/hero-mobile.jpg"
-          alt="Black Cane Corso, crimson eyes, spiked collar"
-          className="size-full object-cover object-[center_10%] brightness-75 contrast-110"
+          src="/hero-mobile-v11.jpg"
+          alt="Black Cane Corso in glasses, spiked collar"
+          className="size-full object-cover object-[center_18%] brightness-75 contrast-110"
         />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-bg to-transparent" />
       </div>
       <div className="relative isolate md:min-h-[46rem]">
         <img
-          src="/hero-dog-v4.jpg"
+          src="/hero-dog-v11.jpg"
           alt=""
-          className="absolute inset-0 hidden size-full object-cover object-[82%_8%] md:block"
+          className="absolute inset-0 hidden size-full object-cover object-[18%_42%] md:block"
         />
-        <div className="absolute inset-0 hidden bg-gradient-to-r from-bg from-0% via-bg/70 to-transparent to-45% md:block" />
-        <div className="relative mx-auto max-w-5xl px-4 py-8 md:flex md:min-h-[46rem] md:flex-col md:justify-end md:pt-28 md:pb-12">
+        <div className="absolute inset-0 hidden bg-gradient-to-l from-bg from-0% via-bg/75 to-transparent to-55% md:block" />
+        <div className="relative mx-auto flex max-w-5xl flex-col px-4 py-8 md:min-h-[46rem] md:justify-end md:pt-28 md:pb-12">
+          <div className="w-full max-w-lg text-left md:ml-auto md:translate-x-[100px]">
           <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
             An OzGaming.net project · Pump.fun
           </p>
@@ -91,24 +92,24 @@ function Hero() {
             {SITE.ticker}
             <span className="block text-4xl text-accent sm:text-6xl">{SITE.tagline}</span>
           </h1>
-          <p className="mt-5 max-w-md font-display text-3xl leading-none tracking-wide text-fg sm:text-4xl">
+          <p className="mt-5 font-display text-3xl leading-none tracking-wide text-fg sm:text-4xl">
             A Pump.fun coin that teaches you why long shots pay.
           </p>
-          <p className="mt-4 max-w-md text-base leading-relaxed text-muted">
+          <p className="mt-4 text-base leading-relaxed text-muted">
             A 12× underdog pays $12 on a $1 bet because it is
             <br />
             only expected to win about 1 time in 12.
           </p>
-          <ul className="mt-6 grid w-full max-w-md grid-cols-3 gap-2">
+          <ul className="mt-6 grid w-full grid-cols-3 gap-2">
             <Stat n="12×" label="Payout if it hits" />
             <Stat n="1/12" label="How often it should win" />
             <Stat n="$12" label="Earned on a $1 bet" />
           </ul>
-          <div className="mt-6 flex flex-wrap gap-2">
+          <div className="mt-6 flex flex-wrap justify-start gap-2">
             <Chip>{SITE.platform}</Chip>
             <Chip>Contract TBA</Chip>
           </div>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap justify-start gap-3">
             <Link
               to="/odds-101"
               className="inline-flex min-h-11 items-center gap-2 rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg no-underline hover:bg-accent-dim"
@@ -124,6 +125,7 @@ function Hero() {
             >
               BUY $UNDERDOG
             </a>
+          </div>
           </div>
         </div>
       </div>
