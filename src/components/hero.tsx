@@ -57,7 +57,7 @@ export function Hero() {
           <ul className="mt-6 grid w-full max-w-md grid-cols-3 gap-2">
             <Stat n="12×" label="Payout if it hits" />
             <Stat n="1/12" label="How often it should win" />
-            <Stat n="$12" label="Earned on a $1 bet" />
+            <Stat n="$12" label="Total payout on a $1 bet" />
           </ul>
           <div className="mt-6 flex flex-wrap gap-2">
             <Chip>{SITE.platform}</Chip>

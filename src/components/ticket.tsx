@@ -64,7 +64,7 @@ export function Ticket({ pick }: { pick: LivePick }) {
             <div className="mt-6 max-w-xl text-base leading-6 text-muted">
               <p className="text-fg">{setup}</p>
               <ul className="mt-4 space-y-1.5 border-l-2 border-accent pl-4 leading-snug">
-                <li>The favorite is the {noun} expected to win.</li>
+                <li>The favorite is the side expected to win.</li>
                 <li>The underdog is the {noun} expected to lose.</li>
               </ul>
               <p className="mt-5 text-fg">
