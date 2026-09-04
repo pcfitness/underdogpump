@@ -76,14 +76,14 @@ function Hero() {
         />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-bg to-transparent" />
       </div>
-      <div className="relative isolate md:min-h-[46rem]">
+      <div className="relative isolate hidden md:block md:aspect-video">
         <img
           src="/hero-dog-v11.jpg"
           alt=""
-          className="absolute inset-0 hidden size-full object-cover object-[18%_42%] md:block"
+          className="absolute inset-0 size-full object-cover object-left"
         />
-        <div className="absolute inset-0 hidden bg-gradient-to-l from-bg from-0% via-bg/75 to-transparent to-55% md:block" />
-        <div className="relative mx-auto flex max-w-5xl flex-col px-4 py-8 md:min-h-[46rem] md:justify-end md:pt-28 md:pb-12">
+        <div className="absolute inset-0 bg-gradient-to-l from-bg from-0% via-bg/75 to-transparent to-55%" />
+        <div className="relative mx-auto flex h-full max-w-5xl flex-col justify-end px-4 pt-12 pb-12">
           <div className="w-full max-w-lg text-left md:ml-auto md:translate-x-[100px]">
           <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
             An OzGaming.net project · Pump.fun
