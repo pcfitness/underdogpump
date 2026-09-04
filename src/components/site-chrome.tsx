@@ -1,10 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { ArrowUp } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
-import { loadClashPicks } from "@/lib/load-markets";
-import { CLASHPICKS_EXAMPLES, splitQuestion, type Market } from "@/lib/markets";
-import { americanFromImplied } from "@/lib/odds";
-import { SITE } from "@/lib/site";
+import { DISCLAIMER, SITE } from "@/lib/site";
 import { VisitorClock } from "@/components/visitor-clock";
 
 function Fog() {
@@ -22,64 +19,14 @@ function Fog() {
 }
 
 function Ticker() {
-  const [items, setItems] = useState<Market[]>(CLASHPICKS_EXAMPLES);
-
-  useEffect(() => {
-    let cancelled = false;
-    const pull = () => {
-      loadClashPicks()
-        .then((next) => {
-          if (!cancelled && Array.isArray(next) && next.length) setItems(next);
-        })
-        .catch(() => {});
-    };
-    pull();
-    const timer = window.setInterval(pull, 60_000);
-    return () => {
-      cancelled = true;
-      window.clearInterval(timer);
-    };
-  }, []);
-
-  const loop = items.length ? [...items, ...items, ...items] : [];
-  const itemClass =
-    "inline-flex h-12 shrink-0 items-center gap-2.5 border-r border-line px-5 font-mono text-[0.7rem] uppercase leading-none tracking-wide text-fg no-underline hover:text-accent";
-
   return (
     <div className="flex items-center border-b border-line bg-bg text-fg">
       <p className="flex h-12 shrink-0 items-center border-r border-line px-3 font-mono text-[0.65rem] font-semibold uppercase leading-none tracking-widest text-accent">
-        Live · ClashPicks
+        Live · Kalshi
       </p>
-      <div className="ticker-mask min-w-0 flex-1 overflow-hidden">
-        <ul className="ticker-track flex h-12 w-max items-center">
-          {loop.map((item, index) => {
-            const parts = splitQuestion(item.question);
-            const american = americanFromImplied(item.impliedValue);
-            const inner = (
-              <>
-                <span className="max-w-56 truncate font-medium leading-none tracking-normal text-fg normal-case">
-                  {parts.pick === "Long shot" ? parts.event : parts.pick}
-                </span>
-                <span className="font-display text-base leading-none tracking-wide text-accent">
-                  {item.implied}
-                </span>
-                {american ? <span className="leading-none text-muted">{american}</span> : null}
-              </>
-            );
-            return (
-              <li key={`${item.id}-${index}`} className="flex h-12 items-center">
-                {item.href ? (
-                  <a href={item.href} target="_blank" rel="noreferrer" className={itemClass}>
-                    {inner}
-                  </a>
-                ) : (
-                  <span className={itemClass}>{inner}</span>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <p className="min-w-0 flex-1 truncate px-4 font-mono text-[0.7rem] uppercase tracking-wide text-muted">
+        Public market odds · not affiliated
+      </p>
     </div>
   );
 }
@@ -229,7 +176,7 @@ function SiteFooter() {
         <MetaCard label="Contract">{contract || "To be announced"}</MetaCard>
       </div>
       <p className="mx-auto max-w-5xl px-4 pb-10 text-xs leading-relaxed text-subtle">
-        {SITE.ticker} is for education and entertainment only. Nothing on this site is betting or financial advice, a recommendation, or a promise of profit. You can lose money. 18+ only. Live odds, when shown, are from public sources. $UNDERDOG is not affiliated with Polymarket, Kalshi, DraftKings, FanDuel, or ClashPicks. Do your own research.
+        {DISCLAIMER}
       </p>
     </footer>
   );
