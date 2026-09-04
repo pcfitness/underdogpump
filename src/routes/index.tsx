@@ -83,7 +83,7 @@ function Hero() {
           className="absolute inset-0 size-full object-cover object-left"
         />
         <div className="absolute inset-0 bg-gradient-to-l from-bg from-0% via-bg/75 to-transparent to-55%" />
-        <div className="relative mx-auto flex h-full max-w-5xl flex-col justify-end px-4 pt-12 pb-12">
+        <div className="relative mx-auto flex h-full max-w-5xl flex-col justify-center px-4 py-12">
           <div className="w-full max-w-lg text-left md:ml-auto md:translate-x-[100px]">
           <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
             An OzGaming.net project · Pump.fun
