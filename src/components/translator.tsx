@@ -71,7 +71,7 @@ export function OddsTranslator({ ruled = true }: { ruled?: boolean }) {
             <Field
               id="odds-decimal"
               label="Payout"
-              hint="ClashPicks 12x"
+              hint="Decimal 12x"
               value={shown.decimal}
               placeholder="4.00"
               onChange={(v) => onChange("decimal", v)}

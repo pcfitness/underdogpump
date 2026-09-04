@@ -2,7 +2,7 @@ import { ArrowUpRight, Check, Copy, Minus, Plus, Share2 } from "lucide-react";
 import { useMemo, useState } from "react";
 
 const SHARE_PATH = "/odds-101#parlays";
-const CLASHPICKS_URL = "https://www.clashpicks.com/";
+const KALSHI_URL = "https://kalshi.com/";
 const STAKE = 10;
 const MIN_PICKS = 2;
 const MAX_PICKS = 5;
@@ -198,12 +198,12 @@ export function Parlays() {
               {copied === "link" ? "Link copied" : "Copy link"}
             </button>
             <a
-              href={CLASHPICKS_URL}
+              href={KALSHI_URL}
               target="_blank"
               rel="noreferrer"
               className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-line px-4 py-2.5 text-sm font-semibold text-fg no-underline hover:border-accent"
             >
-              Open ClashPicks
+              Open Kalshi
               <ArrowUpRight className="size-4" />
             </a>
           </div>

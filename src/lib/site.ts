@@ -19,7 +19,7 @@ export const SITE = {
   mindset:
     "I put my name and a long public track record on what I build. $UNDERDOG is meant to stay up, stay updated, and have a real person behind it long after launch.",
   mission:
-    "This project was built to help beginners understand odds and prediction markets across ClashPicks, Polymarket, Kalshi, DraftKings and FanDuel.",
+    "This project was built to help beginners understand odds and prediction markets across Polymarket, Kalshi, DraftKings and FanDuel.",
 } as const;
 
 export function pumpLink() {
@@ -28,4 +28,4 @@ export function pumpLink() {
 }
 
 export const DISCLAIMER =
-  "$UNDERDOG is for education and entertainment only. Nothing on this site is betting or financial advice, a recommendation, or a promise of profit. You can lose money. 18+ only. Live odds, when shown, are from public sources. $UNDERDOG is not affiliated with Polymarket, Kalshi, DraftKings, FanDuel, or ClashPicks. Do your own research.";
+  "$UNDERDOG is for education and entertainment only. Nothing on this site is betting or financial advice, a recommendation, or a promise of profit. You can lose money. 18+ only. Live odds, when shown, are from public sources. $UNDERDOG is not affiliated with Polymarket, Kalshi, DraftKings, FanDuel. Do your own research.";
