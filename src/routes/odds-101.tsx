@@ -121,8 +121,8 @@ function Odds101() {
         <div className="mx-auto max-w-5xl px-4 py-8">
           <Infographic />
         </div>
-        <OddsTranslator />
         <Classroom />
+        <OddsTranslator />
         <PayoutLab />
         <Parlays />
         <div className="mx-auto max-w-5xl px-4 pt-10 pb-8 sm:pt-12 sm:pb-10">
@@ -160,7 +160,7 @@ function Stat({ n, label }: { n: string; label: string }) {
 
 function Classroom() {
   return (
-    <section className="border-b border-line bg-surface">
+    <section className="border-t border-line bg-surface">
       <div className="mx-auto max-w-5xl px-4 py-10 sm:py-12">
         <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Classroom</p>
         <h2 className="font-display text-5xl tracking-wide text-fg sm:text-6xl">Favorites pay less</h2>
