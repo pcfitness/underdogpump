@@ -3,7 +3,6 @@ import { useRouterState } from "@tanstack/react-router";
 import { SiteFooter } from "./site-footer";
 import { SiteHeader } from "./site-header";
 import { ToTop } from "./to-top";
-import { VisitorClock } from "./visitor-clock";
 import type { LivePick } from "@/lib/markets";
 
 export function PageShell({
@@ -39,7 +38,6 @@ export function PageShell({
           <SiteHeader picks={picks} />
           {children}
           <SiteFooter />
-          <VisitorClock />
           <ToTop />
         </div>
       </div>
