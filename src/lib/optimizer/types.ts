@@ -1,8 +1,17 @@
 export type DataStatus = "live" | "sample" | "unavailable";
 
-export type SportKey = "ufc" | "boxing" | "darts" | "tennis" | "nba" | "nfl" | "mlb" | "nhl";
+export type SportKey =
+  | "ufc"
+  | "boxing"
+  | "darts_pdc"
+  | "darts_modus"
+  | "tennis"
+  | "nba"
+  | "nfl"
+  | "mlb"
+  | "nhl";
 
-export type FighterCard = {
+export type SideCard = {
   name: string;
   americanOdds: number | null;
   record: string | null;
@@ -21,8 +30,8 @@ export type OptimizerEvent = {
   dataStatus: DataStatus;
   source: string;
   sourceNote: string;
-  favorite: FighterCard;
-  underdog: FighterCard;
+  favorite: SideCard;
+  underdog: SideCard;
 };
 
 export type Reason = {
