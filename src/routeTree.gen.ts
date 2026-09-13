@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as Odds101RouteImport } from './routes/odds-101'
+import { Route as OptimizerRouteImport } from './routes/optimizer'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +23,40 @@ const Odds101Route = Odds101RouteImport.update({
   path: '/odds-101',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OptimizerRoute = OptimizerRouteImport.update({
+  id: '/optimizer',
+  path: '/optimizer',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/odds-101': typeof Odds101Route
+  '/optimizer': typeof OptimizerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/odds-101': typeof Odds101Route
+  '/optimizer': typeof OptimizerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/odds-101': typeof Odds101Route
+  '/optimizer': typeof OptimizerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/odds-101'
+  fullPaths: '/' | '/odds-101' | '/optimizer'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/odds-101'
-  id: '__root__' | '/' | '/odds-101'
+  to: '/' | '/odds-101' | '/optimizer'
+  id: '__root__' | '/' | '/odds-101' | '/optimizer'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   Odds101Route: typeof Odds101Route
+  OptimizerRoute: typeof OptimizerRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +75,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Odds101RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/optimizer': {
+      id: '/optimizer'
+      path: '/optimizer'
+      fullPath: '/optimizer'
+      preLoaderRoute: typeof OptimizerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   Odds101Route: Odds101Route,
+  OptimizerRoute: OptimizerRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

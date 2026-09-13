@@ -53,6 +53,12 @@ export function SiteHeader({
             <span className="nav-rule" aria-hidden="true">
               |
             </span>
+            <Link to="/optimizer" className="nav-link">
+              Optimizer
+            </Link>
+            <span className="nav-rule" aria-hidden="true">
+              |
+            </span>
             <a href="/#how-to-buy" className="nav-link">
               How to buy
             </a>
