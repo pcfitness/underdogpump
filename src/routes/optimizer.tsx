@@ -5,13 +5,13 @@ import { CLASSROOM_PICK } from "@/lib/markets";
 import { loadMarkets } from "@/lib/load-markets";
 import { formatAmerican, formatPercent } from "@/lib/odds";
 import { analyzeOptimizerFight, loadOptimizerBoard } from "@/lib/optimizer/server";
-import type { OptimizerAnalysis } from "@/lib/optimizer/types";
+import type { OptimizerAnalysis, SportKey } from "@/lib/optimizer/types";
 
 export const Route = createFileRoute("/optimizer")({
   loader: async () => {
     const [markets, board] = await Promise.all([
       loadMarkets({ data: {} }),
-      loadOptimizerBoard(),
+      loadOptimizerBoard({ data: { sport: "ufc" } }),
     ]);
     return { markets, board };
   },
@@ -26,19 +26,38 @@ function pct(n: number | null) {
 }
 
 function OptimizerPage() {
-  const { markets, board } = Route.useLoaderData();
+  const { markets, board: firstBoard } = Route.useLoaderData();
   const ticker = markets.kalshi.length ? markets.kalshi : [CLASSROOM_PICK];
-  const [selected, setSelected] = useState(board.events[0]?.id ?? "");
+  const [board, setBoard] = useState(firstBoard);
+  const [sport, setSport] = useState<SportKey>(firstBoard.sport);
+  const [selected, setSelected] = useState(firstBoard.events[0]?.id ?? "");
   const [analysis, setAnalysis] = useState<OptimizerAnalysis | null>(null);
   const [busy, setBusy] = useState(false);
+  const [switching, setSwitching] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  async function chooseSport(next: SportKey) {
+    setSport(next);
+    setSwitching(true);
+    setError(null);
+    setAnalysis(null);
+    try {
+      const nextBoard = await loadOptimizerBoard({ data: { sport: next } });
+      setBoard(nextBoard);
+      setSelected(nextBoard.events[0]?.id ?? "");
+    } catch {
+      setError("Could not load that sport board.");
+    } finally {
+      setSwitching(false);
+    }
+  }
 
   async function run() {
     if (!selected) return;
     setBusy(true);
     setError(null);
     try {
-      const result = await analyzeOptimizerFight({ data: { id: selected } });
+      const result = await analyzeOptimizerFight({ data: { id: selected, sport } });
       if (!result) {
         setAnalysis(null);
         setError("That card is no longer on the board.");
@@ -58,15 +77,15 @@ function OptimizerPage() {
         <section className="border-b border-line">
           <div className="mx-auto max-w-5xl px-4 py-10 sm:py-12">
             <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
-              Preview · UFC first slice
+              Preview · All sports
             </p>
             <h1 className="mt-2 font-display text-5xl leading-none tracking-wide text-fg sm:text-7xl">
               Underdog AI Optimizer
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-              Pick a UFC card. The server scores whether the underdog looks like value from the
-              price, the vig, and any confirmed notes. Missing stats stay missing. Nothing here is a
-              bet recommendation.
+              Pick a sport, then a matchup. The server scores whether the underdog looks like value
+              from the price, the vig, and any confirmed notes. UFC is not the whole product. Boxing,
+              PDC, MODUS, tennis, NBA, NFL, MLB, and NHL sit on the same board.
             </p>
             <p className="mt-4 rounded-lg border border-line bg-surface/80 px-4 py-3 text-sm leading-relaxed text-muted shadow-[inset_3px_0_0_var(--color-accent)]">
               {board.note}
@@ -76,38 +95,68 @@ function OptimizerPage() {
 
         <section className="bg-surface">
           <div className="mx-auto max-w-5xl px-4 py-10 sm:py-12">
-            <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">UFC board</p>
-            <h2 className="font-display text-4xl tracking-wide text-fg sm:text-5xl">Select a fight</h2>
-            <div className="mt-6 grid gap-3">
-              {board.events.map((event) => {
-                const active = event.id === selected;
+            <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Sports</p>
+            <h2 className="font-display text-4xl tracking-wide text-fg sm:text-5xl">Choose a board</h2>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {board.sports.map((item) => {
+                const active = item.key === sport;
                 return (
                   <button
-                    key={event.id}
+                    key={item.key}
                     type="button"
-                    onClick={() => setSelected(event.id)}
-                    className={`rounded-lg border px-4 py-4 text-left shadow-[inset_3px_0_0_var(--color-accent)] ${
-                      active ? "border-accent bg-accent/10" : "border-line bg-surface/80"
+                    onClick={() => chooseSport(item.key)}
+                    className={`min-h-11 rounded-md border px-3 py-2 text-sm font-semibold ${
+                      active
+                        ? "border-accent bg-accent text-accent-fg"
+                        : "border-line bg-bg/60 text-fg hover:border-accent hover:bg-accent/20"
                     }`}
                   >
-                    <p className="text-[0.65rem] font-semibold tracking-widest text-accent uppercase">
-                      {event.league} · {event.dataStatus === "live" ? "Live feed" : "Development sample"}
-                    </p>
-                    <p className="mt-1 font-display text-2xl tracking-wide text-fg">{event.eventName}</p>
-                    <p className="mt-1 text-sm text-muted">
-                      Favorite {event.favorite}{" "}
-                      {event.favoriteOdds === null ? "odds unavailable" : formatAmerican(event.favoriteOdds)}
-                      {" · "}Underdog {event.underdog}{" "}
-                      {event.underdogOdds === null ? "odds unavailable" : formatAmerican(event.underdogOdds)}
-                    </p>
+                    {item.label}
                   </button>
                 );
               })}
             </div>
+
+            <p className="mt-8 text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
+              {board.sports.find((s) => s.key === sport)?.label ?? "Board"}
+            </p>
+            <h3 className="font-display text-3xl tracking-wide text-fg">Select a matchup</h3>
+            <div className="mt-6 grid gap-3">
+              {switching ? (
+                <p className="text-sm text-muted">Loading that sport…</p>
+              ) : board.events.length ? (
+                board.events.map((event) => {
+                  const active = event.id === selected;
+                  return (
+                    <button
+                      key={event.id}
+                      type="button"
+                      onClick={() => setSelected(event.id)}
+                      className={`rounded-lg border px-4 py-4 text-left shadow-[inset_3px_0_0_var(--color-accent)] ${
+                        active ? "border-accent bg-accent/10" : "border-line bg-surface/80"
+                      }`}
+                    >
+                      <p className="text-[0.65rem] font-semibold tracking-widest text-accent uppercase">
+                        {event.league} · {event.dataStatus === "live" ? "Live feed" : "Development sample"}
+                      </p>
+                      <p className="mt-1 font-display text-2xl tracking-wide text-fg">{event.eventName}</p>
+                      <p className="mt-1 text-sm text-muted">
+                        Favorite {event.favorite}{" "}
+                        {event.favoriteOdds === null ? "odds unavailable" : formatAmerican(event.favoriteOdds)}
+                        {" · "}Underdog {event.underdog}{" "}
+                        {event.underdogOdds === null ? "odds unavailable" : formatAmerican(event.underdogOdds)}
+                      </p>
+                    </button>
+                  );
+                })
+              ) : (
+                <p className="text-sm text-muted">No cards on this board yet.</p>
+              )}
+            </div>
             <button
               type="button"
               onClick={run}
-              disabled={!selected || busy}
+              disabled={!selected || busy || switching}
               className="mt-6 inline-flex min-h-11 items-center rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg hover:bg-accent-dim disabled:opacity-50"
             >
               {busy ? "Scoring…" : "Run Optimizer"}

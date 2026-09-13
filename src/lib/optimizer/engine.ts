@@ -1,4 +1,5 @@
 import { formatAmerican, fromImplied } from "@/lib/odds";
+import { sportMeta } from "./sports";
 import type { OptimizerAnalysis, OptimizerEvent, Reason } from "./types";
 
 function impliedFromAmerican(american: number | null): number | null {
@@ -21,7 +22,16 @@ function clamp(n: number, min: number, max: number) {
   return Math.min(max, Math.max(min, n));
 }
 
+function sportRisk(event: OptimizerEvent): string {
+  const kind = sportMeta(event.sport).kind;
+  if (kind === "combat") return "One punch, one cut, or one bad weight cut can flip a fight the model never sees.";
+  if (kind === "board") return "One hot visit or a sudden dart-off collapse can erase a session lead in a few minutes.";
+  if (kind === "racket") return "A tight set, a bad service game, or an unforced-error burst can flip a match fast.";
+  return "Injuries, rest days, and travel can move a team after the price is already posted.";
+}
+
 export function analyzeEvent(event: OptimizerEvent): OptimizerAnalysis {
+  const meta = sportMeta(event.sport);
   const favImp = impliedFromAmerican(event.favorite.americanOdds);
   const dogImp = impliedFromAmerican(event.underdog.americanOdds);
   const fair = noVigPair(favImp, dogImp);
@@ -30,11 +40,13 @@ export function analyzeEvent(event: OptimizerEvent): OptimizerAnalysis {
   if (event.favorite.americanOdds === null || event.underdog.americanOdds === null) {
     missing.push("Live bookmaker odds");
   }
-  if (!event.favorite.record) missing.push(`${event.favorite.name} record`);
-  if (!event.underdog.record) missing.push(`${event.underdog.name} record`);
-  if (!event.favorite.stance && !event.underdog.stance) missing.push("Stance data");
-  if (event.favorite.reachInches === null && event.underdog.reachInches === null) {
-    missing.push("Reach measurements");
+  if (!event.favorite.record) missing.push(`${event.favorite.name} record / recent form`);
+  if (!event.underdog.record) missing.push(`${event.underdog.name} record / recent form`);
+  if (meta.kind === "combat") {
+    if (!event.favorite.stance && !event.underdog.stance) missing.push("Stance data");
+    if (event.favorite.reachInches === null && event.underdog.reachInches === null) {
+      missing.push("Reach measurements");
+    }
   }
   if (event.dataStatus !== "live") missing.push("Confirmed live market feed");
 
@@ -83,7 +95,6 @@ export function analyzeEvent(event: OptimizerEvent): OptimizerAnalysis {
       });
     }
     if (fair.vig !== null && fair.vig >= 0.05) {
-      score += 4;
       reasonsAgainst.push({
         kind: "against",
         basedOn: "structure",
@@ -92,26 +103,27 @@ export function analyzeEvent(event: OptimizerEvent): OptimizerAnalysis {
     }
   }
 
-  if (event.underdog.stance && event.favorite.stance && event.underdog.stance !== event.favorite.stance) {
-    score += 4;
-    reasonsFor.push({
-      kind: "for",
-      basedOn: "stats",
-      text: `${event.underdog.name} is listed as ${event.underdog.stance} against a ${event.favorite.stance} favorite. Style mismatch can help a dog if the favorite has not seen that look lately.`,
-    });
-  }
-
-  if (
-    event.underdog.reachInches !== null &&
-    event.favorite.reachInches !== null &&
-    event.underdog.reachInches - event.favorite.reachInches >= 3
-  ) {
-    score += 5;
-    reasonsFor.push({
-      kind: "for",
-      basedOn: "stats",
-      text: `${event.underdog.name} has a reach edge (${event.underdog.reachInches}" vs ${event.favorite.reachInches}"). That only matters if the dog can keep the fight at range.`,
-    });
+  if (meta.kind === "combat") {
+    if (event.underdog.stance && event.favorite.stance && event.underdog.stance !== event.favorite.stance) {
+      score += 4;
+      reasonsFor.push({
+        kind: "for",
+        basedOn: "stats",
+        text: `${event.underdog.name} is listed as ${event.underdog.stance} against a ${event.favorite.stance} favorite. Style mismatch can help a dog.`,
+      });
+    }
+    if (
+      event.underdog.reachInches !== null &&
+      event.favorite.reachInches !== null &&
+      event.underdog.reachInches - event.favorite.reachInches >= 3
+    ) {
+      score += 5;
+      reasonsFor.push({
+        kind: "for",
+        basedOn: "stats",
+        text: `${event.underdog.name} has a reach edge (${event.underdog.reachInches}" vs ${event.favorite.reachInches}").`,
+      });
+    }
   }
 
   if (missing.length >= 3) {
@@ -126,7 +138,7 @@ export function analyzeEvent(event: OptimizerEvent): OptimizerAnalysis {
   riskFactors.push({
     kind: "risk",
     basedOn: "missing-data",
-    text: "One punch, one cut, or one bad weight cut can flip a fight the model never sees.",
+    text: sportRisk(event),
   });
   riskFactors.push({
     kind: "risk",
@@ -159,11 +171,11 @@ export function analyzeEvent(event: OptimizerEvent): OptimizerAnalysis {
   const explanation =
     rating === "Incomplete"
       ? `${event.eventName} cannot be scored cleanly yet. Odds or identity data is missing, so the Optimizer will not invent a finish.`
-      : `${event.underdog.name} is the underdog at ${dogOdds} against ${event.favorite.name} at ${favOdds}. ` +
-        `Version one scores market structure: implied chance, vig, and any confirmed style notes. ` +
+      : `${event.underdog.name} is the ${meta.label} underdog at ${dogOdds} against ${event.favorite.name} at ${favOdds}. ` +
+        `Version one scores market structure: implied chance, vig, and any confirmed notes for this sport. ` +
         `Score ${score} / 100 is a ${rating.toLowerCase()}. ` +
         (event.dataStatus === "live"
-          ? "Odds came from the live provider. Fighter stats are only used when present."
+          ? "Odds came from the live provider. Extra stats are only used when present."
           : "This card is a labeled development sample. It proves the pipeline. It is not a live ticket.");
 
   return {
