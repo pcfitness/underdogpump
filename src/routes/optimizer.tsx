@@ -212,13 +212,22 @@ function OptimizerPage() {
   );
 }
 
-function Stat({ n, label }: { n: string; label: string }) {
+function Stat({ n, label, hint }: { n: string; label: string; hint: string }) {
   return (
     <li className="min-w-0 rounded-md border border-line bg-bg/55 px-2 py-3">
       <p className="font-display text-xl leading-none tracking-wide text-accent sm:text-2xl">{n}</p>
       <p className="mt-1 text-[0.6rem] font-semibold tracking-wide text-muted uppercase">{label}</p>
+      <p className="mt-1 text-[0.7rem] leading-snug text-muted">{hint}</p>
     </li>
   );
+}
+
+function ratingHint(rating: OptimizerAnalysis["rating"]) {
+  if (rating === "Pass") return "Deep price. Thin ice.";
+  if (rating === "Watch") return "Ordinary dog price.";
+  if (rating === "Lean") return "Price is worth a look.";
+  if (rating === "Value look") return "Price looks interesting.";
+  return "Odds are missing.";
 }
 
 function AnalysisPanel({
@@ -242,10 +251,10 @@ function AnalysisPanel({
         </p>
 
         <ul className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4">
-          <Stat n={String(analysis.score)} label="Optimizer score" />
-          <Stat n={analysis.rating} label="Rating" />
-          <Stat n={analysis.underdogOdds} label={`${analysis.event.underdog.name} odds`} />
-          <Stat n={pct(analysis.underdogImplied)} label="Dog implied" />
+          <Stat n={String(analysis.score)} label="Optimizer score" hint="Out of 100, from the price." />
+          <Stat n={analysis.rating} label="Rating" hint={ratingHint(analysis.rating)} />
+          <Stat n={analysis.underdogOdds} label={`${analysis.event.underdog.name} odds`} hint="What the dog pays." />
+          <Stat n={pct(analysis.underdogImplied)} label="Dog implied" hint="Market's chance to win." />
         </ul>
 
         <div className="mt-8 grid gap-3 sm:grid-cols-2">
