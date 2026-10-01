@@ -254,7 +254,7 @@ function OptimizerPage() {
             ) : null}
             <div className="mt-6">
               {parlay.length ? (
-                <p className="text-sm text-muted">
+                <p className="rounded-lg border border-line bg-surface/80 px-4 py-3 text-sm leading-relaxed text-muted shadow-[inset_3px_0_0_var(--color-accent)]">
                   Parlay is on, so the single-fighter score is off. Remove the dogs to run AI Optimizer on one matchup.
                 </p>
               ) : (
@@ -346,7 +346,7 @@ function ParlaySlip({ legs, onRemove }: { legs: ParlayLeg[]; onRemove: (id: stri
   const five = parlayProfit(legs, 5);
   const ten = parlayProfit(legs, 10);
   return (
-    <article className="mt-6 rounded-lg border border-line bg-bg/40 px-4 py-4">
+    <article className="mt-6 rounded-lg border border-line bg-surface/80 px-4 py-4 shadow-[inset_3px_0_0_var(--color-accent)]">
       <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Underdog parlay</p>
       {legs.length < 2 ? (
         <p className="mt-2 text-sm text-muted">Add a dog from a different fight. The payout shows once there are two.</p>
