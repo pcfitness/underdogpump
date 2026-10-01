@@ -44,7 +44,7 @@ function OptimizerPage() {
   const ticker = markets.kalshi.length ? markets.kalshi : [CLASSROOM_PICK];
   const [board, setBoard] = useState(firstBoard);
   const [sport, setSport] = useState<SportKey>(firstBoard.sport);
-  const [selected, setSelected] = useState(firstBoard.events[0]?.id ?? "");
+  const [selected, setSelected] = useState(topPayoutIds(firstBoard.events)[0] ?? firstBoard.events[0]?.id ?? "");
   const [analysis, setAnalysis] = useState<OptimizerAnalysis | null>(null);
   const [busy, setBusy] = useState(false);
   const [switching, setSwitching] = useState(false);
@@ -60,7 +60,7 @@ function OptimizerPage() {
     try {
       const nextBoard = await loadOptimizerBoard({ data: { sport: next } });
       setBoard(nextBoard);
-      setSelected(nextBoard.events[0]?.id ?? "");
+      setSelected(topPayoutIds(nextBoard.events)[0] ?? nextBoard.events[0]?.id ?? "");
     } catch {
       setError("Could not load that sport board.");
     } finally {
@@ -167,8 +167,12 @@ function OptimizerPage() {
                       key={event.id}
                       type="button"
                       onClick={() => setSelected(event.id)}
-                      className={`min-w-0 rounded-lg border px-4 py-4 text-left shadow-[inset_3px_0_0_var(--color-accent)] ${
-                        active || rank === 1 ? "border-accent bg-accent/10" : "border-line bg-surface/80"
+                      className={`min-w-0 rounded-lg border px-4 py-4 text-left ${
+                        rank
+                          ? "border-accent bg-accent/10 shadow-[inset_3px_0_0_var(--color-accent)]"
+                          : active
+                            ? "border-fg/30 bg-surface"
+                            : "border-line bg-surface/80"
                       }`}
                     >
                       <p className="text-[0.65rem] font-semibold tracking-widest text-accent uppercase">
