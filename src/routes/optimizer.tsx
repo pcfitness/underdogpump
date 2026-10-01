@@ -170,16 +170,20 @@ function OptimizerPage() {
                       }`}
                     >
                       <p className="text-[0.65rem] font-semibold tracking-widest text-accent uppercase">
-                        {event.league} · {event.dataStatus === "live" ? "Live" : "Sample"}
+                        Dog · {event.league}
+                        {event.dataStatus === "live" ? " · Live" : ""}
                         {event.bookCount ? ` · ${event.bookCount} books` : ""}
                         {start ? ` · ${start}` : ""}
                       </p>
-                      <p className="mt-1 font-display text-xl tracking-wide text-fg sm:text-2xl">{event.eventName}</p>
+                      <p className="mt-1 flex items-baseline justify-between gap-3">
+                        <span className="font-display text-xl tracking-wide text-accent sm:text-2xl">{event.underdog}</span>
+                        <span className="shrink-0 font-display text-xl tracking-wide text-accent">
+                          {event.underdogOdds === null ? "—" : formatAmerican(event.underdogOdds)}
+                        </span>
+                      </p>
                       <p className="mt-1 text-sm text-muted">
                         Favorite {event.favorite}{" "}
-                        {event.favoriteOdds === null ? "odds unavailable" : formatAmerican(event.favoriteOdds)}
-                        {" · "}Underdog {event.underdog}{" "}
-                        {event.underdogOdds === null ? "odds unavailable" : formatAmerican(event.underdogOdds)}
+                        {event.favoriteOdds === null ? "" : formatAmerican(event.favoriteOdds)}
                       </p>
                     </button>
                   );
@@ -230,9 +234,13 @@ function AnalysisPanel({
   return (
     <section className="border-t border-line">
       <div className="mx-auto max-w-5xl px-4 py-10 sm:py-12">
-        <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Result</p>
-        <h2 className="font-display text-4xl tracking-wide text-fg sm:text-5xl">{analysis.event.eventName}</h2>
-        <p className="mt-2 text-sm text-muted">{analysis.event.sourceNote}</p>
+        <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">The dog</p>
+        <h2 className="font-display text-4xl tracking-wide text-accent sm:text-5xl">
+          {analysis.event.underdog.name} {analysis.underdogOdds}
+        </h2>
+        <p className="mt-2 text-sm text-muted">
+          Favorite {analysis.event.favorite.name} {analysis.favoriteOdds}. {analysis.event.sourceNote}
+        </p>
 
         <ul className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4">
           <Stat n={String(analysis.score)} label="Optimizer score" />
