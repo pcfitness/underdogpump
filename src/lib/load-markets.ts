@@ -118,7 +118,7 @@ function toPick(
   const sub = String(m.yes_sub_title || "");
   if (SKIP.test(title) || SKIP.test(sub) || /— Other$/i.test(sub)) return null;
   const px = yesPrice(m as never);
-  if (px < 0.012 || px > 0.12) return null;
+  if (px <= 0.025 || px > 0.12) return null;
   const vol = num(m.volume_24h_fp);
   const oi = num(m.open_interest_fp);
   const volAll = num(m.volume_fp);
@@ -147,6 +147,13 @@ function score(p: LivePick) {
   return vol * band;
 }
 
+function readableDog(name: string) {
+  const n = name.trim();
+  if (n.length < 3 || n.length > 28) return false;
+  if (/\d|%|above|below|before|after|between|more than|less than|at least|\bover\b|\bunder\b/i.test(n)) return false;
+  return /[a-z]/i.test(n);
+}
+
 function tapeName(question: string) {
   const { pick, event } = splitQuestion(question);
   return (pick === "Long shot" ? event : pick).trim().toLowerCase();
@@ -167,6 +174,7 @@ function rank(picks: LivePick[]) {
   const byName = new Map<string, LivePick>();
   for (const p of byEvent.values()) {
     const name = tapeName(p.question);
+    if (!readableDog(name)) continue;
     const prev = byName.get(name);
     if (!prev || score(p) > score(prev)) byName.set(name, p);
   }
@@ -222,7 +230,7 @@ async function fetchKalshi(): Promise<LivePick[]> {
     if (!data.cursor || !data.events.length) break;
     cursor = data.cursor;
   }
-  for (const ticker of HEADLINE_SERIES.slice(0, 6)) {
+  for (const ticker of HEADLINE_SERIES) {
     try {
       const data = await fetchEventsPage(
         `${KALSHI_API}/events?status=open&limit=8&with_nested_markets=true&series_ticker=${encodeURIComponent(ticker)}`,
