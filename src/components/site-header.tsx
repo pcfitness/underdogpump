@@ -99,12 +99,12 @@ export function SiteHeader({
                       href={pick.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex h-9 shrink-0 items-center gap-2 rounded-full border border-line bg-surface/80 px-3 no-underline hover:border-accent"
+                      className="inline-flex h-9 shrink-0 items-center gap-2 px-2 no-underline hover:text-accent"
                     >
                       {inner}
                     </a>
                   ) : (
-                    <span className="inline-flex h-9 shrink-0 items-center gap-2 rounded-full border border-line bg-surface/80 px-3">
+                    <span className="inline-flex h-9 shrink-0 items-center gap-2 px-2">
                       {inner}
                     </span>
                   )}
