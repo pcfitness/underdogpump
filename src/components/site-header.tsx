@@ -66,9 +66,9 @@ export function SiteHeader({
         </div>
       </header>
       <div className="dog-tape flex items-stretch border-b border-accent/40 bg-bg text-fg">
-        <p className="flex w-16 shrink-0 flex-col items-center justify-center bg-accent text-accent-fg sm:w-24">
-          <span className="font-display text-lg leading-none tracking-wide sm:text-2xl">DOGS</span>
-          <span className="mt-0.5 text-[0.55rem] font-semibold tracking-widest uppercase">Kalshi</span>
+        <p className="flex w-14 shrink-0 flex-col items-center justify-center gap-0 bg-accent px-1.5 text-accent-fg sm:w-16">
+          <span className="font-display text-lg leading-none tracking-wide sm:text-xl">DOGS</span>
+          <span className="-mt-0.5 text-[0.55rem] leading-none font-semibold tracking-widest uppercase">Kalshi</span>
         </p>
         <div className="ticker-mask min-w-0 flex-1 overflow-hidden">
           <ul className="ticker-track flex h-14 w-max items-center gap-2 px-3">
