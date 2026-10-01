@@ -17,7 +17,7 @@ export const Route = createFileRoute("/optimizer")({
     return { markets, board };
   },
   head: () => ({
-    meta: [{ title: "$UNDERDOG · AI Optimizer" }],
+    meta: [{ title: "$UNDERDOG · AI Underdog Optimizer" }],
   }),
   component: OptimizerPage,
 });
@@ -91,7 +91,7 @@ function OptimizerPage() {
   async function share() {
     if (!analysis) return;
     const text = [
-      `${SITE.ticker} AI Optimizer`,
+      `${SITE.ticker} AI Underdog Optimizer`,
       `${analysis.event.underdog.name} ${analysis.underdogOdds} vs ${analysis.event.favorite.name} ${analysis.favoriteOdds}`,
       `Score ${analysis.score} · ${analysis.rating}`,
       "Education only. Not a pick.",
@@ -113,7 +113,7 @@ function OptimizerPage() {
           <div className="mx-auto max-w-5xl px-4 py-10 sm:py-12">
             <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Price read</p>
             <h1 className="mt-2 font-display text-5xl leading-none tracking-wide text-fg sm:text-7xl">
-              AI Optimizer
+              AI <span className="text-accent">&ldquo;Underdog&rdquo;</span> Optimizer
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
               Pick a sport, then a matchup. The score comes from the underdog price, the vig, and any
