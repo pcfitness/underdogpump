@@ -50,6 +50,33 @@ function OptimizerPage() {
   const [switching, setSwitching] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [parlay, setParlay] = useState<ParlayLeg[]>([]);
+
+  function addToParlay() {
+    const event = board.events.find((row) => row.id === selected);
+    if (!event || event.underdogOdds === null) {
+      setError("That card has no price to add.");
+      return;
+    }
+    if (parlay.some((leg) => leg.id === event.id)) {
+      setError("That dog is already on the slip.");
+      return;
+    }
+    if (parlay.length >= 3) {
+      setError("Three dogs is the limit. Remove one to add another.");
+      return;
+    }
+    setError(null);
+    setParlay((legs) => [
+      ...legs,
+      {
+        id: event.id,
+        underdog: event.underdog,
+        favorite: event.favorite,
+        americanOdds: event.underdogOdds as number,
+      },
+    ]);
+  }
 
   async function chooseSport(next: SportKey) {
     setSport(next);
@@ -203,15 +230,26 @@ function OptimizerPage() {
                 </p>
               )}
             </div>
-            <button
-              type="button"
-              onClick={run}
-              disabled={!selected || busy || switching}
-              className="mt-6 inline-flex min-h-11 items-center rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg hover:bg-accent-dim disabled:opacity-50"
-            >
-              {busy ? "Scoring…" : selected ? "Run AI Optimizer" : "Select a fighter"}
-            </button>
+            <div className="mt-6 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={run}
+                disabled={!selected || busy || switching}
+                className="inline-flex min-h-11 items-center rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg hover:bg-accent-dim disabled:opacity-50"
+              >
+                {busy ? "Scoring…" : selected ? "Run AI Optimizer" : "Select a fighter"}
+              </button>
+              <button
+                type="button"
+                onClick={addToParlay}
+                disabled={!selected || switching}
+                className="inline-flex min-h-11 items-center rounded-md border border-line px-5 py-2.5 text-sm font-semibold text-fg hover:border-accent disabled:opacity-50"
+              >
+                Add to parlay
+              </button>
+            </div>
             {error ? <p className="mt-3 text-sm text-accent">{error}</p> : null}
+            <ParlaySlip legs={parlay} onRemove={(id) => setParlay((legs) => legs.filter((leg) => leg.id !== id))} />
           </div>
         </section>
 
@@ -271,6 +309,54 @@ function winOn(stake: number, american: number | null) {
 
 function money(n: number) {
   return n.toLocaleString("en-US", { style: "currency", currency: "USD" });
+}
+
+type ParlayLeg = { id: string; underdog: string; favorite: string; americanOdds: number };
+
+function decimalOdds(american: number) {
+  return american > 0 ? american / 100 + 1 : 100 / Math.abs(american) + 1;
+}
+
+function parlayProfit(legs: ParlayLeg[], stake: number) {
+  const decimal = legs.reduce((product, leg) => product * decimalOdds(leg.americanOdds), 1);
+  return stake * (decimal - 1);
+}
+
+function ParlaySlip({ legs, onRemove }: { legs: ParlayLeg[]; onRemove: (id: string) => void }) {
+  if (!legs.length) return null;
+  const five = parlayProfit(legs, 5);
+  const ten = parlayProfit(legs, 10);
+  return (
+    <article className="mt-6 rounded-lg border border-line bg-bg/40 px-4 py-4">
+      <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Underdog parlay</p>
+      <ul className="mt-3 space-y-2">
+        {legs.map((leg) => (
+          <li key={leg.id} className="flex items-center justify-between gap-3 text-sm">
+            <span className="text-fg">
+              {leg.underdog} {formatAmerican(leg.americanOdds)}
+              <span className="text-muted"> vs {leg.favorite}</span>
+            </span>
+            <button type="button" onClick={() => onRemove(leg.id)} className="text-xs font-semibold text-muted hover:text-accent">
+              Remove
+            </button>
+          </li>
+        ))}
+      </ul>
+      {legs.length < 2 ? (
+        <p className="mt-3 text-sm text-muted">Add a dog from a different fight. All legs have to hit.</p>
+      ) : (
+        <p className="mt-3 text-sm text-muted">
+          {legs.length} dogs. All have to hit.
+          <br />
+          $5 wins {money(five)}, {money(five + 5)} back
+          <br />
+          $10 wins {money(ten)}, {money(ten + 10)} back
+          <br />
+          Estimate from these prices. A sportsbook ticket can differ.
+        </p>
+      )}
+    </article>
+  );
 }
 
 function AnalysisPanel({
