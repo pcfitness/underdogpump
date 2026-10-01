@@ -74,6 +74,16 @@
   }
 }
 
+.dog-tape {
+  background-image: repeating-linear-gradient(
+    -18deg,
+    transparent,
+    transparent 10px,
+    color-mix(in srgb, var(--color-accent) 8%, transparent) 10px,
+    color-mix(in srgb, var(--color-accent) 8%, transparent) 11px
+  );
+}
+
 .ticker-track {
   animation: 42s linear infinite ticker-move;
 }
