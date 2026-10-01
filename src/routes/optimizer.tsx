@@ -316,11 +316,11 @@ function AnalysisPanel({
                 "Odds unavailable."
               ) : (
                 <>
-                  A $5 bet wins {money(winOn(5, analysis.event.underdog.americanOdds) ?? 0)}
+                  $5 wins {money(winOn(5, analysis.event.underdog.americanOdds) ?? 0)}, {money((winOn(5, analysis.event.underdog.americanOdds) ?? 0) + 5)} back
                   <br />
-                  A $10 bet wins {money(winOn(10, analysis.event.underdog.americanOdds) ?? 0)}
+                  $10 wins {money(winOn(10, analysis.event.underdog.americanOdds) ?? 0)}, {money((winOn(10, analysis.event.underdog.americanOdds) ?? 0) + 10)} back
                   <br />
-                  You also get the stake back.
+                  Wins is profit. Back includes the stake.
                 </>
               )}
             </p>
