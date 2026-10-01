@@ -10,7 +10,13 @@ export function SiteHeader({
   picks: LivePick[];
   liveLabel?: string;
 }) {
-  const items = picks.length ? picks : [];
+  const seen = new Set<string>();
+  const items = picks.filter((pick) => {
+    const key = pick.id || pick.question;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
   const loop = items.length ? [...items, ...items, ...items] : [];
 
   return (

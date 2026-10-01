@@ -85,7 +85,7 @@
 }
 
 .ticker-track {
-  animation: 42s linear infinite ticker-move;
+  animation: 24s linear infinite ticker-move;
 }
 
 .ticker-mask:hover .ticker-track {

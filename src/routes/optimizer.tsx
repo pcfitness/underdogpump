@@ -147,20 +147,20 @@ function OptimizerPage() {
             <p className="mt-4 rounded-lg border border-line bg-surface/80 px-4 py-3 text-sm leading-relaxed text-muted shadow-[inset_3px_0_0_var(--color-accent)]">
               {board.note}
             </p>
-            <div className="mt-4 max-w-3xl space-y-2 pl-4 text-sm leading-snug text-muted sm:text-base">
-              <p className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-x-3">
+            <div className="mt-4 max-w-3xl space-y-2 pl-4 text-sm leading-none text-muted sm:text-base">
+              <p className="flex items-center gap-x-2 whitespace-nowrap">
                 <span>Books price dogs to lose, so they pay more</span>
                 <span className="size-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
-                <span>The score reads that price, not a record</span>
+                <span>The score reads that price</span>
                 <span className="size-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
-                <span>A high score is a read, not a ticket</span>
+                <span>A high score is not a ticket</span>
               </p>
-              <p className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-x-3">
-                <span>Pick a board, then pick the matchup</span>
+              <p className="flex items-center gap-x-2 whitespace-nowrap">
+                <span>Pick a board, then a matchup</span>
                 <span className="size-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
-                <span>Nothing here invents a win-loss record</span>
+                <span>No invented win-loss record</span>
                 <span className="size-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
-                <span>This explains price. It is not a bet</span>
+                <span>This explains price, not a bet</span>
               </p>
             </div>
           </div>
