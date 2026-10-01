@@ -170,16 +170,17 @@ function OptimizerPage() {
                       className={`min-w-0 rounded-lg border px-4 py-4 text-left ${
                         rank
                           ? "border-accent bg-accent/10 shadow-[inset_3px_0_0_var(--color-accent)]"
-                          : active
-                            ? "border-fg/30 bg-surface"
-                            : "border-line bg-surface/80"
-                      }`}
+                          : "border-line bg-surface/80"
+                      } ${active ? "ring-2 ring-fg ring-offset-2 ring-offset-surface" : ""}`}
                     >
-                      <p className="text-[0.65rem] font-semibold tracking-widest text-accent uppercase">
-                        {rank ? payoutLabel(rank) : "Dog"} · {event.league}
-                        {event.dataStatus === "live" ? " · Live" : ""}
-                        {event.bookCount ? ` · ${event.bookCount} books` : ""}
-                        {start ? ` · ${start}` : ""}
+                      <p className="flex items-center justify-between gap-2 text-[0.65rem] font-semibold tracking-widest text-accent uppercase">
+                        <span>
+                          {rank ? payoutLabel(rank) : "Dog"} · {event.league}
+                          {event.dataStatus === "live" ? " · Live" : ""}
+                          {event.bookCount ? ` · ${event.bookCount} books` : ""}
+                          {start ? ` · ${start}` : ""}
+                        </span>
+                        {active ? <span className="shrink-0 rounded-sm bg-fg px-1.5 py-0.5 text-[0.6rem] tracking-widest text-bg">Selected</span> : null}
                       </p>
                       <p className="mt-1 flex items-baseline justify-between gap-3">
                         <span className="font-display text-xl tracking-wide text-accent sm:text-2xl">{event.underdog}</span>
@@ -206,7 +207,7 @@ function OptimizerPage() {
               disabled={!selected || busy || switching}
               className="mt-6 inline-flex min-h-11 items-center rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg hover:bg-accent-dim disabled:opacity-50"
             >
-              {busy ? "Scoring…" : "Run AI Optimizer"}
+              {busy ? "Scoring…" : selected ? "Run AI Optimizer" : "Select a fighter"}
             </button>
             {error ? <p className="mt-3 text-sm text-accent">{error}</p> : null}
           </div>
