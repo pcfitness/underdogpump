@@ -206,24 +206,14 @@ function OptimizerPage() {
                           : "border-line bg-surface/80"
                       }`}
                     >
-                      <span className="absolute top-3 right-3 flex items-center gap-1">
+                      <span className="absolute top-3 right-3">
                         {active ? (
                           <span className="rounded-full border border-accent/40 bg-accent/20 px-2 py-0.5 text-[0.6rem] font-semibold tracking-widest text-accent uppercase">
                             Selected
                           </span>
                         ) : null}
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            addToParlay(event.id);
-                          }}
-                          className="rounded-full border border-accent/40 bg-bg/70 px-2 py-0.5 text-[0.6rem] font-semibold tracking-widest text-accent uppercase hover:bg-accent/20"
-                        >
-                          {onSlip ? "On slip" : "Add"}
-                        </button>
                       </span>
-                      <p className="pr-28 text-[0.65rem] font-semibold tracking-widest text-accent uppercase">
+                      <p className="pr-20 text-[0.65rem] font-semibold tracking-widest text-accent uppercase">
                         {rank ? payoutLabel(rank) : "Dog"} · {event.league}
                         {event.dataStatus === "live" ? " · Live" : ""}
                         {event.bookCount ? ` · ${event.bookCount} books` : ""}
@@ -239,6 +229,16 @@ function OptimizerPage() {
                         Favorite {event.favorite}{" "}
                         {event.favoriteOdds === null ? "" : formatAmerican(event.favoriteOdds)}
                       </p>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          addToParlay(event.id);
+                        }}
+                        className="mt-3 inline-flex min-h-9 items-center rounded-md border border-accent/40 bg-bg/50 px-3 py-1.5 text-xs font-semibold tracking-wide text-accent uppercase hover:bg-accent/20"
+                      >
+                        {onSlip ? `On slip · ${parlay.length} of 3` : "Add to parlay"}
+                      </button>
                     </div>
                   );
                 })
