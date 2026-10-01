@@ -171,9 +171,8 @@ function rank(picks: LivePick[]) {
     if (!prev || score(p) > score(prev)) byName.set(name, p);
   }
   return [...byName.values()]
-    .sort((a, b) => score(b) - score(a))
-    .slice(0, 14)
-    .sort((a, b) => a.impliedValue - b.impliedValue);
+    .sort((a, b) => a.impliedValue - b.impliedValue)
+    .slice(0, 14);
 }
 
 async function fetchEventsPage(
