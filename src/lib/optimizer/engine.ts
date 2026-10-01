@@ -1,4 +1,4 @@
-import { formatAmerican, fromImplied } from "@/lib/odds";
+import { formatAmerican } from "@/lib/odds";
 import { sportMeta } from "./sports";
 import type { OptimizerAnalysis, OptimizerEvent, Reason } from "./types";
 
@@ -24,9 +24,9 @@ function clamp(n: number, min: number, max: number) {
 
 function sportRisk(event: OptimizerEvent): string {
   const kind = sportMeta(event.sport).kind;
-  if (kind === "combat") return "One punch, one cut, or one bad weight cut can flip a fight the model never sees.";
-  if (kind === "board") return "One hot visit or a sudden dart-off collapse can erase a session lead in a few minutes.";
-  if (kind === "racket") return "A tight set, a bad service game, or an unforced-error burst can flip a match fast.";
+  if (kind === "combat") return "One punch, one cut, or one bad weight cut can flip a fight the price never sees.";
+  if (kind === "board") return "One hot visit or a sudden collapse can erase a session lead in a few minutes.";
+  if (kind === "racket") return "A tight set, a bad service game, or an error burst can flip a match fast.";
   return "Injuries, rest days, and travel can move a team after the price is already posted.";
 }
 
@@ -38,17 +38,15 @@ export function analyzeEvent(event: OptimizerEvent): OptimizerAnalysis {
 
   const missing: string[] = [];
   if (event.favorite.americanOdds === null || event.underdog.americanOdds === null) {
-    missing.push("Live bookmaker odds");
+    missing.push("Bookmaker odds");
   }
-  if (!event.favorite.record) missing.push(`${event.favorite.name} record / recent form`);
-  if (!event.underdog.record) missing.push(`${event.underdog.name} record / recent form`);
+  if (!event.favorite.record) missing.push(`${event.favorite.name} record`);
+  if (!event.underdog.record) missing.push(`${event.underdog.name} record`);
   if (meta.kind === "combat") {
-    if (!event.favorite.stance && !event.underdog.stance) missing.push("Stance data");
-    if (event.favorite.reachInches === null && event.underdog.reachInches === null) {
-      missing.push("Reach measurements");
-    }
+    if (!event.favorite.stance && !event.underdog.stance) missing.push("Stance");
+    if (event.favorite.reachInches === null && event.underdog.reachInches === null) missing.push("Reach");
   }
-  if (event.dataStatus !== "live") missing.push("Confirmed live market feed");
+  if (event.dataStatus !== "live") missing.push("Confirmed live market");
 
   const reasonsFor: Reason[] = [];
   const reasonsAgainst: Reason[] = [];
@@ -70,7 +68,7 @@ export function analyzeEvent(event: OptimizerEvent): OptimizerAnalysis {
       reasonsAgainst.push({
         kind: "against",
         basedOn: "odds",
-        text: "The price is a deep long shot. Big payout, thin ice. That is entertainment more than value unless you have a strong independent read.",
+        text: "The price is a deep long shot. Big payout, thin ice. That is entertainment unless you have your own read.",
       });
     }
 
@@ -79,7 +77,7 @@ export function analyzeEvent(event: OptimizerEvent): OptimizerAnalysis {
       reasonsFor.push({
         kind: "for",
         basedOn: "odds",
-        text: `Plus-money payout of ${formatAmerican(payout)} pays enough to matter if the dog is only a little worse than the favorite.`,
+        text: `${formatAmerican(payout)} pays enough to matter if the dog is only a little worse than the favorite.`,
       });
     }
   }
@@ -91,16 +89,25 @@ export function analyzeEvent(event: OptimizerEvent): OptimizerAnalysis {
       reasonsFor.push({
         kind: "for",
         basedOn: "structure",
-        text: "After stripping the vig, the underdog's share of the two-way price looks a bit better than the raw ticket implies.",
+        text: "After stripping the vig, the underdog's share looks a bit better than the raw ticket.",
       });
     }
     if (fair.vig !== null && fair.vig >= 0.05) {
       reasonsAgainst.push({
         kind: "against",
         basedOn: "structure",
-        text: "The two-way market is juiced. Part of what you pay is the house cut, not a true chance.",
+        text: "The two-way market is juiced. Part of the price is the house cut, not a true chance.",
       });
     }
+  }
+
+  if (event.bookCount >= 3) {
+    score += 4;
+    reasonsFor.push({
+      kind: "for",
+      basedOn: "structure",
+      text: `The line is a consensus of ${event.bookCount} books, not a single ticket.`,
+    });
   }
 
   if (meta.kind === "combat") {
@@ -109,7 +116,7 @@ export function analyzeEvent(event: OptimizerEvent): OptimizerAnalysis {
       reasonsFor.push({
         kind: "for",
         basedOn: "stats",
-        text: `${event.underdog.name} is listed as ${event.underdog.stance} against a ${event.favorite.stance} favorite. Style mismatch can help a dog.`,
+        text: `${event.underdog.name} is listed as ${event.underdog.stance} against a ${event.favorite.stance} favorite.`,
       });
     }
     if (
@@ -131,26 +138,22 @@ export function analyzeEvent(event: OptimizerEvent): OptimizerAnalysis {
     reasonsAgainst.push({
       kind: "against",
       basedOn: "missing-data",
-      text: "Too many inputs are still unavailable. The score is a market-structure first pass, not a finished scout report.",
+      text: "Too many inputs are still unavailable. This is a price read, not a finished scout report.",
     });
   }
 
-  riskFactors.push({
-    kind: "risk",
-    basedOn: "missing-data",
-    text: sportRisk(event),
-  });
+  riskFactors.push({ kind: "risk", basedOn: "missing-data", text: sportRisk(event) });
   riskFactors.push({
     kind: "risk",
     basedOn: "structure",
-    text: "This is education, not a pick. A high score is not a bet recommendation.",
+    text: "Education only. A high score is not a bet recommendation.",
   });
 
   if (event.dataStatus !== "live") {
     riskFactors.push({
       kind: "risk",
       basedOn: "missing-data",
-      text: "This card is not confirmed live bookmaker data. Treat every number as a pipeline test until a live provider is wired.",
+      text: "This card is not a live bookmaker price. Treat it as a pipeline test.",
     });
     score -= 8;
   }
@@ -163,20 +166,18 @@ export function analyzeEvent(event: OptimizerEvent): OptimizerAnalysis {
   else if (score >= 58) rating = "Lean";
   else if (score < 36) rating = "Pass";
 
-  const dogOdds =
-    event.underdog.americanOdds === null ? "Unavailable" : formatAmerican(event.underdog.americanOdds);
-  const favOdds =
-    event.favorite.americanOdds === null ? "Unavailable" : formatAmerican(event.favorite.americanOdds);
+  const dogOdds = event.underdog.americanOdds === null ? "Unavailable" : formatAmerican(event.underdog.americanOdds);
+  const favOdds = event.favorite.americanOdds === null ? "Unavailable" : formatAmerican(event.favorite.americanOdds);
 
   const explanation =
     rating === "Incomplete"
-      ? `${event.eventName} cannot be scored cleanly yet. Odds or identity data is missing, so the Optimizer will not invent a finish.`
+      ? `${event.eventName} cannot be scored yet. Odds are missing, so the Optimizer will not invent a finish.`
       : `${event.underdog.name} is the ${meta.label} underdog at ${dogOdds} against ${event.favorite.name} at ${favOdds}. ` +
-        `Version one scores market structure: implied chance, vig, and any confirmed notes for this sport. ` +
+        `This read uses the price, the vig, and any confirmed notes. It does not invent a record. ` +
         `Score ${score} / 100 is a ${rating.toLowerCase()}. ` +
         (event.dataStatus === "live"
-          ? "Odds came from the live provider. Extra stats are only used when present."
-          : "This card is a labeled development sample. It proves the pipeline. It is not a live ticket.");
+          ? `Odds are a live consensus${event.bookCount ? ` from ${event.bookCount} books` : ""}.`
+          : "This card is a labeled sample. It proves the pipeline. It is not a live ticket.");
 
   return {
     event,
@@ -196,9 +197,4 @@ export function analyzeEvent(event: OptimizerEvent): OptimizerAnalysis {
     explanationKind: "rule-based",
     missing,
   };
-}
-
-export function summarizeOdds(implied: number | null) {
-  if (implied === null) return "Unavailable";
-  return fromImplied(implied).implied;
 }

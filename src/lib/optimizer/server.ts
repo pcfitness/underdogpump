@@ -11,6 +11,7 @@ const sportSchema = z.enum([
   "darts_pdc",
   "darts_modus",
   "tennis",
+  "tennis_wta",
   "nba",
   "nfl",
   "mlb",
@@ -34,7 +35,7 @@ export const loadOptimizerBoard = createServerFn({ method: "GET" })
     const sport = data.sport ?? "ufc";
     const board = await eventsFresh(sport);
     return {
-      sports: SPORTS.map((s) => ({ key: s.key, label: s.label })),
+      sports: SPORTS.map((s) => ({ key: s.key, label: s.label, sampleOnly: s.sampleOnly })),
       sport: board.sport,
       live: board.live,
       provider: board.provider,
@@ -44,8 +45,10 @@ export const loadOptimizerBoard = createServerFn({ method: "GET" })
         sport: event.sport,
         eventName: event.eventName,
         league: event.league,
+        startTime: event.startTime,
         dataStatus: event.dataStatus,
         source: event.source,
+        bookCount: event.bookCount,
         favorite: event.favorite.name,
         underdog: event.underdog.name,
         favoriteOdds: event.favorite.americanOdds,

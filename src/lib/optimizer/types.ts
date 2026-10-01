@@ -6,6 +6,7 @@ export type SportKey =
   | "darts_pdc"
   | "darts_modus"
   | "tennis"
+  | "tennis_wta"
   | "nba"
   | "nfl"
   | "mlb"
@@ -30,6 +31,8 @@ export type OptimizerEvent = {
   dataStatus: DataStatus;
   source: string;
   sourceNote: string;
+  bookCount: number;
+  books: string[];
   favorite: SideCard;
   underdog: SideCard;
 };

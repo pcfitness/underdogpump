@@ -6,6 +6,7 @@ import { loadMarkets } from "@/lib/load-markets";
 import { formatAmerican, formatPercent } from "@/lib/odds";
 import { analyzeOptimizerFight, loadOptimizerBoard } from "@/lib/optimizer/server";
 import type { OptimizerAnalysis, SportKey } from "@/lib/optimizer/types";
+import { SITE } from "@/lib/site";
 
 export const Route = createFileRoute("/optimizer")({
   loader: async () => {
@@ -16,13 +17,26 @@ export const Route = createFileRoute("/optimizer")({
     return { markets, board };
   },
   head: () => ({
-    meta: [{ title: "$UNDERDOG · AI Optimizer" }],
+    meta: [{ title: "$UNDERDOG · Optimizer" }],
   }),
   component: OptimizerPage,
 });
 
 function pct(n: number | null) {
   return n === null ? "Unavailable" : formatPercent(n);
+}
+
+function when(iso: string | null) {
+  if (!iso) return null;
+  const t = Date.parse(iso);
+  if (Number.isNaN(t)) return null;
+  return new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(t);
 }
 
 function OptimizerPage() {
@@ -35,12 +49,14 @@ function OptimizerPage() {
   const [busy, setBusy] = useState(false);
   const [switching, setSwitching] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
   async function chooseSport(next: SportKey) {
     setSport(next);
     setSwitching(true);
     setError(null);
     setAnalysis(null);
+    setCopied(false);
     try {
       const nextBoard = await loadOptimizerBoard({ data: { sport: next } });
       setBoard(nextBoard);
@@ -56,6 +72,7 @@ function OptimizerPage() {
     if (!selected) return;
     setBusy(true);
     setError(null);
+    setCopied(false);
     try {
       const result = await analyzeOptimizerFight({ data: { id: selected, sport } });
       if (!result) {
@@ -65,9 +82,27 @@ function OptimizerPage() {
       }
       setAnalysis(result);
     } catch {
-      setError("The server-side Optimizer could not finish this card.");
+      setError("The Optimizer could not finish this card.");
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function share() {
+    if (!analysis) return;
+    const text = [
+      `${SITE.ticker} Optimizer`,
+      `${analysis.event.underdog.name} ${analysis.underdogOdds} vs ${analysis.event.favorite.name} ${analysis.favoriteOdds}`,
+      `Score ${analysis.score} · ${analysis.rating}`,
+      "Education only. Not a pick.",
+      `${SITE.url}/optimizer`,
+    ].join("\n");
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+    } catch {
+      setCopied(false);
+      setError("Copy failed. Select the read and copy it by hand.");
     }
   }
 
@@ -76,16 +111,13 @@ function OptimizerPage() {
       <main>
         <section className="border-b border-line">
           <div className="mx-auto max-w-5xl px-4 py-10 sm:py-12">
-            <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
-              Preview · All sports
-            </p>
+            <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Price read</p>
             <h1 className="mt-2 font-display text-5xl leading-none tracking-wide text-fg sm:text-7xl">
-              Underdog AI Optimizer
+              Underdog Optimizer
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-              Pick a sport, then a matchup. The server scores whether the underdog looks like value
-              from the price, the vig, and any confirmed notes. UFC is not the whole product. Boxing,
-              PDC, MODUS, tennis, NBA, NFL, MLB, and NHL sit on the same board.
+              Pick a sport, then a matchup. The score comes from the underdog price, the vig, and any
+              confirmed notes. It does not invent a record, and a high score is not a bet.
             </p>
             <p className="mt-4 rounded-lg border border-line bg-surface/80 px-4 py-3 text-sm leading-relaxed text-muted shadow-[inset_3px_0_0_var(--color-accent)]">
               {board.note}
@@ -112,6 +144,7 @@ function OptimizerPage() {
                     }`}
                   >
                     {item.label}
+                    {item.sampleOnly ? " · sample" : ""}
                   </button>
                 );
               })}
@@ -127,6 +160,7 @@ function OptimizerPage() {
               ) : board.events.length ? (
                 board.events.map((event) => {
                   const active = event.id === selected;
+                  const start = when(event.startTime);
                   return (
                     <button
                       key={event.id}
@@ -137,7 +171,9 @@ function OptimizerPage() {
                       }`}
                     >
                       <p className="text-[0.65rem] font-semibold tracking-widest text-accent uppercase">
-                        {event.league} · {event.dataStatus === "live" ? "Live feed" : "Development sample"}
+                        {event.league} · {event.dataStatus === "live" ? "Live" : "Sample"}
+                        {event.bookCount ? ` · ${event.bookCount} books` : ""}
+                        {start ? ` · ${start}` : ""}
                       </p>
                       <p className="mt-1 font-display text-2xl tracking-wide text-fg">{event.eventName}</p>
                       <p className="mt-1 text-sm text-muted">
@@ -150,7 +186,10 @@ function OptimizerPage() {
                   );
                 })
               ) : (
-                <p className="text-sm text-muted">No cards on this board yet.</p>
+                <p className="rounded-lg border border-line bg-bg/50 px-4 py-4 text-sm leading-relaxed text-muted">
+                  No open cards on this board. Live sports stay empty until the odds key is set, or until a
+                  card is actually posted. Sample boards are the two darts rows.
+                </p>
               )}
             </div>
             <button
@@ -165,7 +204,7 @@ function OptimizerPage() {
           </div>
         </section>
 
-        {analysis ? <AnalysisPanel analysis={analysis} /> : null}
+        {analysis ? <AnalysisPanel analysis={analysis} copied={copied} onShare={share} /> : null}
       </main>
     </PageShell>
   );
@@ -180,7 +219,15 @@ function Stat({ n, label }: { n: string; label: string }) {
   );
 }
 
-function AnalysisPanel({ analysis }: { analysis: OptimizerAnalysis }) {
+function AnalysisPanel({
+  analysis,
+  copied,
+  onShare,
+}: {
+  analysis: OptimizerAnalysis;
+  copied: boolean;
+  onShare: () => void;
+}) {
   return (
     <section className="border-t border-line">
       <div className="mx-auto max-w-5xl px-4 py-10 sm:py-12">
@@ -223,15 +270,18 @@ function AnalysisPanel({ analysis }: { analysis: OptimizerAnalysis }) {
         </div>
 
         <article className="mt-8 rounded-xl border border-line bg-surface px-5 py-6 sm:px-8">
-          <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">
-            {analysis.explanationKind === "ai" ? "AI explanation" : "Rule-based explanation"}
-          </p>
+          <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Price read</p>
           <p className="mt-2 text-base leading-relaxed text-muted">{analysis.explanation}</p>
           {analysis.missing.length ? (
-            <p className="mt-4 text-sm text-muted">
-              Unavailable / unconfirmed: {analysis.missing.join(" · ")}
-            </p>
+            <p className="mt-4 text-sm text-muted">Unavailable: {analysis.missing.join(" · ")}</p>
           ) : null}
+          <button
+            type="button"
+            onClick={onShare}
+            className="mt-5 inline-flex min-h-11 items-center rounded-md border border-line px-4 py-2 text-sm font-semibold text-fg hover:border-accent"
+          >
+            {copied ? "Copied" : "Copy this read"}
+          </button>
         </article>
       </div>
     </section>
