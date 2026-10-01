@@ -52,8 +52,8 @@ function OptimizerPage() {
   const [copied, setCopied] = useState(false);
   const [parlay, setParlay] = useState<ParlayLeg[]>([]);
 
-  function addToParlay() {
-    const event = board.events.find((row) => row.id === selected);
+  function addToParlay(id = selected) {
+    const event = board.events.find((row) => row.id === id);
     if (!event || event.underdogOdds === null) {
       setError("That card has no price to add.");
       return;
@@ -67,6 +67,7 @@ function OptimizerPage() {
       return;
     }
     setError(null);
+    setSelected(event.id);
     setParlay((legs) => [
       ...legs,
       {
@@ -189,23 +190,40 @@ function OptimizerPage() {
                   const active = event.id === selected;
                   const start = when(event.startTime);
                   const rank = payoutRank(event.id, board.events);
+                  const onSlip = parlay.some((leg) => leg.id === event.id);
                   return (
-                    <button
+                    <div
                       key={event.id}
-                      type="button"
+                      role="button"
+                      tabIndex={0}
                       onClick={() => setSelected(event.id)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") setSelected(event.id);
+                      }}
                       className={`relative min-w-0 rounded-lg border px-4 py-4 text-left ${
                         rank
                           ? "border-accent bg-accent/10 shadow-[inset_3px_0_0_var(--color-accent)]"
                           : "border-line bg-surface/80"
                       }`}
                     >
-                      {active ? (
-                        <span className="absolute top-3 right-3 rounded-full border border-accent/40 bg-accent/20 px-2 py-0.5 text-[0.6rem] font-semibold tracking-widest text-accent uppercase">
-                          Selected
-                        </span>
-                      ) : null}
-                      <p className="pr-20 text-[0.65rem] font-semibold tracking-widest text-accent uppercase">
+                      <span className="absolute top-3 right-3 flex items-center gap-1">
+                        {active ? (
+                          <span className="rounded-full border border-accent/40 bg-accent/20 px-2 py-0.5 text-[0.6rem] font-semibold tracking-widest text-accent uppercase">
+                            Selected
+                          </span>
+                        ) : null}
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            addToParlay(event.id);
+                          }}
+                          className="rounded-full border border-accent/40 bg-bg/70 px-2 py-0.5 text-[0.6rem] font-semibold tracking-widest text-accent uppercase hover:bg-accent/20"
+                        >
+                          {onSlip ? "On slip" : "Add"}
+                        </button>
+                      </span>
+                      <p className="pr-28 text-[0.65rem] font-semibold tracking-widest text-accent uppercase">
                         {rank ? payoutLabel(rank) : "Dog"} · {event.league}
                         {event.dataStatus === "live" ? " · Live" : ""}
                         {event.bookCount ? ` · ${event.bookCount} books` : ""}
@@ -221,7 +239,7 @@ function OptimizerPage() {
                         Favorite {event.favorite}{" "}
                         {event.favoriteOdds === null ? "" : formatAmerican(event.favoriteOdds)}
                       </p>
-                    </button>
+                    </div>
                   );
                 })
               ) : (
@@ -230,7 +248,7 @@ function OptimizerPage() {
                 </p>
               )}
             </div>
-            <div className="mt-6 flex flex-wrap gap-2">
+            <div className="mt-6">
               <button
                 type="button"
                 onClick={run}
@@ -239,17 +257,11 @@ function OptimizerPage() {
               >
                 {busy ? "Scoring…" : selected ? "Run AI Optimizer" : "Select a fighter"}
               </button>
-              <button
-                type="button"
-                onClick={addToParlay}
-                disabled={!selected || switching}
-                className="inline-flex min-h-11 items-center rounded-md border border-line px-5 py-2.5 text-sm font-semibold text-fg hover:border-accent disabled:opacity-50"
-              >
-                Add to parlay
-              </button>
             </div>
             {error ? <p className="mt-3 text-sm text-accent">{error}</p> : null}
-            <ParlaySlip legs={parlay} onRemove={(id) => setParlay((legs) => legs.filter((leg) => leg.id !== id))} />
+            {parlay.length ? (
+              <ParlaySlip legs={parlay} onRemove={(id) => setParlay((legs) => legs.filter((leg) => leg.id !== id))} />
+            ) : null}
           </div>
         </section>
 
@@ -327,7 +339,7 @@ function ParlaySlip({ legs, onRemove }: { legs: ParlayLeg[]; onRemove: (id: stri
   const five = parlayProfit(legs, 5);
   const ten = parlayProfit(legs, 10);
   return (
-    <article className="mt-6 rounded-lg border border-line bg-bg/40 px-4 py-4">
+    <article className="fixed right-3 bottom-3 left-3 z-30 rounded-lg border border-line bg-bg/95 px-4 py-3 shadow-lg backdrop-blur-sm sm:left-auto sm:w-96">
       <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Underdog parlay</p>
       <ul className="mt-3 space-y-2">
         {legs.map((leg) => (
