@@ -83,13 +83,13 @@ export function SiteHeader({
               );
               const inner = (
                 <>
-                  <span className="max-w-44 truncate font-display text-sm tracking-wide text-fg normal-case sm:max-w-64 sm:text-base">
+                  <span className="relative top-0.5 max-w-44 truncate font-display text-sm leading-none tracking-wide text-fg normal-case sm:max-w-64 sm:text-base">
                     {name}
                   </span>
-                  <span className="rounded-sm bg-accent px-1.5 py-0.5 font-display text-sm leading-none tracking-wide text-accent-fg">
+                  <span className="relative top-0.5 inline-flex items-center rounded-sm bg-accent px-1.5 pt-1 pb-0.5 font-display text-sm leading-none tracking-wide text-accent-fg">
                     {american}
                   </span>
-                  <span className="text-[0.65rem] text-muted">{pick.implied}</span>
+                  <span className="relative top-0.5 text-[0.65rem] leading-none text-muted">{pick.implied}</span>
                 </>
               );
               return (
