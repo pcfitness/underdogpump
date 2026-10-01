@@ -148,27 +148,19 @@ function OptimizerPage() {
               {board.note}
             </p>
             <div className="mt-4 max-w-3xl space-y-2 pl-4 text-sm leading-snug text-muted sm:text-base">
-              <p className="flex flex-wrap items-center gap-x-2 gap-y-1 sm:flex-nowrap">
-                <span>Dogs pay more because the books price them to lose</span>
-                <span className="text-accent" aria-hidden="true">
-                  ·
-                </span>
-                <span>The score reads that price</span>
-                <span className="text-accent" aria-hidden="true">
-                  ·
-                </span>
-                <span>A high score is not a ticket</span>
+              <p className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-x-3">
+                <span>Books price dogs to lose, so they pay more</span>
+                <span className="size-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                <span>The score reads that price, not a record</span>
+                <span className="size-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                <span>A high score is a read, not a ticket</span>
               </p>
-              <p className="flex flex-wrap items-center gap-x-2 gap-y-1 sm:flex-nowrap">
-                <span>Pick a board, then a matchup</span>
-                <span className="text-accent" aria-hidden="true">
-                  ·
-                </span>
-                <span>No invented record</span>
-                <span className="text-accent" aria-hidden="true">
-                  ·
-                </span>
-                <span>Not a bet</span>
+              <p className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-x-3">
+                <span>Pick a board, then pick the matchup</span>
+                <span className="size-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                <span>Nothing here invents a win-loss record</span>
+                <span className="size-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                <span>This explains price. It is not a bet</span>
               </p>
             </div>
           </div>
