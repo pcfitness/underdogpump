@@ -190,8 +190,7 @@ function OptimizerPage() {
                 })
               ) : (
                 <p className="rounded-lg border border-line bg-bg/50 px-4 py-4 text-sm leading-relaxed text-muted">
-                  No open cards on this board. Live sports stay empty until the odds key is set, or until a
-                  card is actually posted. Sample boards are the two darts rows.
+                  No open cards on this board right now. Started events are hidden.
                 </p>
               )}
             </div>

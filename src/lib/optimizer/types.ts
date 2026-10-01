@@ -1,16 +1,6 @@
 export type DataStatus = "live" | "sample" | "unavailable";
 
-export type SportKey =
-  | "ufc"
-  | "boxing"
-  | "darts_pdc"
-  | "darts_modus"
-  | "tennis"
-  | "tennis_wta"
-  | "nba"
-  | "nfl"
-  | "mlb"
-  | "nhl";
+export type SportKey = "ufc" | "boxing" | "nba" | "nfl" | "mlb" | "nhl";
 
 export type SideCard = {
   name: string;

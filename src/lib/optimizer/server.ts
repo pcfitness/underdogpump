@@ -5,18 +5,7 @@ import { loadSportEvents } from "./providers";
 import { SPORTS } from "./sports";
 import type { OptimizerAnalysis, SportKey } from "./types";
 
-const sportSchema = z.enum([
-  "ufc",
-  "boxing",
-  "darts_pdc",
-  "darts_modus",
-  "tennis",
-  "tennis_wta",
-  "nba",
-  "nfl",
-  "mlb",
-  "nhl",
-]);
+const sportSchema = z.enum(["ufc", "boxing", "nba", "nfl", "mlb", "nhl"]);
 
 const cache = new Map<SportKey, { at: number; payload: Awaited<ReturnType<typeof loadSportEvents>> }>();
 const TTL = 60_000;

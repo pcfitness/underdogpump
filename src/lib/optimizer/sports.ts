@@ -10,10 +10,6 @@ export const SPORTS: Array<{
 }> = [
   { key: "ufc", label: "UFC", league: "UFC", oddsApiKey: "mma_mixed_martial_arts", kind: "combat", sampleOnly: false },
   { key: "boxing", label: "Boxing", league: "Boxing", oddsApiKey: "boxing_boxing", kind: "combat", sampleOnly: false },
-  { key: "darts_pdc", label: "Darts · PDC", league: "PDC", oddsApiKey: null, kind: "board", sampleOnly: true },
-  { key: "darts_modus", label: "Darts · MODUS", league: "MODUS", oddsApiKey: null, kind: "board", sampleOnly: true },
-  { key: "tennis", label: "ATP", league: "ATP", oddsApiKey: "tennis_atp", kind: "racket", sampleOnly: false },
-  { key: "tennis_wta", label: "WTA", league: "WTA", oddsApiKey: "tennis_wta", kind: "racket", sampleOnly: false },
   { key: "nba", label: "NBA", league: "NBA", oddsApiKey: "basketball_nba", kind: "team", sampleOnly: false },
   { key: "nfl", label: "NFL", league: "NFL", oddsApiKey: "americanfootball_nfl", kind: "team", sampleOnly: false },
   { key: "mlb", label: "MLB", league: "MLB", oddsApiKey: "baseball_mlb", kind: "team", sampleOnly: false },
