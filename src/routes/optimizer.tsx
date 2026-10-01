@@ -255,7 +255,7 @@ function OptimizerPage() {
             <div className="mt-6">
               {parlay.length ? (
                 <p className="rounded-lg border border-line bg-surface/80 px-4 py-3 text-sm leading-relaxed text-muted shadow-[inset_3px_0_0_var(--color-accent)]">
-                  Parlay is on, so the single-fighter score is off. Remove the dogs to run AI Optimizer on one matchup.
+                  When a parlay is selected, the AI Optimizer button is hidden. Remove the parlays to run the AI Optimizer on one matchup.
                 </p>
               ) : (
                 <button
