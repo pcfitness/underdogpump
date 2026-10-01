@@ -144,12 +144,12 @@ function OptimizerPage() {
             <h1 className="mt-2 font-display text-5xl leading-none tracking-wide text-fg sm:text-7xl">
               AI <span className="text-accent">&ldquo;Underdog&rdquo;</span> Optimizer
             </h1>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-              Pick a sport, then a matchup. The score comes from the underdog price, the vig, and any
-              confirmed notes. It does not invent a record, and a high score is not a bet.
-            </p>
             <p className="mt-4 rounded-lg border border-line bg-surface/80 px-4 py-3 text-sm leading-relaxed text-muted shadow-[inset_3px_0_0_var(--color-accent)]">
               {board.note}
+            </p>
+            <p className="mt-4 max-w-2xl pl-4 text-base leading-relaxed text-muted">
+              Pick a sport, then a matchup. The score comes from the underdog price, the vig, and any
+              confirmed notes. It does not invent a record, and a high score is not a bet.
             </p>
           </div>
         </section>
