@@ -149,17 +149,6 @@ function OptimizerPage() {
             </p>
             <div className="mt-4 max-w-3xl space-y-2 pl-4 text-sm leading-snug text-muted sm:text-base">
               <p className="flex flex-wrap items-center gap-x-2 gap-y-1 sm:flex-nowrap">
-                <span>Pick a board, then a matchup</span>
-                <span className="text-accent" aria-hidden="true">
-                  ·
-                </span>
-                <span>The score is the dog's price</span>
-                <span className="text-accent" aria-hidden="true">
-                  ·
-                </span>
-                <span>Not a bet</span>
-              </p>
-              <p className="flex flex-wrap items-center gap-x-2 gap-y-1 sm:flex-nowrap">
                 <span>Dogs pay more because they lose more often</span>
                 <span className="text-accent" aria-hidden="true">
                   ·
@@ -169,6 +158,17 @@ function OptimizerPage() {
                   ·
                 </span>
                 <span>A high score is not a ticket</span>
+              </p>
+              <p className="flex flex-wrap items-center gap-x-2 gap-y-1 sm:flex-nowrap">
+                <span>Pick a board, then a matchup</span>
+                <span className="text-accent" aria-hidden="true">
+                  ·
+                </span>
+                <span>The score is the dog's price</span>
+                <span className="text-accent" aria-hidden="true">
+                  ·
+                </span>
+                <span>Not a bet</span>
               </p>
             </div>
           </div>
