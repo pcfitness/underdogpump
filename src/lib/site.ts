@@ -19,7 +19,7 @@ export const SITE = {
   mindset:
     "The name on this project is public, and OzGaming.net has been online since 2008. $UNDERDOG is meant to remain live and keep improving after launch. Come back for new lessons, live odds, and a contract that only lives on this page.",
   mission:
-    "This project was built to help beginners understand odds and prediction markets across Polymarket, Kalshi, DraftKings and FanDuel.",
+    "This project launched on Pump.fun on September 4, 2026. It was built to help beginners and seasoned sports bettors understand odds and prediction markets across Polymarket, Kalshi, DraftKings, FanDuel, and Hard Rock Bet.",
 } as const;
 
 export function pumpLink() {
@@ -28,4 +28,4 @@ export function pumpLink() {
 }
 
 export const DISCLAIMER =
-  "$UNDERDOG is for education and entertainment only. Nothing on this site is betting or financial advice, a recommendation, or a promise of profit. You can lose money. 18+ only. Live odds, when shown, are from public sources. $UNDERDOG is not affiliated with Polymarket, Kalshi, DraftKings, FanDuel. Do your own research.";
+  "$UNDERDOG is for education and entertainment only. Nothing on this site is betting or financial advice, a recommendation, or a promise of profit. You can lose money. 18+ only. Live odds, when shown, are from public sources. $UNDERDOG is not affiliated with Polymarket, Kalshi, DraftKings, FanDuel, or Hard Rock Bet. Do your own research.";

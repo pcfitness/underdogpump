@@ -20,7 +20,7 @@ export function SiteFooter() {
             href={SITE.builderUrl}
             target="_blank"
             rel="noreferrer"
-            className="oz-chip mb-3 mr-4 size-24 overflow-hidden rounded-full border-2 border-accent no-underline sm:size-28"
+            className="oz-chip mb-2 mr-4 size-20 overflow-hidden rounded-full border-2 border-accent no-underline sm:size-24"
           >
             <img
               src="/oz-doxxed.jpg"
@@ -28,7 +28,7 @@ export function SiteFooter() {
               className="size-full object-cover object-[center_18%]"
             />
           </a>
-          <div className="overflow-hidden">
+          <div>
           <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Doxxed</p>
           <h2 className="mt-1 font-display text-4xl leading-none tracking-wide text-fg [text-wrap:unset]">
             Built by{" "}
