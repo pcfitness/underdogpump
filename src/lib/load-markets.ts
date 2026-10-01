@@ -178,9 +178,17 @@ function rank(picks: LivePick[]) {
     const prev = byName.get(name);
     if (!prev || score(p) > score(prev)) byName.set(name, p);
   }
-  return [...byName.values()]
-    .sort((a, b) => a.impliedValue - b.impliedValue)
-    .slice(0, 14);
+  const dogs = [...byName.values()].sort((a, b) => a.impliedValue - b.impliedValue);
+  const spread: LivePick[] = [];
+  const used = new Set<number>();
+  for (const dog of dogs) {
+    const bucket = Math.round(dog.impliedValue * 100);
+    if (used.has(bucket) && spread.length < 8) continue;
+    used.add(bucket);
+    spread.push(dog);
+    if (spread.length >= 14) break;
+  }
+  return spread.length >= 4 ? spread : dogs.slice(0, 14);
 }
 
 async function fetchEventsPage(
