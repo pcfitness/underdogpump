@@ -14,8 +14,8 @@ export type ProviderResult = {
 export async function loadSportEvents(sport: SportKey): Promise<ProviderResult> {
   const samples = fixturesFor(sport);
   const meta = sportMeta(sport);
-  const key = process.env.ODDS_API_KEY?.trim();
-  const allowSamples = process.env.OPTIMIZER_ALLOW_SAMPLES === "1";
+  const key = process.env["ODDS_API_KEY"]?.trim();
+  const allowSamples = process.env["OPTIMIZER_ALLOW_SAMPLES"] === "1";
 
   if (meta.sampleOnly) {
     return {
