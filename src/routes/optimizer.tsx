@@ -263,6 +263,16 @@ function ratingHint(rating: OptimizerAnalysis["rating"]) {
   return "Odds are missing.";
 }
 
+function winOn(stake: number, american: number | null) {
+  if (american === null || american === 0) return null;
+  const profit = american > 0 ? (stake * american) / 100 : (stake * 100) / Math.abs(american);
+  return profit;
+}
+
+function money(n: number) {
+  return n.toLocaleString("en-US", { style: "currency", currency: "USD" });
+}
+
 function AnalysisPanel({
   analysis,
   copied,
@@ -290,13 +300,29 @@ function AnalysisPanel({
           <Stat n={pct(analysis.underdogImplied)} label="Dog implied" hint="Market's chance to win." />
         </ul>
 
-        <div className="mt-8 grid gap-3 sm:grid-cols-2">
+        <div className="mt-8 grid gap-3 lg:grid-cols-3">
           <article className="rounded-lg border border-line bg-surface/80 px-4 py-4 shadow-[inset_3px_0_0_var(--color-accent)]">
             <p className="font-display text-2xl tracking-wide text-fg">Current odds</p>
             <p className="mt-2 text-sm leading-relaxed text-muted">
               Favorite {analysis.event.favorite.name}: {analysis.favoriteOdds} ({pct(analysis.favoriteImplied)} implied)
               <br />
               Underdog {analysis.event.underdog.name}: {analysis.underdogOdds} ({pct(analysis.underdogImplied)} implied)
+            </p>
+          </article>
+          <article className="rounded-lg border border-accent/50 bg-accent/10 px-4 py-4 shadow-[inset_3px_0_0_var(--color-accent)]">
+            <p className="font-display text-2xl tracking-wide text-fg">If the dog hits</p>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              {winOn(5, analysis.event.underdog.americanOdds) === null ? (
+                "Odds unavailable."
+              ) : (
+                <>
+                  A $5 bet wins {money(winOn(5, analysis.event.underdog.americanOdds) ?? 0)}
+                  <br />
+                  A $10 bet wins {money(winOn(10, analysis.event.underdog.americanOdds) ?? 0)}
+                  <br />
+                  You also get the stake back.
+                </>
+              )}
             </p>
           </article>
           <article className="rounded-lg border border-line bg-surface/80 px-4 py-4 shadow-[inset_3px_0_0_var(--color-accent)]">
