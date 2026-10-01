@@ -6,7 +6,7 @@ import {
   type LiveBoard,
   type LivePick,
 } from "./markets";
-import { formatPercent } from "./odds";
+import { formatPercent, splitQuestion } from "./odds";
 
 const KALSHI_API = "https://external-api.kalshi.com/trade-api/v2";
 const POLY_API = "https://gamma-api.polymarket.com/markets";
@@ -147,6 +147,11 @@ function score(p: LivePick) {
   return vol * band;
 }
 
+function tapeName(question: string) {
+  const { pick, event } = splitQuestion(question);
+  return (pick === "Long shot" ? event : pick).trim().toLowerCase();
+}
+
 function rank(picks: LivePick[]) {
   const byId = new Map<string, LivePick>();
   for (const p of picks) {
@@ -159,9 +164,15 @@ function rank(picks: LivePick[]) {
     const prev = byEvent.get(eventKey);
     if (!prev || score(p) > score(prev)) byEvent.set(eventKey, p);
   }
-  return [...byEvent.values()]
+  const byName = new Map<string, LivePick>();
+  for (const p of byEvent.values()) {
+    const name = tapeName(p.question);
+    const prev = byName.get(name);
+    if (!prev || score(p) > score(prev)) byName.set(name, p);
+  }
+  return [...byName.values()]
     .sort((a, b) => score(b) - score(a))
-    .slice(0, 6)
+    .slice(0, 14)
     .sort((a, b) => a.impliedValue - b.impliedValue);
 }
 

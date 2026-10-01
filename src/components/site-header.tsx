@@ -12,8 +12,9 @@ export function SiteHeader({
 }) {
   const seen = new Set<string>();
   const items = picks.filter((pick) => {
-    const key = pick.id || pick.question;
-    if (seen.has(key)) return false;
+    const { pick: label, event } = splitQuestion(pick.question);
+    const key = (label === "Long shot" ? event : label).trim().toLowerCase();
+    if (!key || seen.has(key)) return false;
     seen.add(key);
     return true;
   });
