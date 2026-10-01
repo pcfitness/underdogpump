@@ -67,6 +67,7 @@ function OptimizerPage() {
       return;
     }
     setError(null);
+    setAnalysis(null);
     setSelected(event.id);
     setParlay((legs) => [
       ...legs,
@@ -252,14 +253,20 @@ function OptimizerPage() {
               <ParlaySlip legs={parlay} onRemove={(id) => setParlay((legs) => legs.filter((leg) => leg.id !== id))} />
             ) : null}
             <div className="mt-6">
-              <button
-                type="button"
-                onClick={run}
-                disabled={!selected || busy || switching}
-                className="inline-flex min-h-11 items-center rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg hover:bg-accent-dim disabled:opacity-50"
-              >
-                {busy ? "Scoring…" : selected ? "Run AI Optimizer" : "Select a fighter"}
-              </button>
+              {parlay.length ? (
+                <p className="text-sm text-muted">
+                  Parlay is on, so the single-fighter score is off. Remove the dogs to run AI Optimizer on one matchup.
+                </p>
+              ) : (
+                <button
+                  type="button"
+                  onClick={run}
+                  disabled={!selected || busy || switching}
+                  className="inline-flex min-h-11 items-center rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg hover:bg-accent-dim disabled:opacity-50"
+                >
+                  {busy ? "Scoring…" : selected ? "Run AI Optimizer" : "Select a fighter"}
+                </button>
+              )}
             </div>
             {error ? <p className="mt-3 text-sm text-accent">{error}</p> : null}
           </div>
@@ -341,6 +348,16 @@ function ParlaySlip({ legs, onRemove }: { legs: ParlayLeg[]; onRemove: (id: stri
   return (
     <article className="mt-6 rounded-lg border border-line bg-bg/40 px-4 py-4">
       <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Underdog parlay</p>
+      {legs.length < 2 ? (
+        <p className="mt-2 text-sm text-muted">Add a dog from a different fight. The payout shows once there are two.</p>
+      ) : (
+        <p className="mt-2 font-display text-2xl tracking-wide text-accent">
+          $10 wins {money(ten)}
+          <span className="mt-1 block text-sm text-muted">
+            {money(ten + 10)} back. $5 wins {money(five)}. All {legs.length} have to hit. Estimate, not a sportsbook ticket.
+          </span>
+        </p>
+      )}
       <ul className="mt-3 space-y-2">
         {legs.map((leg) => (
           <li key={leg.id} className="flex items-center justify-between gap-3 text-sm">
@@ -354,19 +371,6 @@ function ParlaySlip({ legs, onRemove }: { legs: ParlayLeg[]; onRemove: (id: stri
           </li>
         ))}
       </ul>
-      {legs.length < 2 ? (
-        <p className="mt-3 text-sm text-muted">Add a dog from a different fight. All legs have to hit.</p>
-      ) : (
-        <p className="mt-3 text-sm text-muted">
-          {legs.length} dogs. All have to hit.
-          <br />
-          $5 wins {money(five)}, {money(five + 5)} back
-          <br />
-          $10 wins {money(ten)}, {money(ten + 10)} back
-          <br />
-          Estimate from these prices. A sportsbook ticket can differ.
-        </p>
-      )}
     </article>
   );
 }
