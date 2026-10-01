@@ -221,7 +221,7 @@ function OptimizerPage() {
                       </p>
                       <p className="mt-1 flex items-baseline justify-between gap-3">
                         <span className="font-display text-xl tracking-wide text-accent sm:text-2xl">{event.underdog}</span>
-                        <span className="shrink-0 font-display text-xl tracking-wide text-accent">
+                        <span className="shrink-0 font-display text-2xl tracking-wide text-accent sm:text-3xl">
                           {event.underdogOdds === null ? "—" : formatAmerican(event.underdogOdds)}
                         </span>
                       </p>
@@ -339,7 +339,7 @@ function ParlaySlip({ legs, onRemove }: { legs: ParlayLeg[]; onRemove: (id: stri
   const five = parlayProfit(legs, 5);
   const ten = parlayProfit(legs, 10);
   return (
-    <article className="fixed right-3 bottom-3 left-3 z-30 rounded-lg border border-line bg-bg/95 px-4 py-3 shadow-lg backdrop-blur-sm sm:left-auto sm:w-96">
+    <article className="fixed right-3 bottom-3 left-3 z-30 rounded-lg border border-line bg-bg/95 px-4 py-3 shadow-lg backdrop-blur-sm sm:right-28 sm:left-auto sm:w-96">
       <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Underdog parlay</p>
       <ul className="mt-3 space-y-2">
         {legs.map((leg) => (
