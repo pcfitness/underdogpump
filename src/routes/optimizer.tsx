@@ -248,6 +248,9 @@ function OptimizerPage() {
                 </p>
               )}
             </div>
+            {parlay.length ? (
+              <ParlaySlip legs={parlay} onRemove={(id) => setParlay((legs) => legs.filter((leg) => leg.id !== id))} />
+            ) : null}
             <div className="mt-6">
               <button
                 type="button"
@@ -259,9 +262,6 @@ function OptimizerPage() {
               </button>
             </div>
             {error ? <p className="mt-3 text-sm text-accent">{error}</p> : null}
-            {parlay.length ? (
-              <ParlaySlip legs={parlay} onRemove={(id) => setParlay((legs) => legs.filter((leg) => leg.id !== id))} />
-            ) : null}
           </div>
         </section>
 
@@ -339,7 +339,7 @@ function ParlaySlip({ legs, onRemove }: { legs: ParlayLeg[]; onRemove: (id: stri
   const five = parlayProfit(legs, 5);
   const ten = parlayProfit(legs, 10);
   return (
-    <article className="fixed right-3 bottom-3 left-3 z-30 rounded-lg border border-line bg-bg/95 px-4 py-3 shadow-lg backdrop-blur-sm sm:right-28 sm:left-auto sm:w-96">
+    <article className="mt-6 rounded-lg border border-line bg-bg/40 px-4 py-4">
       <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Underdog parlay</p>
       <ul className="mt-3 space-y-2">
         {legs.map((leg) => (
