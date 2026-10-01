@@ -144,7 +144,6 @@ function OptimizerPage() {
                     }`}
                   >
                     {item.label}
-                    {item.sampleOnly ? " · sample" : ""}
                   </button>
                 );
               })}
@@ -154,7 +153,7 @@ function OptimizerPage() {
               {board.sports.find((s) => s.key === sport)?.label ?? "Board"}
             </p>
             <h3 className="font-display text-3xl tracking-wide text-fg">Select a matchup</h3>
-            <div className="mt-6 grid gap-3">
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
               {switching ? (
                 <p className="text-sm text-muted">Loading that sport…</p>
               ) : board.events.length ? (
@@ -166,7 +165,7 @@ function OptimizerPage() {
                       key={event.id}
                       type="button"
                       onClick={() => setSelected(event.id)}
-                      className={`rounded-lg border px-4 py-4 text-left shadow-[inset_3px_0_0_var(--color-accent)] ${
+                      className={`min-w-0 rounded-lg border px-4 py-4 text-left shadow-[inset_3px_0_0_var(--color-accent)] ${
                         active ? "border-accent bg-accent/10" : "border-line bg-surface/80"
                       }`}
                     >
@@ -175,7 +174,7 @@ function OptimizerPage() {
                         {event.bookCount ? ` · ${event.bookCount} books` : ""}
                         {start ? ` · ${start}` : ""}
                       </p>
-                      <p className="mt-1 font-display text-2xl tracking-wide text-fg">{event.eventName}</p>
+                      <p className="mt-1 font-display text-xl tracking-wide text-fg sm:text-2xl">{event.eventName}</p>
                       <p className="mt-1 text-sm text-muted">
                         Favorite {event.favorite}{" "}
                         {event.favoriteOdds === null ? "odds unavailable" : formatAmerican(event.favoriteOdds)}
