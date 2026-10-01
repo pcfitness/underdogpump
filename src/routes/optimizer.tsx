@@ -147,10 +147,30 @@ function OptimizerPage() {
             <p className="mt-4 rounded-lg border border-line bg-surface/80 px-4 py-3 text-sm leading-relaxed text-muted shadow-[inset_3px_0_0_var(--color-accent)]">
               {board.note}
             </p>
-            <p className="mt-4 max-w-2xl pl-4 text-base leading-relaxed text-muted">
-              Pick a sport, then a matchup. The score comes from the underdog price, the vig, and any
-              confirmed notes. It does not invent a record, and a high score is not a bet.
-            </p>
+            <div className="mt-4 max-w-3xl space-y-2 pl-4 text-sm leading-relaxed text-muted sm:text-base">
+              <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <span>Pick a board, then a matchup</span>
+                <span className="text-accent" aria-hidden="true">
+                  ·
+                </span>
+                <span>The score comes from the dog's price</span>
+                <span className="text-accent" aria-hidden="true">
+                  ·
+                </span>
+                <span>It is not a bet</span>
+              </p>
+              <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <span>Dogs pay more because they lose more often</span>
+                <span className="text-accent" aria-hidden="true">
+                  ·
+                </span>
+                <span>Wait for a price you understand</span>
+                <span className="text-accent" aria-hidden="true">
+                  ·
+                </span>
+                <span>A high score is still not a pick</span>
+              </p>
+            </div>
           </div>
         </section>
 
