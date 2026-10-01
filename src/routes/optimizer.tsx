@@ -167,24 +167,22 @@ function OptimizerPage() {
                       key={event.id}
                       type="button"
                       onClick={() => setSelected(event.id)}
-                      className={`min-w-0 rounded-lg border px-4 py-4 text-left ${
+                      className={`relative min-w-0 rounded-lg border px-4 py-4 text-left ${
                         rank
                           ? "border-accent bg-accent/10 shadow-[inset_3px_0_0_var(--color-accent)]"
                           : "border-line bg-surface/80"
                       }`}
                     >
-                      <p className="flex items-center justify-between gap-2 text-[0.65rem] font-semibold tracking-widest text-accent uppercase">
-                        <span>
-                          {rank ? payoutLabel(rank) : "Dog"} · {event.league}
-                          {event.dataStatus === "live" ? " · Live" : ""}
-                          {event.bookCount ? ` · ${event.bookCount} books` : ""}
-                          {start ? ` · ${start}` : ""}
+                      {active ? (
+                        <span className="absolute top-3 right-3 rounded-full border border-accent/40 bg-accent/20 px-2 py-0.5 text-[0.6rem] font-semibold tracking-widest text-accent uppercase">
+                          Selected
                         </span>
-                        {active ? (
-                          <span className="shrink-0 rounded-full border border-accent/40 bg-accent/20 px-2 py-0.5 text-[0.6rem] tracking-widest text-accent">
-                            Selected
-                          </span>
-                        ) : null}
+                      ) : null}
+                      <p className="pr-20 text-[0.65rem] font-semibold tracking-widest text-accent uppercase">
+                        {rank ? payoutLabel(rank) : "Dog"} · {event.league}
+                        {event.dataStatus === "live" ? " · Live" : ""}
+                        {event.bookCount ? ` · ${event.bookCount} books` : ""}
+                        {start ? ` · ${start}` : ""}
                       </p>
                       <p className="mt-1 flex items-baseline justify-between gap-3">
                         <span className="font-display text-xl tracking-wide text-accent sm:text-2xl">{event.underdog}</span>
