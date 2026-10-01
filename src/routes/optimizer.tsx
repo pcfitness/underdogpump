@@ -171,7 +171,7 @@ function OptimizerPage() {
                         rank
                           ? "border-accent bg-accent/10 shadow-[inset_3px_0_0_var(--color-accent)]"
                           : "border-line bg-surface/80"
-                      } ${active ? "ring-2 ring-fg ring-offset-2 ring-offset-surface" : ""}`}
+                      }`}
                     >
                       <p className="flex items-center justify-between gap-2 text-[0.65rem] font-semibold tracking-widest text-accent uppercase">
                         <span>
@@ -180,7 +180,11 @@ function OptimizerPage() {
                           {event.bookCount ? ` · ${event.bookCount} books` : ""}
                           {start ? ` · ${start}` : ""}
                         </span>
-                        {active ? <span className="shrink-0 rounded-sm bg-fg px-1.5 py-0.5 text-[0.6rem] tracking-widest text-bg">Selected</span> : null}
+                        {active ? (
+                          <span className="shrink-0 rounded-full border border-accent/40 bg-accent/20 px-2 py-0.5 text-[0.6rem] tracking-widest text-accent">
+                            Selected
+                          </span>
+                        ) : null}
                       </p>
                       <p className="mt-1 flex items-baseline justify-between gap-3">
                         <span className="font-display text-xl tracking-wide text-accent sm:text-2xl">{event.underdog}</span>
