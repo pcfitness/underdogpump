@@ -63,12 +63,35 @@ export function analyzeEvent(event: OptimizerEvent): OptimizerAnalysis {
         basedOn: "odds",
         text: "This is a live underdog, not a lottery ticket. The market still gives the dog a real chance.",
       });
-    } else if (dogImp < 0.16) {
-      score -= 14;
+    } else if (dogImp < 0.28 && payout < 400) {
+      score -= 6;
       reasonsAgainst.push({
         kind: "against",
         basedOn: "odds",
-        text: "The price is a deep long shot. Big payout, thin ice. That is entertainment unless you have your own read.",
+        text: `${event.underdog.name} at ${formatAmerican(payout)} is priced around ${Math.round(dogImp * 100)}%. A real dog, but the payout is only modest for how often the market expects a loss.`,
+      });
+    } else if (dogImp > 0.48) {
+      score -= 4;
+      reasonsAgainst.push({
+        kind: "against",
+        basedOn: "odds",
+        text: `${event.underdog.name} is only a slight dog at ${formatAmerican(payout)}. The price does not pay like an underdog.`,
+      });
+    }
+
+    if (payout >= 400) {
+      score -= 10;
+      reasonsAgainst.push({
+        kind: "against",
+        basedOn: "odds",
+        text: `${formatAmerican(payout)} is a deep long shot. The payout is large because ${event.underdog.name} is priced to lose most of the time.`,
+      });
+    } else if (payout >= 260) {
+      score -= 4;
+      reasonsAgainst.push({
+        kind: "against",
+        basedOn: "odds",
+        text: `${event.underdog.name} at ${formatAmerican(payout)} pays well, and the market is saying that price exists for a reason.`,
       });
     }
 
@@ -92,13 +115,22 @@ export function analyzeEvent(event: OptimizerEvent): OptimizerAnalysis {
         text: "After stripping the vig, the underdog's share looks a bit better than the raw ticket.",
       });
     }
-    if (fair.vig !== null && fair.vig >= 0.05) {
+    if (fair.vig !== null && fair.vig >= 0.045) {
       reasonsAgainst.push({
         kind: "against",
         basedOn: "structure",
-        text: "The two-way market is juiced. Part of the price is the house cut, not a true chance.",
+        text: `The two-way vig on this fight is about ${Math.round(fair.vig * 100)}%. Part of ${event.underdog.name}'s price is the house cut.`,
       });
     }
+  }
+
+  const favPrice = event.favorite.americanOdds;
+  if (favPrice !== null && favPrice <= -400) {
+    reasonsAgainst.push({
+      kind: "against",
+      basedOn: "odds",
+      text: `${event.favorite.name} is a heavy favorite at ${formatAmerican(favPrice)}. ${event.underdog.name} needs an upset, not a close fight, to cash.`,
+    });
   }
 
   if (event.bookCount >= 3) {
@@ -131,15 +163,6 @@ export function analyzeEvent(event: OptimizerEvent): OptimizerAnalysis {
         text: `${event.underdog.name} has a reach edge (${event.underdog.reachInches}" vs ${event.favorite.reachInches}").`,
       });
     }
-  }
-
-  if (missing.length >= 3) {
-    score -= 12;
-    reasonsAgainst.push({
-      kind: "against",
-      basedOn: "missing-data",
-      text: "Too many inputs are still unavailable. This is a price read, not a finished scout report.",
-    });
   }
 
   riskFactors.push({ kind: "risk", basedOn: "missing-data", text: sportRisk(event) });
