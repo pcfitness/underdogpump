@@ -147,19 +147,19 @@ function OptimizerPage() {
             <p className="mt-4 rounded-lg border border-line bg-surface/80 px-4 py-3 text-sm leading-relaxed text-muted shadow-[inset_3px_0_0_var(--color-accent)]">
               {board.note}
             </p>
-            <div className="mt-4 max-w-3xl space-y-2 pl-4 text-sm leading-relaxed text-muted sm:text-base">
-              <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <div className="mt-4 max-w-3xl space-y-2 pl-4 text-sm leading-snug text-muted sm:text-base">
+              <p className="flex flex-wrap items-center gap-x-2 gap-y-1 sm:flex-nowrap">
                 <span>Pick a board, then a matchup</span>
                 <span className="text-accent" aria-hidden="true">
                   ·
                 </span>
-                <span>The score comes from the dog's price</span>
+                <span>The score is the dog's price</span>
                 <span className="text-accent" aria-hidden="true">
                   ·
                 </span>
-                <span>It is not a bet</span>
+                <span>Not a bet</span>
               </p>
-              <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <p className="flex flex-wrap items-center gap-x-2 gap-y-1 sm:flex-nowrap">
                 <span>Dogs pay more because they lose more often</span>
                 <span className="text-accent" aria-hidden="true">
                   ·
@@ -168,7 +168,7 @@ function OptimizerPage() {
                 <span className="text-accent" aria-hidden="true">
                   ·
                 </span>
-                <span>A high score is still not a pick</span>
+                <span>A high score is not a ticket</span>
               </p>
             </div>
           </div>
