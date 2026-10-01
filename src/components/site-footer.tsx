@@ -1,40 +1,13 @@
-import { useState } from "react";
+import type { ReactNode } from "react";
 import { DISCLAIMER, SITE, pumpLink } from "@/lib/site";
 import { CopyCa } from "@/components/copy-ca";
 
-function shortWallet(wallet: string) {
-  if (wallet.length < 16) return wallet;
-  return `${wallet.slice(0, 4)}…${wallet.slice(-4)}`;
-}
-
-function Meta({ label, children }: { label: string; children: React.ReactNode }) {
+function Meta({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="rounded-lg border border-line bg-bg px-4 py-3">
       <p className="text-[0.65rem] font-semibold tracking-widest text-accent uppercase">{label}</p>
       <div className="mt-1 truncate font-mono text-sm text-fg">{children}</div>
     </div>
-  );
-}
-
-function SupportWallet() {
-  const wallet = SITE.supportWallet;
-  const [copied, setCopied] = useState(false);
-
-  function copy() {
-    void navigator.clipboard.writeText(wallet);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1600);
-  }
-
-  return (
-    <button
-      type="button"
-      onClick={copy}
-      title="Copy support wallet"
-      className="max-w-full truncate font-mono text-sm text-fg hover:text-accent"
-    >
-      {copied ? "Copied" : shortWallet(wallet)}
-    </button>
   );
 }
 
@@ -104,7 +77,7 @@ export function SiteFooter() {
           </p>
         </aside>
       </div>
-      <div className="mx-auto grid max-w-5xl gap-3 px-4 pb-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-5xl gap-3 px-4 pb-8 sm:grid-cols-3">
         <Meta label="Launch platform">
           <a
             href={pumpLink()}
@@ -118,9 +91,6 @@ export function SiteFooter() {
         <Meta label="Project status">{SITE.status}</Meta>
         <Meta label="Contract">
           <CopyCa variant="meta" />
-        </Meta>
-        <Meta label="Support">
-          <SupportWallet />
         </Meta>
       </div>
       <p className="mx-auto max-w-5xl px-4 pb-10 text-xs leading-relaxed text-subtle">{DISCLAIMER}</p>

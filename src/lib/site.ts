@@ -15,7 +15,6 @@ export const SITE = {
   platform: "Pump.fun",
   platformUrl: "https://pump.fun",
   contract: "6sPM9rtfbwsNv3mmRFcasr74ACYmVNBV8LMfV5ztpump",
-  supportWallet: "BxjmMmobvNb8Q45fttUgb3AsgyufykrLajHhiA1mNZi4",
   mindsetTitle: "On the record",
   mindset:
     "The name on this project is public, and OzGaming.net has been online since 2008. $UNDERDOG is meant to remain live and keep improving after launch. Come back for new lessons, live odds, and a contract that only lives on this page.",
