@@ -86,10 +86,10 @@ export function SiteHeader({
                   <span className="relative top-0.5 max-w-44 truncate font-display text-sm leading-none tracking-wide text-fg normal-case sm:max-w-64 sm:text-base">
                     {name}
                   </span>
-                  <span className="relative top-0.5 inline-flex items-center rounded-sm bg-accent px-1.5 pt-1 pb-0.5 font-display text-sm leading-none tracking-wide text-accent-fg">
+                  <span className="relative top-0.5 inline-flex items-center rounded-sm bg-accent px-1.5 pt-0.5 pb-1 font-display text-sm leading-none tracking-wide text-accent-fg">
                     {american}
                   </span>
-                  <span className="relative top-0.5 text-[0.65rem] leading-none text-muted">{pick.implied}</span>
+                  <span className="relative top-0.5 text-[0.65rem] leading-none text-accent">{pick.implied}</span>
                 </>
               );
               return (
