@@ -153,24 +153,26 @@ function OptimizerPage() {
               {board.sports.find((s) => s.key === sport)?.label ?? "Board"}
             </p>
             <h3 className="font-display text-3xl tracking-wide text-fg">Select a matchup</h3>
+            <p className="mt-2 text-sm text-muted">Biggest payouts first. The rest of the card follows.</p>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               {switching ? (
                 <p className="text-sm text-muted">Loading that sport…</p>
               ) : board.events.length ? (
-                board.events.map((event) => {
+                rankedEvents(board.events).map((event) => {
                   const active = event.id === selected;
                   const start = when(event.startTime);
+                  const rank = payoutRank(event.id, board.events);
                   return (
                     <button
                       key={event.id}
                       type="button"
                       onClick={() => setSelected(event.id)}
                       className={`min-w-0 rounded-lg border px-4 py-4 text-left shadow-[inset_3px_0_0_var(--color-accent)] ${
-                        active ? "border-accent bg-accent/10" : "border-line bg-surface/80"
+                        active || rank === 1 ? "border-accent bg-accent/10" : "border-line bg-surface/80"
                       }`}
                     >
                       <p className="text-[0.65rem] font-semibold tracking-widest text-accent uppercase">
-                        Dog · {event.league}
+                        {rank ? payoutLabel(rank) : "Dog"} · {event.league}
                         {event.dataStatus === "live" ? " · Live" : ""}
                         {event.bookCount ? ` · ${event.bookCount} books` : ""}
                         {start ? ` · ${start}` : ""}
@@ -210,6 +212,30 @@ function OptimizerPage() {
       </main>
     </PageShell>
   );
+}
+
+function payoutLabel(rank: number) {
+  if (rank === 1) return "Biggest payout";
+  if (rank === 2) return "2nd payout";
+  return "3rd payout";
+}
+
+function topPayoutIds(events: Array<{ id: string; underdogOdds: number | null }>) {
+  return events
+    .filter((event) => (event.underdogOdds ?? 0) > 0)
+    .sort((a, b) => (b.underdogOdds ?? 0) - (a.underdogOdds ?? 0))
+    .slice(0, 3)
+    .map((event) => event.id);
+}
+
+function payoutRank(id: string, events: Array<{ id: string; underdogOdds: number | null }>) {
+  const index = topPayoutIds(events).indexOf(id);
+  return index === -1 ? 0 : index + 1;
+}
+
+function rankedEvents<T extends { id: string; underdogOdds: number | null }>(events: T[]) {
+  const top = new Set(topPayoutIds(events));
+  return [...events.filter((event) => top.has(event.id)).sort((a, b) => payoutRank(a.id, events) - payoutRank(b.id, events)), ...events.filter((event) => !top.has(event.id))];
 }
 
 function Stat({ n, label, hint }: { n: string; label: string; hint: string }) {
