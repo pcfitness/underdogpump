@@ -87,7 +87,7 @@ export function SiteHeader({
                     {name}
                   </span>
                   <span className="inline-flex h-5 items-center rounded-sm bg-accent px-1.5 font-display text-sm leading-none tracking-wide text-accent-fg">
-                    <span className="relative top-px">{american}</span>
+                    <span className="relative top-px -left-px">{american}</span>
                   </span>
                   <span className="relative top-0.5 text-[0.65rem] leading-none font-bold text-accent">{pick.implied}</span>
                 </>
