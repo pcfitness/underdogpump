@@ -313,11 +313,11 @@ function Stat({ n, label, hint }: { n: string; label: string; hint: string }) {
 }
 
 function ratingHint(rating: OptimizerAnalysis["rating"]) {
-  if (rating === "Pass") return "Deep price. Thin ice.";
-  if (rating === "Watch") return "Ordinary dog price.";
-  if (rating === "Lean") return "Price is worth a look.";
-  if (rating === "Value look") return "Price looks interesting.";
-  return "Odds are missing.";
+  if (rating === "Pass") return "Long shot. Big payout, unlikely win.";
+  if (rating === "Watch") return "Ordinary price. Nothing special.";
+  if (rating === "Lean") return "Closer dog. Worth a look.";
+  if (rating === "Value look") return "Price looks better than most dogs.";
+  return "No price yet, so no score.";
 }
 
 function winOn(stake: number, american: number | null) {
@@ -396,10 +396,26 @@ function AnalysisPanel({
         </p>
 
         <ul className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4">
-          <Stat n={String(analysis.score)} label="AI score" hint="Out of 100, from the price." />
+          <Stat n={String(analysis.score)} label="AI score" hint="Out of 100. Low means a long shot." />
           <Stat n={analysis.rating} label="Rating" hint={ratingHint(analysis.rating)} />
-          <Stat n={analysis.underdogOdds} label={`${analysis.event.underdog.name} odds`} hint="What the dog pays." />
-          <Stat n={pct(analysis.underdogImplied)} label="Dog implied" hint="Market's chance to win." />
+          <Stat
+            n={analysis.underdogOdds}
+            label="If he wins"
+            hint={
+              winOn(10, analysis.event.underdog.americanOdds) === null
+                ? "No price on this dog."
+                : `$10 wins ${money(winOn(10, analysis.event.underdog.americanOdds) ?? 0)}.`
+            }
+          />
+          <Stat
+            n={pct(analysis.underdogImplied)}
+            label="Chance to win"
+            hint={
+              analysis.underdogImplied === null
+                ? "The books have not posted a chance."
+                : `Books say about ${Math.max(1, Math.round(analysis.underdogImplied * 100))} wins in 100.`
+            }
+          />
         </ul>
 
         <div className="mt-8 grid gap-3 lg:grid-cols-3">
