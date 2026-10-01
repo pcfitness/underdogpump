@@ -17,7 +17,7 @@ export const Route = createFileRoute("/optimizer")({
     return { markets, board };
   },
   head: () => ({
-    meta: [{ title: "$UNDERDOG · Optimizer" }],
+    meta: [{ title: "$UNDERDOG · AI Optimizer" }],
   }),
   component: OptimizerPage,
 });
@@ -82,7 +82,7 @@ function OptimizerPage() {
       }
       setAnalysis(result);
     } catch {
-      setError("The Optimizer could not finish this card.");
+      setError("The AI Optimizer could not finish this card.");
     } finally {
       setBusy(false);
     }
@@ -91,7 +91,7 @@ function OptimizerPage() {
   async function share() {
     if (!analysis) return;
     const text = [
-      `${SITE.ticker} Optimizer`,
+      `${SITE.ticker} AI Optimizer`,
       `${analysis.event.underdog.name} ${analysis.underdogOdds} vs ${analysis.event.favorite.name} ${analysis.favoriteOdds}`,
       `Score ${analysis.score} · ${analysis.rating}`,
       "Education only. Not a pick.",
@@ -113,7 +113,7 @@ function OptimizerPage() {
           <div className="mx-auto max-w-5xl px-4 py-10 sm:py-12">
             <p className="text-[0.7rem] font-semibold tracking-widest text-accent uppercase">Price read</p>
             <h1 className="mt-2 font-display text-5xl leading-none tracking-wide text-fg sm:text-7xl">
-              Underdog Optimizer
+              AI Optimizer
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
               Pick a sport, then a matchup. The score comes from the underdog price, the vig, and any
@@ -200,7 +200,7 @@ function OptimizerPage() {
               disabled={!selected || busy || switching}
               className="mt-6 inline-flex min-h-11 items-center rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg hover:bg-accent-dim disabled:opacity-50"
             >
-              {busy ? "Scoring…" : "Run Optimizer"}
+              {busy ? "Scoring…" : "Run AI Optimizer"}
             </button>
             {error ? <p className="mt-3 text-sm text-accent">{error}</p> : null}
           </div>
@@ -251,7 +251,7 @@ function AnalysisPanel({
         </p>
 
         <ul className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4">
-          <Stat n={String(analysis.score)} label="Optimizer score" hint="Out of 100, from the price." />
+          <Stat n={String(analysis.score)} label="AI score" hint="Out of 100, from the price." />
           <Stat n={analysis.rating} label="Rating" hint={ratingHint(analysis.rating)} />
           <Stat n={analysis.underdogOdds} label={`${analysis.event.underdog.name} odds`} hint="What the dog pays." />
           <Stat n={pct(analysis.underdogImplied)} label="Dog implied" hint="Market's chance to win." />

@@ -54,7 +54,7 @@ export function SiteHeader({
               |
             </span>
             <Link to="/optimizer" className="nav-link">
-              Optimizer
+              AI Optimizer
             </Link>
             <span className="nav-rule" aria-hidden="true">
               |
