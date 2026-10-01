@@ -65,12 +65,13 @@ export function SiteHeader({
           </nav>
         </div>
       </header>
-      <div className="flex items-center border-b border-line bg-bg text-fg">
-        <p className="flex h-12 shrink-0 items-center border-r border-line px-3 font-mono text-[0.65rem] font-semibold uppercase leading-none tracking-widest text-accent">
-          {liveLabel}
+      <div className="dog-tape flex items-stretch border-b border-accent/40 bg-bg text-fg">
+        <p className="flex w-16 shrink-0 flex-col items-center justify-center bg-accent text-accent-fg sm:w-24">
+          <span className="font-display text-lg leading-none tracking-wide sm:text-2xl">DOGS</span>
+          <span className="mt-0.5 text-[0.55rem] font-semibold tracking-widest uppercase">Kalshi</span>
         </p>
         <div className="ticker-mask min-w-0 flex-1 overflow-hidden">
-          <ul className="ticker-track flex h-12 w-max items-center">
+          <ul className="ticker-track flex h-14 w-max items-center gap-2 px-3">
             {loop.map((pick, i) => {
               const { pick: label, event } = splitQuestion(pick.question);
               const name = label === "Long shot" ? event : label;
@@ -82,31 +83,34 @@ export function SiteHeader({
               );
               const inner = (
                 <>
-                  <span className="max-w-56 truncate font-medium leading-none tracking-normal text-fg normal-case">
+                  <span className="max-w-44 truncate font-display text-sm tracking-wide text-fg normal-case sm:max-w-64 sm:text-base">
                     {name}
                   </span>
-                  <span className="font-display text-base leading-none tracking-wide text-accent">
-                    {pick.implied}
+                  <span className="rounded-sm bg-accent px-1.5 py-0.5 font-display text-sm leading-none tracking-wide text-accent-fg">
+                    {american}
                   </span>
-                  <span className="leading-none text-muted">{american}</span>
+                  <span className="text-[0.65rem] text-muted">{pick.implied}</span>
                 </>
               );
               return (
-                <li key={`${pick.id}-${i}`} className="flex h-12 items-center">
+                <li key={`${pick.id}-${i}`} className="flex items-center gap-2">
                   {pick.href ? (
                     <a
                       href={pick.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex h-12 shrink-0 items-center gap-2.5 border-r border-line px-5 font-mono text-[0.7rem] uppercase leading-none tracking-wide text-fg no-underline hover:text-accent"
+                      className="inline-flex h-9 shrink-0 items-center gap-2 rounded-full border border-line bg-surface/80 px-3 no-underline hover:border-accent"
                     >
                       {inner}
                     </a>
                   ) : (
-                    <span className="inline-flex h-12 shrink-0 items-center gap-2.5 border-r border-line px-5 font-mono text-[0.7rem] uppercase leading-none tracking-wide text-fg">
+                    <span className="inline-flex h-9 shrink-0 items-center gap-2 rounded-full border border-line bg-surface/80 px-3">
                       {inner}
                     </span>
                   )}
+                  <span aria-hidden="true" className="text-accent">
+                    ·
+                  </span>
                 </li>
               );
             })}
