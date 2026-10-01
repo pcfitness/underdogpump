@@ -255,7 +255,7 @@ function OptimizerPage() {
             <div className="mt-6">
               {parlay.length ? (
                 <p className="rounded-lg border border-line bg-surface/80 px-4 py-3 text-sm leading-relaxed text-muted shadow-[inset_3px_0_0_var(--color-accent)]">
-                  When a parlay is selected, the AI Optimizer button is hidden. Remove the parlays to run the AI Optimizer on one matchup.
+                  When a parlay is selected, the AI Optimizer button is hidden. Remove the selected parlays for the button to reappear.
                 </p>
               ) : (
                 <button
@@ -351,11 +351,9 @@ function ParlaySlip({ legs, onRemove }: { legs: ParlayLeg[]; onRemove: (id: stri
       {legs.length < 2 ? (
         <p className="mt-2 text-sm text-muted">Add a dog from a different fight. The payout shows once there are two.</p>
       ) : (
-        <p className="mt-2 font-display text-2xl tracking-wide text-accent">
-          $10 wins {money(ten)}
-          <span className="mt-1 block text-sm text-muted">
-            {money(ten + 10)} back. $5 wins {money(five)}. All {legs.length} have to hit. Estimate, not a sportsbook ticket.
-          </span>
+        <p className="mt-2 font-display text-2xl tracking-wide text-accent">$10 wins {money(ten)}</p>
+        <p className="mt-1 text-sm leading-relaxed text-muted">
+          {money(ten + 10)} back. A $5 bet wins {money(five)}. All {legs.length} have to hit. Estimate, not a sportsbook ticket.
         </p>
       )}
       <ul className="mt-3 space-y-2">
