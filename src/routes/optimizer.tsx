@@ -149,11 +149,11 @@ function OptimizerPage() {
             </p>
             <div className="mt-4 max-w-3xl space-y-2 pl-4 text-sm leading-snug text-muted sm:text-base">
               <p className="flex flex-wrap items-center gap-x-2 gap-y-1 sm:flex-nowrap">
-                <span>Dogs pay more because they lose more often</span>
+                <span>Dogs pay more because the books price them to lose</span>
                 <span className="text-accent" aria-hidden="true">
                   ·
                 </span>
-                <span>Wait for a price you understand</span>
+                <span>The score reads that price</span>
                 <span className="text-accent" aria-hidden="true">
                   ·
                 </span>
@@ -164,7 +164,7 @@ function OptimizerPage() {
                 <span className="text-accent" aria-hidden="true">
                   ·
                 </span>
-                <span>The score is the dog's price</span>
+                <span>No invented record</span>
                 <span className="text-accent" aria-hidden="true">
                   ·
                 </span>
