@@ -351,10 +351,12 @@ function ParlaySlip({ legs, onRemove }: { legs: ParlayLeg[]; onRemove: (id: stri
       {legs.length < 2 ? (
         <p className="mt-2 text-sm text-muted">Add a dog from a different fight. The payout shows once there are two.</p>
       ) : (
-        <p className="mt-2 font-display text-2xl tracking-wide text-accent">$10 wins {money(ten)}</p>
-        <p className="mt-1 text-sm leading-relaxed text-muted">
-          {money(ten + 10)} back. A $5 bet wins {money(five)}. All {legs.length} have to hit. Estimate, not a sportsbook ticket.
-        </p>
+        <>
+          <p className="mt-2 font-display text-2xl tracking-wide text-accent">$10 wins {money(ten)}</p>
+          <p className="mt-1 text-sm leading-relaxed text-muted">
+            {money(ten + 10)} back. A $5 bet wins {money(five)}. All {legs.length} have to hit. Estimate, not a sportsbook ticket.
+          </p>
+        </>
       )}
       <ul className="mt-3 space-y-2">
         {legs.map((leg) => (
