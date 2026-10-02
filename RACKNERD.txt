@@ -1,0 +1,27 @@
+Racknerd cPanel Node app
+========================
+
+This is the same site as underdogpump.xyz, packed for cPanel "Setup Node.js App".
+Do not upload it into public_html as plain files. Apache cannot run it that way.
+
+1. In cPanel, open Setup Node.js App, then Create Application.
+   - Node.js version: 20 or 22
+   - Application mode: Production
+   - Application root: underdogpump
+   - Application URL: the domain or subdomain you want
+   - Application startup file: app.js
+
+2. Upload this zip into the application root and extract it there.
+   The folder must contain app.js, package.json, and .output.
+
+3. In the Node.js app screen, add this environment variable:
+   - Name: ODDS_API_KEY
+   - Value: your Odds API key
+
+4. Click Run NPM Install. Then click Restart.
+   npm install is only needed so cPanel is happy. The site starts from .output.
+
+5. Open the application URL. The optimizer is at /optimizer.
+   Leave the Node app running. Stopping it takes the site down.
+
+If the page is blank, open the app log in cPanel. The usual miss is the startup file not set to app.js, or the zip extracted one folder too deep.
