@@ -50,4 +50,6 @@ export type OptimizerAnalysis = {
   explanation: string;
   explanationKind: "rule-based" | "ai";
   missing: string[];
+  modelWin?: number | null;
+  edge?: number | null;
 };
