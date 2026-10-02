@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { SITE } from "@/lib/site";
+import { SITE, pumpLink } from "@/lib/site";
 import { formatAmerican, splitQuestion } from "@/lib/odds";
 import { type LivePick } from "@/lib/markets";
 
@@ -24,9 +24,10 @@ export function SiteHeader({
     <div className="sticky top-0 z-40">
       <header className="overflow-x-clip border-b border-line bg-bg/90 backdrop-blur-sm">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-1 px-2 sm:h-18 sm:gap-3 sm:px-4">
-          <Link
-            to="/"
-            search={{}}
+          <a
+            href={pumpLink()}
+            target="_blank"
+            rel="noreferrer"
             className="relative z-10 flex shrink-0 items-center gap-1.5 no-underline sm:gap-2.5"
           >
             <img
@@ -40,7 +41,7 @@ export function SiteHeader({
             <span className="hidden text-xs font-medium tracking-widest text-muted uppercase sm:inline">
               {SITE.tagline}
             </span>
-          </Link>
+          </a>
           <nav aria-label="Site" className="flex min-w-0 items-center justify-end">
             <Link
               to="/"
